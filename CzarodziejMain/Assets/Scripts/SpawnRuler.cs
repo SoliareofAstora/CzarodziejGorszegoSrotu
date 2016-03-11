@@ -5,13 +5,15 @@ using System;
 public class SpawnRuler : MonoBehaviour {
 
     System.Random rand;
-    [SerializeField] public GameObject[] TablicaPrzeciwników;
-    public int SpawnRadius;
+    [SerializeField] public GameObject[] TablicaPrzeciwników;//tabliac wszystkich przeciwników którzy mogą wyjść.
     private Vector2 RozmiarMapy=new Vector2(10,9);//PoleSpawnu
     Vector2 SpawnPoint;
+
+    /// <summary>Funkcja stawia przeciwników na około widocznej mapki</summary> 
+
     public Vector2 ChooseSpawnPoint()
     {
-        float alfa = rand.Next(SpawnRadius) - SpawnRadius/2;
+        float alfa = rand.Next(360) - 179;
         float Tangens = Mathf.Tan(alfa);
         if (Tangens > 1 || Tangens < -1)
         {
@@ -42,8 +44,9 @@ public class SpawnRuler : MonoBehaviour {
         rand = new System.Random();
 	}
 	
-	// Update is called once per frame
+	// Spawnowanie przeciwników
 	void Update () {
+        //Stawianie przeciwników pierszego sortu naokoło mapy
         if (Input.anyKey)
         {
             Instantiate(TablicaPrzeciwników[0], ChooseSpawnPoint(), Quaternion.Euler(Vector3.zero));
