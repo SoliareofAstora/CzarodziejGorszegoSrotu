@@ -5,6 +5,6 @@ using BaseUnits;
 public class NormalUnit : UnitBase {
     public NormalUnit()
     {
-        Speed = 10;
+        BaseSpeed = 10;
     }
 }

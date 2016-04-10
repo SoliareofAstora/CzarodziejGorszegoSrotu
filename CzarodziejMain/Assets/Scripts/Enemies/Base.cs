@@ -7,20 +7,21 @@ namespace BaseUnits
     {
         Rigidbody2D rb;
         Animator anim;
-        short BaseSpeed;
-        public short Speed
+        short _baseSpeed;
+        Vector2 _vektorPoczątkowy;
+        public short BaseSpeed
         {
-            set { BaseSpeed = value; }
-            get { return BaseSpeed; }
+            set { _baseSpeed = value; }
+            get { return _baseSpeed; }
         }
-        Vector2 VektorPoczątkowy;
+       
 
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
-            VektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y-1) * BaseSpeed / 100;
-            float tg = VektorPoczątkowy.x / VektorPoczątkowy.y;
+            _vektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y-1) * _baseSpeed / 100;
+            float tg = _vektorPoczątkowy.x / _vektorPoczątkowy.y;
             if (tg <-1)
             {
                 anim.SetBool("WalkingLeft", true);
@@ -33,12 +34,12 @@ namespace BaseUnits
             {
                 anim.SetBool("WalkingDown", true);
             }
-            rb.velocity = VektorPoczątkowy;
+            rb.velocity = _vektorPoczątkowy;
         }
         void Update()
         {
            
-            rb.velocity = VektorPoczątkowy;
+            rb.velocity = _vektorPoczątkowy;
         }
     }
 }
