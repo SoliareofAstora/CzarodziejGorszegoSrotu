@@ -56,12 +56,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -70,8 +64,9 @@
     <Compile Include="Assets\Scripts\ArkanaMagii\KsięgaCzarów.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\PodstawoweZaklęcie.cs" />
     <Compile Include="Assets\Scripts\Enemies\Base.cs" />
-    <Compile Include="Assets\Scripts\Enemies\EnemyEnums.cs" />
+    <Compile Include="Assets\Scripts\Enemies\ImportantEnemyStuff.cs" />
     <Compile Include="Assets\Scripts\Enemies\NormalUnit.cs" />
+    <Compile Include="Assets\Scripts\Enemies\ŻywiołakOgnia.cs" />
     <Compile Include="Assets\Scripts\MainCastle.cs" />
     <Compile Include="Assets\Scripts\SpawnRuler.cs" />
     <Compile Include="Assets\Scripts\UI\UI.cs" />
