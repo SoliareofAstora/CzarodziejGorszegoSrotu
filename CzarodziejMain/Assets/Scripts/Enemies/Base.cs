@@ -1,19 +1,19 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
-using ImportantEnemyStuff;
-
+using EnemyStuff;
+using MyClock;
 
 namespace BaseUnits
 {
     public class Base : MonoBehaviour
     {
         Rigidbody2D rb;
-        Animator anim;
+        public Animator anim;
 
         public int MaxHP;
         public int HP;//To Private
-
+        private Clock CzasZgonu;
         public int CurrentHP
         {
             get { return HP;}
@@ -21,42 +21,58 @@ namespace BaseUnits
         short _baseSpeed;
         public SpowolnieniaRuchu DeltaSpeed=SpowolnieniaRuchu.Normalnie;
         public Podatności Podatność=Podatności.Zero;
-        public Odporności Odporność=Odporności.Zero; 
-
-        Vector2 _vektorPoczątkowy;
+        public Odporności Odporność=Odporności.Zero;
+        public float CzasUmierania;
+        public Vector2 VektorPoczątkowy;
         public short BaseSpeed
         {
             set { _baseSpeed = value; }
             get { return _baseSpeed; }
         }
-        //Sposób na spawnowanie przeciwnika
-        void Start()
+
+        void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
-            _vektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y-1) * _baseSpeed / 100;
-            float tg = _vektorPoczątkowy.x / _vektorPoczątkowy.y;
-            if (tg <-1)
+            HP = MaxHP;
+            anim.SetBool("Alive", true);
+            CzasZgonu = new Clock();
+        }
+        //Sposób na spawnowanie przeciwnika
+        void Start()
+        {
+            VektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y - 1)*_baseSpeed/100;
+            rb.velocity = VektorPoczątkowy;
+        }
+
+        private void Funeral()
+        {
+            rb.velocity = Vector2.zero;
+            anim.SetBool("Alive", false);
+            CzasZgonu.StartCounting(CzasUmierania);
+            if (CzasZgonu.IsAfterCountDown())
             {
-                anim.SetBool("WalkingLeft", true);
+                Destroy(gameObject);
             }
-            else if (tg>1)
-            {
-                anim.SetBool("WalkingRight", true);
-            }
-            else
-            {
-                anim.SetBool("WalkingDown", true);
-            }
-            rb.velocity = _vektorPoczątkowy;
         }
 
         //Eventy przebiegające przez każdąturę
         void Update()
         {
-            Funeral();
-            float aktualnaPręskość=1;
+            if (HP>0)
+            {
+                updateMovementSpeed();
+            }
+            else
+            {
+                Funeral();
+            }
+        }
 
+        private void updateMovementSpeed()
+        {
+
+            float aktualnaPręskość = 1;
             switch (DeltaSpeed)
             {
                 case SpowolnieniaRuchu.Normalnie:
@@ -74,9 +90,8 @@ namespace BaseUnits
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            rb.velocity = _vektorPoczątkowy*aktualnaPręskość;
+            rb.velocity = VektorPoczątkowy * aktualnaPręskość;
         }
-
         void OnTriggerEnter()
         {
 
@@ -111,18 +126,6 @@ namespace BaseUnits
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
-            }
-        }
-
-        private void Funeral()
-        {
-            if (HP<=0)
-            {
-                //dead
-            }
-            else
-            {
-                
             }
         }
     }

@@ -75,9 +75,10 @@
     <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\SingleLineAttribute.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\KsięgaCzarów.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\PodstawoweZaklęcie.cs" />
+    <Compile Include="Assets\Scripts\Clock.cs" />
     <Compile Include="Assets\Scripts\Enemies\Base.cs" />
-    <Compile Include="Assets\Scripts\Enemies\ImportantEnemyStuff.cs" />
-    <Compile Include="Assets\Scripts\Enemies\NormalUnit.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Dyniogłowy.cs" />
+    <Compile Include="Assets\Scripts\Enemies\EnemyStuff.cs" />
     <Compile Include="Assets\Scripts\Enemies\ŻywiołakOgnia.cs" />
     <Compile Include="Assets\Scripts\MainCastle.cs" />
     <Compile Include="Assets\Scripts\SpawnRuler.cs" />

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using BaseUnits;
-using ImportantEnemyStuff;
+using EnemyStuff;
 
 public class ŻuwiołakOgnia : Base {
     public ŻuwiołakOgnia()
