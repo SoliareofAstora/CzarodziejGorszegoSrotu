@@ -1,14 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using BaseUnits;
+using EnemyStuff;
 
 public class Rycerzyk : Base {
     public Rycerzyk()
     {
-        BaseSpeed = 8;
+        BaseSpeed = 6;
         CzasUmierania = 2;
         MaxHP = 200;
-
+        SR=SposóbRysowania.JedenKierunek;
     }
 }
 /*

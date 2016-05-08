@@ -24,6 +24,7 @@ namespace BaseUnits
         public Odporności Odporność=Odporności.Zero;
         public float CzasUmierania;
         public Vector2 VektorPoczątkowy;
+        public SposóbRysowania SR;
         public short BaseSpeed
         {
             set { _baseSpeed = value; }
@@ -43,6 +44,7 @@ namespace BaseUnits
         {
             VektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y - 1)*_baseSpeed/100;
             rb.velocity = VektorPoczątkowy;
+            UstawAnimację();
         }
 
         private void Funeral()
@@ -56,10 +58,30 @@ namespace BaseUnits
             }
         }
 
+        public void UstawAnimację()
+        {
+            switch (SR)
+            {
+                case SposóbRysowania.JedenKierunek:
+                    LewoNaPrawo();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        public void LewoNaPrawo()
+        {
+            if (transform.position.x > 0)
+            {
+                transform.localScale = (new Vector3(-1, 1, 1));
+            }
+        }
+
         //Eventy przebiegające przez każdąturę
         void Update()
         {
-            if (HP>0)
+            if (HP > 0)
             {
                 updateMovementSpeed();
             }
@@ -71,7 +93,6 @@ namespace BaseUnits
 
         private void updateMovementSpeed()
         {
-
             float aktualnaPręskość = 1;
             switch (DeltaSpeed)
             {
@@ -90,11 +111,11 @@ namespace BaseUnits
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            rb.velocity = VektorPoczątkowy * aktualnaPręskość;
+            rb.velocity = VektorPoczątkowy*aktualnaPręskość;
         }
+
         void OnTriggerEnter()
         {
-
             switch (Podatność)
             {
                 case Podatności.Zero:
@@ -108,7 +129,7 @@ namespace BaseUnits
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            switch (Odporność )
+            switch (Odporność)
             {
                 case Odporności.Zero:
                     break;

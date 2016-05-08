@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using BaseUnits;
+using EnemyStuff;
 
 public class Dyniogłowy : Base {
     public Dyniogłowy()
@@ -8,7 +9,7 @@ public class Dyniogłowy : Base {
         BaseSpeed = 10;
         CzasUmierania = 3;
         MaxHP = 100;
-
+        SR = SposóbRysowania.JedenKierunek;
     }
 }
 /*

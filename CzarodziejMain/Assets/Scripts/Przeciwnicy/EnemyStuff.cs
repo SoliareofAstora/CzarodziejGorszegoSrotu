@@ -11,6 +11,10 @@ namespace EnemyStuff
         Zatrzymany
     }
 
+    public enum SposóbRysowania
+    {
+        JedenKierunek
+    }
     public enum Odporności
     {
         Zero,
