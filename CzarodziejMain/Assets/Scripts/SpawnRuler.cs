@@ -49,7 +49,8 @@ public class SpawnRuler : MonoBehaviour {
         //Stawianie przeciwników pierszego sortu naokoło mapy
         if (Input.anyKey)
         {
-            Instantiate(TablicaPrzeciwników[0], ChooseSpawnPoint(), Quaternion.Euler(Vector3.zero));
+            var wybór = rand.Next(TablicaPrzeciwników.Length);
+            Instantiate(TablicaPrzeciwników[wybór], ChooseSpawnPoint(), Quaternion.Euler(Vector3.zero));
         }	
 	}
 }

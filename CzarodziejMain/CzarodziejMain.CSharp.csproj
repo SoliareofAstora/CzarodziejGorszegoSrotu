@@ -76,11 +76,12 @@
     <Compile Include="Assets\Scripts\ArkanaMagii\KsięgaCzarów.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\PodstawoweZaklęcie.cs" />
     <Compile Include="Assets\Scripts\Clock.cs" />
-    <Compile Include="Assets\Scripts\Enemies\Base.cs" />
-    <Compile Include="Assets\Scripts\Enemies\Dyniogłowy.cs" />
-    <Compile Include="Assets\Scripts\Enemies\EnemyStuff.cs" />
-    <Compile Include="Assets\Scripts\Enemies\ŻywiołakOgnia.cs" />
     <Compile Include="Assets\Scripts\MainCastle.cs" />
+    <Compile Include="Assets\Scripts\Przeciwnicy\Base.cs" />
+    <Compile Include="Assets\Scripts\Przeciwnicy\EnemyStuff.cs" />
+    <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\Dyniogłowy.cs" />
+    <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\Rycerzyk.cs" />
+    <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\ŻywiołakOgnia.cs" />
     <Compile Include="Assets\Scripts\SpawnRuler.cs" />
     <Compile Include="Assets\Scripts\UI\UI.cs" />
   </ItemGroup>
