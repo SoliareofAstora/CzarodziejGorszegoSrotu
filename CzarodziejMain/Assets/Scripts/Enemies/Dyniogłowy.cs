@@ -6,7 +6,7 @@ public class Dyniogłowy : Base {
     public Dyniogłowy()
     {
         BaseSpeed = 10;
-        CzasUmierania = 1;
+        CzasUmierania = 3;
         MaxHP = 100;
 
     }

@@ -16,6 +16,15 @@ namespace MyClock
             odlicza = true;
         }
 
+        public void CheckIfDone()
+        {
+            IsAfterCountDown();
+        }
+        public void JustStartCounting(float deltaT)
+        {
+            time = Time.time + deltaT;
+            odlicza = true;
+        }
         public bool IsBeforeCountDown()
         {
             return Time.time < time;
