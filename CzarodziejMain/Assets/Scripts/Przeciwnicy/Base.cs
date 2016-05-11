@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections;
 using EnemyStuff;
 using MyClock;
+using rodzajezaklęć;
 
 namespace BaseUnits
 {
@@ -114,8 +115,28 @@ namespace BaseUnits
             rb.velocity = VektorPoczątkowy*aktualnaPręskość;
         }
 
-        void OnTriggerEnter()
+        void OnTriggerEnter2D(Collider2D other)
         {
+            if (other.tag=="Zaklęcie")
+            {
+                int i = other.GetComponentInParent<Zaklęcie>().GetSomething();
+                JednorazoweObrażenia(i);
+            }
+             
+        }
+
+        private void JednorazoweObrażenia(int Rodzaj )
+        {
+            switch (Rodzaj)
+            {
+                case 2:
+                    break;
+                case 1:
+                    HP = 0;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("Rodzaj", Rodzaj, null);
+            }
             switch (Podatność)
             {
                 case Podatności.Zero:
