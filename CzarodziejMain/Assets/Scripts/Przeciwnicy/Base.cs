@@ -130,6 +130,7 @@ namespace BaseUnits
             switch (Rodzaj)
             {
                 case RodzajeZaklęć.KulaOgnia:
+                    HP = 0;
                     break;
                 case RodzajeZaklęć.LodowaStrzała:
                     break;
