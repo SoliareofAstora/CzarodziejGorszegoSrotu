@@ -4,6 +4,7 @@ using System.Collections;
 using EnemyStuff;
 using MyClock;
 using rodzajezaklęć;
+using zaklęcie;
 
 namespace BaseUnits
 {
@@ -119,20 +120,18 @@ namespace BaseUnits
         {
             if (other.tag=="Zaklęcie")
             {
-                int i = other.GetComponentInParent<Zaklęcie>().GetSomething();
-                JednorazoweObrażenia(i);
+                JednorazoweObrażenia(other.GetComponentInParent<Zaklęcie>().GetTypeZaklęć());
             }
              
         }
 
-        private void JednorazoweObrażenia(int Rodzaj )
+        private void JednorazoweObrażenia(RodzajeZaklęć Rodzaj )
         {
             switch (Rodzaj)
             {
-                case 2:
+                case RodzajeZaklęć.KulaOgnia:
                     break;
-                case 1:
-                    HP = 0;
+                case RodzajeZaklęć.LodowaStrzała:
                     break;
                 default:
                     throw new ArgumentOutOfRangeException("Rodzaj", Rodzaj, null);

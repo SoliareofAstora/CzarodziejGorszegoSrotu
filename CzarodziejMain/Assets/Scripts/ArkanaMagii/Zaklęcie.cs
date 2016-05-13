@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.Design.Serialization;
+using rodzajezaklęć;
 
-namespace rodzajezaklęć
+namespace zaklęcie
 {
     public class Zaklęcie:PodstawoweZaklęcie
     {
-         public int GetSomething()
+         public RodzajeZaklęć GetTypeZaklęć()
          {
-             return 1;
+            return RodzajeZaklęć.KulaOgnia;
          }
     }
 }
