@@ -27,12 +27,12 @@ namespace MyClock
         }
         public bool IsBeforeCountDown()
         {
-            return Time.time < time;
+            return !(IsAfterCountDown());
         }
 
         public bool IsAfterCountDown()
         {
-            if (IsBeforeCountDown()) return false;
+            if (Time.time < time) return false;
             odlicza = false;
             return true;
         }
