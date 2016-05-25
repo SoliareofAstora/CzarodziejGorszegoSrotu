@@ -23,7 +23,7 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
-
+*.opendb
 !*.dll
 
 # =========================
