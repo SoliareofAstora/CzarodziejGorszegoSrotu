@@ -81,6 +81,7 @@
     <Compile Include="Assets\Scripts\ArkanaMagii\Zaklęcie.cs" />
     <Compile Include="Assets\Scripts\Clock.cs" />
     <Compile Include="Assets\Scripts\MainCastle.cs" />
+    <Compile Include="Assets\Scripts\PLAYER.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\Base.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\EnemyStuff.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\BardzoBrzydkiTroll.cs" />
