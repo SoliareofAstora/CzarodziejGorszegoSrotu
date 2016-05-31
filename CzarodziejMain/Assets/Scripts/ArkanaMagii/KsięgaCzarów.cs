@@ -3,10 +3,16 @@ using System.Collections;
 
 namespace Książka
 {
-    public
-
-    enum WpływyCzarów
+    public class KsiążkaCzarów
     {
-        /*Tutaj zawieramy info na temat wpływu czaru na inne przeciwniki. spowolnienie, zamrożenie, podpalenie, zatrzymanie itp itd. Zwiększenie podatności i tak dalej...*/
+        public GameObject go;
+        public float speed;
+        public float czasrzucanial;
+        public KsiążkaCzarów()
+        {
+            
+        }
+
     }
+
 }

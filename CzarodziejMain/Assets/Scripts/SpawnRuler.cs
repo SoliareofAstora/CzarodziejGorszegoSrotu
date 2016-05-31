@@ -47,7 +47,7 @@ public class SpawnRuler : MonoBehaviour {
 	// Spawnowanie przeciwników
 	void Update () {
         //Stawianie przeciwników pierszego sortu naokoło mapy
-        if (Input.anyKey)
+        if (Input.GetKey(KeyCode.Q))
         {
             var wybór = rand.Next(TablicaPrzeciwników.Length);
             Instantiate(TablicaPrzeciwników[wybór], ChooseSpawnPoint(), Quaternion.Euler(Vector3.zero));
