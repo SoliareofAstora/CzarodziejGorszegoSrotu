@@ -1,9 +1,7 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
-
-public enum Akcje
+public enum Akcja
 {
     Zakl1,
     Zakl2,
@@ -13,35 +11,41 @@ public enum Akcje
     RzucenieZaklęcia2,
     Pauza,
     Menue,
-    EXIT
+    Exit
 }
 
 public class Sterowanie
 {
-    public static Sterowanie Graj=null;
+    public static Sterowanie Graj;
 
-    public static Dictionary<Akcje, KeyCode> stery; 
+    public static Dictionary<Akcja, KeyCode> stery;
 
     public Sterowanie()
     {
         Graj = this;
-        stery =new Dictionary<Akcje, KeyCode>();
-        stery.Add(Akcje.Zakl1,KeyCode.Q);
-        stery.Add(Akcje.Zakl2, KeyCode.W);
-
-
-        stery.Add(Akcje.RzucenieZaklęcia, KeyCode.Mouse1);
-
-        stery.Add(Akcje.Pauza, KeyCode.P);
-        stery.Add(Akcje.Menue, KeyCode.Tab);
-        stery.Add(Akcje.EXIT, KeyCode.Escape);
-
+        stery = new Dictionary<Akcja, KeyCode>();
+        if (true)
+        {
+            UstawDomyślneSterowanie();
+        }
     }
 
-    public static bool Wybierz(Akcje e)
+    public void UstawDomyślneSterowanie()
+    {
+        stery.Clear();
+        stery.Add(Akcja.Zakl1, KeyCode.Q);
+        stery.Add(Akcja.Zakl2, KeyCode.W);
+        stery.Add(Akcja.Zakl3, KeyCode.E);
+        stery.Add(Akcja.Zakl4, KeyCode.R);
+        stery.Add(Akcja.RzucenieZaklęcia, KeyCode.Mouse1);
+        stery.Add(Akcja.RzucenieZaklęcia2, KeyCode.Mouse2);
+        stery.Add(Akcja.Pauza, KeyCode.P);
+        stery.Add(Akcja.Menue, KeyCode.Tab);
+        stery.Add(Akcja.Exit, KeyCode.Escape);
+    }
+
+    public static bool Wybierz(Akcja e)
     {
         return Input.GetKeyDown(stery[e]);
     }
-
 }
-    
