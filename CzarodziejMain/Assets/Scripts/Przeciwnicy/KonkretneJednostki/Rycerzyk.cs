@@ -3,15 +3,17 @@ using System.Collections;
 using BaseUnits;
 using EnemyStuff;
 
-public class Rycerzyk : Base {
+public class Rycerzyk : Base
+{
     public Rycerzyk()
     {
         BaseSpeed = 6;
         CzasUmierania = 2;
         MaxHP = 200;
-        SR=SposóbRysowania.JedenKierunek;
+        SR = SposóbRysowania.JedenKierunek;
     }
 }
+
 /*
 
 float tg = VektorPoczątkowy.x / VektorPoczątkowy.y;

@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Security.Cryptography.X509Certificates;
 
 namespace MyClock
 {
     public class Clock
     {
-        private float time=0;
-        private bool odlicza=false;
+        private readonly float CzasOdliczania;
+        private bool odlicza;
+        private float time;
+
+        public Clock()
+        {
+        }
+
+        public Clock(float cooldown)
+        {
+            CzasOdliczania = cooldown;
+        }
 
         public void StartCounting(float deltaT)
         {
@@ -16,18 +24,25 @@ namespace MyClock
             odlicza = true;
         }
 
+        public void StartCounting()
+        {
+            StartCounting(CzasOdliczania);
+        }
+
         public void CheckIfDone()
         {
             IsAfterCountDown();
         }
+
         public void JustStartCounting(float deltaT)
         {
             time = Time.time + deltaT;
             odlicza = true;
         }
+
         public bool IsBeforeCountDown()
         {
-            return !(IsAfterCountDown());
+            return !IsAfterCountDown();
         }
 
         public bool IsAfterCountDown()
@@ -38,4 +53,3 @@ namespace MyClock
         }
     }
 }
-

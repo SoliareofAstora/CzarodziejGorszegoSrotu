@@ -1,39 +1,34 @@
 ﻿using System;
-using UnityEngine;
-using System.Collections;
 using EnemyStuff;
 using MyClock;
 using rodzajezaklęć;
-using zaklęcie;
+using UnityEngine;
+using zaklecie;
 
 namespace BaseUnits
 {
     public class Base : MonoBehaviour
     {
-        Rigidbody2D rb;
         public Animator anim;
-
-        public int MaxHP;
-        public int HP;//To Private
+        public float CzasUmierania;
         private Clock CzasZgonu;
+        public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
+        public int HP; //To Private
+        public int MaxHP;
+        public Odporności Odporność = Odporności.Zero;
+        public Podatności Podatność = Podatności.Zero;
+        private Rigidbody2D rb;
+        public SposóbRysowania SR;
+        public Vector2 VektorPoczątkowy;
+
         public int CurrentHP
         {
-            get { return HP;}
-        }
-        short _baseSpeed;
-        public SpowolnieniaRuchu DeltaSpeed=SpowolnieniaRuchu.Normalnie;
-        public Podatności Podatność=Podatności.Zero;
-        public Odporności Odporność=Odporności.Zero;
-        public float CzasUmierania;
-        public Vector2 VektorPoczątkowy;
-        public SposóbRysowania SR;
-        public short BaseSpeed
-        {
-            set { _baseSpeed = value; }
-            get { return _baseSpeed; }
+            get { return HP; }
         }
 
-        void Awake()
+        public short BaseSpeed { set; get; }
+
+        private void Awake()
         {
             rb = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
@@ -41,10 +36,11 @@ namespace BaseUnits
             anim.SetBool("Alive", true);
             CzasZgonu = new Clock();
         }
+
         //Sposób na spawnowanie przeciwnika
-        void Start()
+        private void Start()
         {
-            VektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y - 1)*_baseSpeed/100;
+            VektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y - 1)*BaseSpeed/100;
             rb.velocity = VektorPoczątkowy;
             UstawAnimację();
         }
@@ -76,12 +72,12 @@ namespace BaseUnits
         {
             if (transform.position.x > 0)
             {
-                transform.localScale = (new Vector3(-1, 1, 1));
+                transform.localScale = new Vector3(-1, 1, 1);
             }
         }
 
         //Eventy przebiegające przez każdąturę
-        void Update()
+        private void Update()
         {
             if (HP > 0)
             {
@@ -116,16 +112,15 @@ namespace BaseUnits
             rb.velocity = VektorPoczątkowy*aktualnaPręskość;
         }
 
-        void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag=="Zaklęcie")
+            if (other.tag == "Zaklęcie")
             {
                 JednorazoweObrażenia(other.GetComponentInParent<Zaklęcie>().GetTypeZaklęć());
             }
-             
         }
 
-        private void JednorazoweObrażenia(RodzajeZaklęć Rodzaj )
+        private void JednorazoweObrażenia(RodzajeZaklęć Rodzaj)
         {
             switch (Rodzaj)
             {

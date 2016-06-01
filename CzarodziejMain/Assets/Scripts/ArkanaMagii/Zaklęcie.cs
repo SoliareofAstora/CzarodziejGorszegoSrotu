@@ -1,21 +1,39 @@
-﻿using System.ComponentModel.Design.Serialization;
-using MyClock;
-using rodzajezaklęć;
+﻿using rodzajezaklęć;
+using UnityEngine;
 
-namespace zaklęcie
+namespace zaklecie
 {
-    public class Zaklęcie:PodstawoweZaklęcie
+    public class Zaklęcie : MonoBehaviour
     {
-        private RodzajeZaklęć rodzaj;
+        private float CzasOdnowienia;
         public string Nazwa;
         public int Obrażenia;
+        private RodzajeZaklęć rodzaj;
         public float Szybkość;
-        private float CzasOdnowienia;
-        
+
 
         public RodzajeZaklęć GetTypeZaklęć()
-         {
+        {
             return RodzajeZaklęć.KulaOgnia;
-         }
+        }
+
+        /*
+    public float rozmiar;
+        public float szybkość;
+        public RodzajeZaklęć rz;
+ 
+             Dalej lecą spawnowanie, udrezanie, wybuchanie, spawnowanie innych sjawisk grywalnych
+             pojawianie się obiektów na mapie
+
+             */
+        // Use this for initialization
+        private void Start()
+        {
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+        }
     }
 }

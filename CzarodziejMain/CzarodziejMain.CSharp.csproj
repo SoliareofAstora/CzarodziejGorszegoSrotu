@@ -75,8 +75,8 @@
     <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\FireProjectileScript.cs" />
     <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\MeteorSwarmScript.cs" />
     <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\SingleLineAttribute.cs" />
+    <Compile Include="Assets\KillZone.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\KsięgaCzarów.cs" />
-    <Compile Include="Assets\Scripts\ArkanaMagii\PodstawoweZaklęcie.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\RodzajeZaklęć.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\Zaklęcie.cs" />
     <Compile Include="Assets\Scripts\Clock.cs" />
@@ -91,13 +91,14 @@
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\ŻywiołakOgnia.cs" />
     <Compile Include="Assets\Scripts\SpawnRuler.cs" />
     <Compile Include="Assets\Scripts\UI\UI.cs" />
-    <Compile Include="Assets\SoundManager\Demo\SoundManagerDemo.cs" />
-    <Compile Include="Assets\SoundManager\SoundManager.cs" />
+    <Compile Include="Assets\Udźwiękowienie\MusicManager\Scripts\MusicManager.cs" />
+    <Compile Include="Assets\Udźwiękowienie\MusicManager\Scripts\MusicPlayer.cs" />
+    <Compile Include="Assets\Udźwiękowienie\MusicManager\TestScene\ExampleScript.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\FromAssetStore\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
     <None Include="Assets\FromAssetStore\PyroParticles\Readme.txt" />
-    <None Include="Assets\SoundManager\Readme.txt" />
+    <None Include="Assets\Udźwiękowienie\MusicManager\TestScene\Resources\Music_Licence.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
