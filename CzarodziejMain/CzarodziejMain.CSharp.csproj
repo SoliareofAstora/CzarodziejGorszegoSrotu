@@ -75,13 +75,13 @@
     <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\FireProjectileScript.cs" />
     <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\MeteorSwarmScript.cs" />
     <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\SingleLineAttribute.cs" />
-    <Compile Include="Assets\KillZone.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\KsięgaCzarów.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\RodzajeZaklęć.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\Zaklęcie.cs" />
-    <Compile Include="Assets\Scripts\Clock.cs" />
     <Compile Include="Assets\Scripts\GameRuler.cs" />
     <Compile Include="Assets\Scripts\MainCastle.cs" />
+    <Compile Include="Assets\Scripts\NaN\Clock.cs" />
+    <Compile Include="Assets\Scripts\NaN\KillZone.cs" />
     <Compile Include="Assets\Scripts\PLAYER.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\Base.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\EnemyStuff.cs" />
@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\Rycerzyk.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\ŻywiołakOgnia.cs" />
     <Compile Include="Assets\Scripts\SpawnRuler.cs" />
+    <Compile Include="Assets\Scripts\Sterowanie.cs" />
     <Compile Include="Assets\Scripts\UI\UI.cs" />
     <Compile Include="Assets\Udźwiękowienie\MusicManager\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Udźwiękowienie\MusicManager\Scripts\MusicPlayer.cs" />
