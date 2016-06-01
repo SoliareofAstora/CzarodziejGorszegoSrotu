@@ -21,10 +21,7 @@ namespace BaseUnits
         public SposóbRysowania SR;
         public Vector2 VektorPoczątkowy;
 
-        public int CurrentHP
-        {
-            get { return HP; }
-        }
+        public int CurrentHP { get { return HP; } }
 
         public short BaseSpeed { set; get; }
 
@@ -82,8 +79,7 @@ namespace BaseUnits
             if (HP > 0)
             {
                 updateMovementSpeed();
-            }
-            else
+            } else
             {
                 Funeral();
             }

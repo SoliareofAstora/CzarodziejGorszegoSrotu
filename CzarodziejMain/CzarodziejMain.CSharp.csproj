@@ -67,14 +67,6 @@
     <Compile Include="Assets\FromAssetStore\Goblin Archer\Scripts\Arrow.cs" />
     <Compile Include="Assets\FromAssetStore\Goblin Archer\Scripts\MouseController.cs" />
     <Compile Include="Assets\FromAssetStore\Orc Warrior\Scripts\MouseController.cs" />
-    <Compile Include="Assets\FromAssetStore\PyroParticles\Demo\DemoScript.cs" />
-    <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\FireBaseScript.cs" />
-    <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\FireCollisionForwardScript.cs" />
-    <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\FireConstantBaseScript.cs" />
-    <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\FireLightScript.cs" />
-    <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\FireProjectileScript.cs" />
-    <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\MeteorSwarmScript.cs" />
-    <Compile Include="Assets\FromAssetStore\PyroParticles\Prefab\Script\SingleLineAttribute.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\KsięgaCzarów.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\RodzajeZaklęć.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\Zaklęcie.cs" />
@@ -97,8 +89,6 @@
     <Compile Include="Assets\Udźwiękowienie\MusicManager\TestScene\ExampleScript.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\FromAssetStore\PyroParticles\Prefab\Materials\AdditiveTintable.shader" />
-    <None Include="Assets\FromAssetStore\PyroParticles\Readme.txt" />
     <None Include="Assets\Udźwiękowienie\MusicManager\TestScene\Resources\Music_Licence.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />

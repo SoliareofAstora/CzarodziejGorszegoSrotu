@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 // This class will manage the volume and the fade in/out effect of the music
 public class MusicPlayer : MonoBehaviour

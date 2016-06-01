@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using BaseUnits;
+﻿using BaseUnits;
 using EnemyStuff;
 
 public class Dyniogłowy : Base {

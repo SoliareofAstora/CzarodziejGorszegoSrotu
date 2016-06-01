@@ -1,8 +1,5 @@
-﻿using UnityEditor;
-
-namespace EnemyStuff
+﻿namespace EnemyStuff
 {
-    
     //Spowolnienie konkretne znajduje się w Base.
     public enum SpowolnieniaRuchu
     {
@@ -16,6 +13,7 @@ namespace EnemyStuff
     {
         JedenKierunek
     }
+
     public enum Odporności
     {
         Zero,
@@ -29,7 +27,7 @@ namespace EnemyStuff
         Zero,
         PodarnośćNaOgień,
         PodatnośćNaLód,
-        PodatnośćNaPrąd,
+        PodatnośćNaPrąd
     }
 
     public enum WpływyZaklęć
