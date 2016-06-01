@@ -9,7 +9,7 @@ public class KillZone : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
     }
 
-    public void OnTriggerExit(Collider other)
+    void OnTriggerExit2D(Collider2D other)
     {
         Destroy(other.gameObject);
     }
