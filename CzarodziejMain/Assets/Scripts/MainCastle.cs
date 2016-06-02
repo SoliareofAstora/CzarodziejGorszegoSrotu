@@ -7,6 +7,5 @@ public class MainCastle : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        UI.access.Przegraleś();
     }
 }

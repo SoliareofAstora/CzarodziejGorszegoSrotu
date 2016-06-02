@@ -16,13 +16,10 @@ public enum Akcja
 
 public class Sterowanie
 {
-    public static Sterowanie Graj;
-
-    public static Dictionary<Akcja, KeyCode> stery;
+    private static Dictionary<Akcja, KeyCode> stery;
 
     public Sterowanie()
     {
-        Graj = this;
         stery = new Dictionary<Akcja, KeyCode>();
         if (true)
         {

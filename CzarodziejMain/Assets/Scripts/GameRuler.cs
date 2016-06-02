@@ -1,33 +1,52 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 
-internal enum GameState
+public enum GameState
 {
     MainGameplay,
     Shopping,
     Pause,
-    MainMenue
+    MainMenue,
 }
 
 public class GameRuler : MonoBehaviour
 {
-    public Canvas UI;
+    public static GameObject asdf;
 
     private void Awake()
     {
         new Sterowanie();
+        asdf=new GameObject() ;
+        asdf = GameObject.Find("ShoppingCenter");
+        CheckIfPlaying = false;
+        resetUIlayout();
     }
 
-    // Use this for initialization
-    private void Start()
-    {
-    }
+    public static bool CheckIfPlaying { get; private set; }
 
-    // Update is called once per frame
-    private void Update()
+    public static void ChangeUI(GameState GS)
     {
-        if (Sterowanie.Wybierz(Akcja.Exit))
+        
+        switch (GS)
         {
-            Application.Quit();
+            case GameState.MainGameplay:
+                asdf.SetActive(false);
+                CheckIfPlaying = true;
+                break;
+            case GameState.Shopping:
+                break;
+            case GameState.Pause:
+                break;
+            case GameState.MainMenue:
+                break;
+            default:
+                throw new ArgumentOutOfRangeException("GS", GS, null);
         }
+    }
+
+    private void resetUIlayout()
+    {
+
     }
 }

@@ -5,7 +5,7 @@ public class Rycerzyk : Base
 {
     public Rycerzyk()
     {
-        BaseSpeed = 6;
+        BaseSpeed = 120;
         CzasUmierania = 2;
         MaxHP = 200;
         SR = SposóbRysowania.JedenKierunek;

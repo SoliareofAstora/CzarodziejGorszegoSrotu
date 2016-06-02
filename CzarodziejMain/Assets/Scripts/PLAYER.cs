@@ -20,11 +20,12 @@ public class PLAYER : MonoBehaviour
     private void Start()
     {
         Anim = GetComponent<Animator>();
-    }
+        GameRuler.ChangeUI(GameState.MainGameplay);}
 
     // Update is called once per frame
     private void Update()
     {
+        if (!GameRuler.CheckIfPlaying) return;
         FocusAtMouse();
         if (Sterowanie.Wybierz(Akcja.Zakl1))
         {

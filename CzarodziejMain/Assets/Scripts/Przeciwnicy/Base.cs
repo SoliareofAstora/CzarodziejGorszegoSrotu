@@ -105,7 +105,7 @@ namespace BaseUnits
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            rb.velocity = VektorPoczątkowy*aktualnaPręskość;
+            rb.velocity = VektorPoczątkowy*aktualnaPręskość*Time.deltaTime*10;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
