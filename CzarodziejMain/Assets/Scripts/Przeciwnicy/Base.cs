@@ -9,7 +9,7 @@ namespace BaseUnits
 {
     public class Base : MonoBehaviour
     {
-        public Animator anim;
+        private Animator anim;
         public float CzasUmierania;
         private Clock CzasZgonu;
         public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
@@ -32,6 +32,7 @@ namespace BaseUnits
             HP = MaxHP;
             anim.SetBool("Alive", true);
             CzasZgonu = new Clock();
+            
         }
 
         //Sposób na spawnowanie przeciwnika

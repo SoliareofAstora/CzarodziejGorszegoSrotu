@@ -1,5 +1,17 @@
-﻿using Sterowanie;
+﻿using gamestate;
+using Sterowanie;
 using UnityEngine;
+
+namespace gamestate
+{
+    public enum GameState
+    {
+        Gameplay,
+        Shop,
+        Pauza,
+        MainMenue
+    }
+}
 
 namespace GameMaster
 {
@@ -34,21 +46,22 @@ namespace GameMaster
             }
             if (Stery.ZaóbPauzę())
             {
-                Zapauzuj();
+                Pause();
             }
         }
 
-        public static void Zapauzuj()
+        public static void Pause()
         {
             ChangheUILayout(GameState.Pauza);
-            Time.timeScale = 0;//DO BAWIENIA SIĘ CZASEM!!!!
+            Time.timeScale = 0; //DO BAWIENIA SIĘ CZASEM!!!!
         }
 
-        public static void Odpauzuj()
+        public static void UnPause()
         {
             ChangheUILayout(GameState.Gameplay);
             Time.timeScale = 1;
         }
+
         public static void MainMenue()
         {
             ChangheUILayout(GameState.MainMenue);

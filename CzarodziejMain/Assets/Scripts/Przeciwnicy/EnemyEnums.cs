@@ -1,5 +1,11 @@
 ﻿namespace EnemyEnums
 {
+    public enum DziałająceEfekty
+    {
+        Zero,
+        Podpalenie,
+        Zamrożenie,
+    }
     //Spowolnienie konkretne znajduje się w Base.
     public enum SpowolnieniaRuchu
     {
