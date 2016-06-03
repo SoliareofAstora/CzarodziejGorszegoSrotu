@@ -5,18 +5,20 @@ namespace zaklecie
 {
     public class Zaklęcie : MonoBehaviour
     {
-        private float CzasOdnowienia;
-        public string Nazwa;
         public int Obrażenia;
-        private RodzajeZaklęć rodzaj;
+        public RodzajeZaklęć rodzaj;
         public float Szybkość;
 
 
-        public RodzajeZaklęć GetTypeZaklęć()
+	    public RodzajeZaklęć GetTypeZaklęć()
         {
-            return RodzajeZaklęć.KulaOgnia;
+            return rodzaj;
         }
 
+	    public int GetDmg()
+	    {
+		    return Obrażenia;
+	    }
         /*
     public float rozmiar;
         public float szybkość;

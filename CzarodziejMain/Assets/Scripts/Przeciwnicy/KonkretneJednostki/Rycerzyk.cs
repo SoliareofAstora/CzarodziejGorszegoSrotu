@@ -28,3 +28,16 @@ float tg = VektorPoczątkowy.x / VektorPoczątkowy.y;
             anim.SetBool("WalkingDown", true);
         }
         */
+/*    void EnemyExplode()
+{
+Instantiate(enemyExplosion, transform.position, Quaternion.identity);
+Instantiate(enemyDestroyShield, transform.position, Quaternion.identity);
+}
+
+void ClearHierarchy()
+{
+foreach (GameObject o in Object.FindObjectsOfType<GameObject>()) 
+   if (o.tag == "Clear")
+       Destroy(o);
+}
+*/

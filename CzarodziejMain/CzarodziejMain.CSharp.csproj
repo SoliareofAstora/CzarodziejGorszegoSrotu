@@ -65,14 +65,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Akcja.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\KsięgaCzarów.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\RodzajeZaklęć.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\Zaklęcie.cs" />
     <Compile Include="Assets\Scripts\GameRuler.cs" />
     <Compile Include="Assets\Scripts\MainCastle.cs" />
-    <Compile Include="Assets\Scripts\NaN\Clock.cs" />
-    <Compile Include="Assets\Scripts\NaN\KillZone.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\Base.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\EnemyEnums.cs" />
@@ -82,6 +79,9 @@
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\ŻywiołakOgnia.cs" />
     <Compile Include="Assets\Scripts\SpawnRuler.cs" />
     <Compile Include="Assets\Scripts\Stery.cs" />
+    <Compile Include="Assets\Scripts\System\Clock.cs" />
+    <Compile Include="Assets\Scripts\System\KillZone.cs" />
+    <Compile Include="Assets\Scripts\Skrypt.cs" />
     <Compile Include="Assets\Udźwiękowienie\MusicManager\Scripts\MusicManager.cs" />
     <Compile Include="Assets\Udźwiękowienie\MusicManager\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\Udźwiękowienie\MusicManager\TestScene\ExampleScript.cs" />

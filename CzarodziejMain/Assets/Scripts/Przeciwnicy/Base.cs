@@ -32,7 +32,6 @@ namespace BaseUnits
             HP = MaxHP;
             anim.SetBool("Alive", true);
             CzasZgonu = new Clock();
-            
         }
 
         //Sposób na spawnowanie przeciwnika
@@ -74,19 +73,18 @@ namespace BaseUnits
             }
         }
 
-        //Eventy przebiegające przez każdąturę
         private void Update()
         {
             if (HP > 0)
             {
-                updateMovementSpeed();
+                UpdateMovementSpeed();
             } else
             {
                 Funeral();
             }
         }
 
-        private void updateMovementSpeed()
+        private void UpdateMovementSpeed()
         {
             float aktualnaPręskość = 1;
             switch (DeltaSpeed)
@@ -106,6 +104,7 @@ namespace BaseUnits
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+            
             rb.velocity = VektorPoczątkowy*aktualnaPręskość*Time.deltaTime*10;
         }
 
@@ -119,17 +118,18 @@ namespace BaseUnits
 
         private void JednorazoweObrażenia(RodzajeZaklęć Rodzaj)
         {
-            switch (Rodzaj)
-            {
-                case RodzajeZaklęć.KulaOgnia:
-                    HP = 0;
-                    break;
-                case RodzajeZaklęć.LodowaStrzała:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("Rodzaj", Rodzaj, null);
-            }
-            switch (Podatność)
+	        switch (Rodzaj)
+	        {
+		        case RodzajeZaklęć.KulaOgnia:
+			        HP = 0;
+			        break;
+		        case RodzajeZaklęć.LodowaStrzała:
+			        anim.enabled = false;
+			        break;
+		        default:
+			        throw new ArgumentOutOfRangeException("Rodzaj", Rodzaj, null);
+	        }
+	        switch (Podatność)
             {
                 case Podatności.Zero:
                     break;
@@ -161,4 +161,7 @@ namespace BaseUnits
 
 /* 
  
-     Obrażenia będą musiały pochodzić z instancji księgi czarów, gdzie będą też zapisane aktualnie używane zaklęcia przez czarodzieja. I to jest dobra myśl. */
+     Obrażenia będą musiały pochodzić z instancji księgi czarów, 
+     gdzie będą też zapisane aktualnie używane zaklęcia przez czarodzieja. 
+     I to jest dobra myśl. 
+*/

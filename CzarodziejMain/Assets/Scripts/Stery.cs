@@ -3,6 +3,17 @@ using UnityEngine;
 
 namespace Sterowanie
 {
+    public enum Akcja {
+        Zakl1,
+        Zakl2,
+        Zakl3,
+        Zakl4,
+        RzucenieZaklęcia,
+        RzucenieZaklęcia2,
+        Pauza,
+        Menue,
+        Exit
+    }
     public class Stery
     {
         private static Dictionary<Akcja, KeyCode> stery;
