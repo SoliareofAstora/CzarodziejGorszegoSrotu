@@ -1,12 +1,13 @@
 ﻿using BaseUnits;
-using EnemyStuff;
+using EnemyEnums;
 
-public class ŻuwiołakOgnia : Base {
+public class ŻuwiołakOgnia : Base
+{
     public ŻuwiołakOgnia()
     {
         BaseSpeed = 10;
         MaxHP = 100;
-        Odporność=Odporności.OdpornośćNaOgień;
-        Podatność=Podatności.PodatnośćNaLód;
+        Odporność = Odporności.OdpornośćNaOgień;
+        Podatność = Podatności.PodatnośćNaLód;
     }
 }

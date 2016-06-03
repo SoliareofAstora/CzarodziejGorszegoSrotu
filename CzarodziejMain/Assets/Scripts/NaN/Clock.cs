@@ -2,32 +2,40 @@
 
 namespace MyClock
 {
-    public class Clock
+    //Czasomież połączony ze stałym czasem 
+    public class SuperClock : Clock
     {
-        private readonly float CzasOdliczania;
-        private bool odlicza;
-        private float time;
+        private readonly float _czasOdliczania;
 
-        public Clock()
+        public SuperClock(float cooldown)
         {
-        }
-
-        public Clock(float cooldown)
-        {
-            CzasOdliczania = cooldown;
-        }
-
-        public void StartCounting(float deltaT)
-        {
-            if (odlicza) return;
-            time = Time.time + deltaT;
-            odlicza = true;
+            _czasOdliczania = cooldown;
         }
 
         public void StartCounting()
         {
-            StartCounting(CzasOdliczania);
+            StartCounting(_czasOdliczania);
         }
+
+        public void JustStartCounting()
+        {
+            JustStartCounting(_czasOdliczania);
+        }
+    }
+
+    public class Clock
+    {
+        private bool _odlicza;
+        private float _time;
+
+
+        public void StartCounting(float deltaT)
+        {
+            if (_odlicza) return;
+            _time = Time.time + deltaT;
+            _odlicza = true;
+        }
+
 
         public void CheckIfDone()
         {
@@ -36,8 +44,8 @@ namespace MyClock
 
         public void JustStartCounting(float deltaT)
         {
-            time = Time.time + deltaT;
-            odlicza = true;
+            _time = Time.time + deltaT;
+            _odlicza = true;
         }
 
         public bool IsBeforeCountDown()
@@ -47,8 +55,8 @@ namespace MyClock
 
         public bool IsAfterCountDown()
         {
-            if (Time.time < time) return false;
-            odlicza = false;
+            if (Time.time < _time) return false;
+            _odlicza = false;
             return true;
         }
     }

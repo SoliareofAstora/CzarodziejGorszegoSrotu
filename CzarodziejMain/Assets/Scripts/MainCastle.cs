@@ -2,10 +2,11 @@
 
 public class MainCastle : MonoBehaviour
 {
-    void Start()
+    private void Start()
     {
     }
-    void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
     }
 }

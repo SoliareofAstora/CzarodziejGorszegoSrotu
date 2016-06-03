@@ -1,5 +1,5 @@
 ﻿using System;
-using EnemyStuff;
+using EnemyEnums;
 using MyClock;
 using rodzajezaklęć;
 using UnityEngine;

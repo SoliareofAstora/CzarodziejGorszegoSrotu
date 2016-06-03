@@ -1,5 +1,5 @@
 ﻿using BaseUnits;
-using EnemyStuff;
+using EnemyEnums;
 
 public class Rycerzyk : Base
 {

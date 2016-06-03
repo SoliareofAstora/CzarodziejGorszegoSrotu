@@ -1,15 +1,17 @@
 ﻿using BaseUnits;
-using EnemyStuff;
+using EnemyEnums;
 
-public class Dyniogłowy : Base {
+public class Dyniogłowy : Base
+{
     public Dyniogłowy()
     {
-        BaseSpeed = 10;
+        BaseSpeed = 100;
         CzasUmierania = 3;
         MaxHP = 100;
         SR = SposóbRysowania.JedenKierunek;
     }
 }
+
 /*
 
 float tg = VektorPoczątkowy.x / VektorPoczątkowy.y;

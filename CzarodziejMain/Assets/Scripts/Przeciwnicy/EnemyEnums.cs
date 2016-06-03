@@ -1,4 +1,4 @@
-﻿namespace EnemyStuff
+﻿namespace EnemyEnums
 {
     //Spowolnienie konkretne znajduje się w Base.
     public enum SpowolnieniaRuchu

@@ -1,33 +1,35 @@
-﻿using UnityEngine;
+﻿using GameMaster;
+using Sterowanie;
+using UnityEngine;
 
-public class PLAYER : MonoBehaviour
+public class Player : MonoBehaviour
 {
-    public static PLAYER instance;
+    public static Player instance;
     private Animator Anim;
     private BoxCollider2D box;
     private Transform nos;
 
-    public PLAYER()
+    public Player()
     {
         instance = this;
     }
 
     private void Awake()
     {
-//MusicManager.play("CzarnaMsza", 1.0f, 1.0f);
+        //MusicManager.play("CzarnaMsza", 1.0f, 1.0f);
     }
 
     private void Start()
     {
         Anim = GetComponent<Animator>();
-        GameRuler.ChangeUI(GameState.MainGameplay);}
+    }
 
     // Update is called once per frame
     private void Update()
     {
-        if (!GameRuler.CheckIfPlaying) return;
+        if (!GameRuler.Playing) return;
         FocusAtMouse();
-        if (Sterowanie.Wybierz(Akcja.Zakl1))
+        if (Stery.Wybierz(Akcja.Zakl1))
         {
         }
     }
