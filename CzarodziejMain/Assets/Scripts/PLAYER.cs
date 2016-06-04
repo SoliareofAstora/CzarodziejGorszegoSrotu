@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     {
         if (!GameRuler.Playing) return;
         FocusAtMouse();
-        if (Stery.Wybierz(Akcja.Zakl1))
+        if (Stery.Strzel())
         {
         }
     }

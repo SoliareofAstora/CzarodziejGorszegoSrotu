@@ -13,7 +13,7 @@ namespace BaseUnits
         public float CzasUmierania;
         private Clock CzasZgonu;
         public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
-        public int HP; //To Private
+        private int HP; //To Private
         public int MaxHP;
         public Odporności Odporność = Odporności.Zero;
         public Podatności Podatność = Podatności.Zero;
@@ -112,13 +112,14 @@ namespace BaseUnits
         {
             if (other.tag == "Zaklęcie")
             {
-                JednorazoweObrażenia(other.GetComponentInParent<Zaklęcie>().GetTypeZaklęć());
+                Oberwałem(other.GetComponentInParent<Zaklęcie>());
             }
         }
 
-        private void JednorazoweObrażenia(RodzajeZaklęć Rodzaj)
+        private void Oberwałem(Zaklęcie zaklęcie)
         {
-	        switch (Rodzaj)
+	        HP -= zaklęcie.GetDmg();
+	        switch (zaklęcie.GetTypeZaklęć())
 	        {
 		        case RodzajeZaklęć.KulaOgnia:
 			        HP = 0;
@@ -127,34 +128,34 @@ namespace BaseUnits
 			        anim.enabled = false;
 			        break;
 		        default:
-			        throw new ArgumentOutOfRangeException("Rodzaj", Rodzaj, null);
+			        throw new ArgumentOutOfRangeException();
 	        }
 	        switch (Podatność)
-            {
-                case Podatności.Zero:
-                    break;
-                case Podatności.PodarnośćNaOgień:
-                    break;
-                case Podatności.PodatnośćNaLód:
-                    break;
-                case Podatności.PodatnośćNaPrąd:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            switch (Odporność)
-            {
-                case Odporności.Zero:
-                    break;
-                case Odporności.OdpornośćNaOgień:
-                    break;
-                case Odporności.OdpornośćNaLód:
-                    break;
-                case Odporności.OdpornośćNaPrąd:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+	        {
+		        case Podatności.Zero:
+			        break;
+		        case Podatności.PodarnośćNaOgień:
+			        break;
+		        case Podatności.PodatnośćNaLód:
+			        break;
+		        case Podatności.PodatnośćNaPrąd:
+			        break;
+		        default:
+			        throw new ArgumentOutOfRangeException();
+	        }
+	        switch (Odporność)
+	        {
+		        case Odporności.Zero:
+			        break;
+		        case Odporności.OdpornośćNaOgień:
+			        break;
+		        case Odporności.OdpornośćNaLód:
+			        break;
+		        case Odporności.OdpornośćNaPrąd:
+			        break;
+		        default:
+			        throw new ArgumentOutOfRangeException();
+	        }
         }
     }
 }

@@ -99,7 +99,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Pathfinding\Editor\WaypointEditor.cs" />
+    <Compile Include="Assets\zzzzzzzzzzzzzzzzzz\Pathfinding\Editor\WaypointEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Udźwiękowienie\MusicManager\TestScene\Resources\Music_Licence.txt" />
