@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MyClock;
 
-public class EfektCzaru : MonoBehaviour {
+public class EfektCzaru : MonoBehaviour
+{
 
+	public Clock czastrwania;
 	// Use this for initialization
 	void Start () {
 	

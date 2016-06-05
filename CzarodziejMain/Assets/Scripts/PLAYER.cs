@@ -5,9 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player instance;
-    private Animator Anim;
-    private BoxCollider2D box;
-    private Transform nos;
+    //private Animator Anim;
 
     public Player()
     {
@@ -21,7 +19,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Anim = GetComponent<Animator>();
+      //  Anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
