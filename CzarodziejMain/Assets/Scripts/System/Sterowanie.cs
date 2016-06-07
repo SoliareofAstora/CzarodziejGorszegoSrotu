@@ -9,7 +9,7 @@ namespace Sterowanie
 		Zakl2,
 		Zakl3,
 		Zakl4,
-		RzucenieZaklęcia,
+		RzucenieZaklęcia1,
 		RzucenieZaklęcia2,
 		Pauza,
 		Menue,
@@ -36,8 +36,8 @@ namespace Sterowanie
 			stery.Add(Akcja.Zakl2, KeyCode.W);
 			stery.Add(Akcja.Zakl3, KeyCode.E);
 			stery.Add(Akcja.Zakl4, KeyCode.R);
-			stery.Add(Akcja.RzucenieZaklęcia, KeyCode.Mouse1);
-			stery.Add(Akcja.RzucenieZaklęcia2, KeyCode.Mouse2);
+			stery.Add(Akcja.RzucenieZaklęcia1, KeyCode.Mouse0);
+			stery.Add(Akcja.RzucenieZaklęcia2, KeyCode.Mouse1);
 			stery.Add(Akcja.Pauza, KeyCode.P);
 			stery.Add(Akcja.Menue, KeyCode.M);
 			stery.Add(Akcja.Exit, KeyCode.Escape);
@@ -45,7 +45,7 @@ namespace Sterowanie
 
 		public static bool Strzel()
 		{
-			return Input.GetKeyDown(stery[Akcja.RzucenieZaklęcia]);
+			return Input.GetKeyDown(stery[Akcja.RzucenieZaklęcia1]);
 		}
 
 		public static bool WyjdźZGry()

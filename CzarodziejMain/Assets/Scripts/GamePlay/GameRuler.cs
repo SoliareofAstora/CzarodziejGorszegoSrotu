@@ -23,6 +23,7 @@ namespace GameMaster
 
 		private void Awake()
 		{
+			// ReSharper disable once ObjectCreationAsStatement
 			new Stery();
 			_stateUi = new GameObject[sizeof (GameState)];
 			for (var i = 0; i < _stateUi.Length; i++)

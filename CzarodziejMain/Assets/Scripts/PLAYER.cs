@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
         FocusAtMouse();
         if (Stery.Strzel())
         {
+			Debug.Log("strzał");
         }
     }
 
