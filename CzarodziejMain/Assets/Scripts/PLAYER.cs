@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     public static Player instance;
     //private Animator Anim;
-
+	public GameObject Fireball;
     public Player()
     {
         instance = this;
@@ -29,13 +29,13 @@ public class Player : MonoBehaviour
         FocusAtMouse();
         if (Stery.Strzel())
         {
-			Debug.Log("strzał");
+	        Instantiate(Fireball, transform.position, transform.rotation);
         }
     }
 
     private void FocusAtMouse()
     {
         var lookPos = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10)) - transform.position;
-        transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(lookPos.y, lookPos.x)*Mathf.Rad2Deg - 90, Vector3.forward);
+        transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(lookPos.y, lookPos.x)*Mathf.Rad2Deg, Vector3.forward);
     }
 }

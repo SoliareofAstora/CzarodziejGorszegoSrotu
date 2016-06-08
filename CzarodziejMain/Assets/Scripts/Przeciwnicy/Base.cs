@@ -44,6 +44,7 @@ namespace BaseUnits
 
         private void Funeral()
         {
+	        tag = "DeadEnemy";
             rb.velocity = Vector2.zero;
             anim.SetBool("Alive", false);
             CzasZgonu.StartCounting(CzasUmierania);
@@ -69,11 +70,11 @@ namespace BaseUnits
         {
             if (transform.position.x > 0)
             {
-                transform.localScale = new Vector3(-1, 1, 1);
+                transform.localScale = new Vector3(transform.localScale.x*(-1), transform.localScale.y, transform.localScale.z);
             }
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if (HP > 0)
             {

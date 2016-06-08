@@ -44,14 +44,19 @@ namespace GameMaster
 
 		private void Update()
 		{
-			
-			if (!Stery.ZaóbPauzę()) return;
-			if (GetCurrentState() == GameState.Pauza)
+			if (Stery.ZaóbPauzę())
 			{
-				UnPause();
-			} else
-			{
-				Pause();
+				if (GetCurrentState() == GameState.Pauza)
+				{
+					UnPause();
+				} else
+				{
+					Pause();
+				}
+
+			}
+			if (Stery.GoToMenue()) {
+				GoMainMenue();
 			}
 		}
 

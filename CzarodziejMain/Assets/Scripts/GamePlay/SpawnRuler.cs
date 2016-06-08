@@ -25,10 +25,10 @@ public class SpawnRuler : MonoBehaviour
             Tangens = Mathf.Cos(alfa)/Mathf.Sin(alfa);
             if (Tangens < 0)
             {
-                SpawnPoint = new Vector2(-RozmiarMapy.x, -RozmiarMapy.y*Tangens);
+               // SpawnPoint = new Vector2(-RozmiarMapy.x, -RozmiarMapy.y*Tangens);
             } else
             {
-                SpawnPoint = new Vector2(RozmiarMapy.x, RozmiarMapy.y*Tangens);
+               // SpawnPoint = new Vector2(RozmiarMapy.x, RozmiarMapy.y*Tangens);
             }
         } else
         {
