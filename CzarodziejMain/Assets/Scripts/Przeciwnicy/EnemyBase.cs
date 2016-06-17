@@ -28,6 +28,7 @@ namespace BaseUnits
         //Atrybuty jednostki
         private int HP;
         public int MaxHP;
+        public int Opancerzenie; //Odporność na ataki fizyczne
         public float atackspeed = 1;
         public int ZadawaneObrażenia;
         public Odporności Odporność = Odporności.Zero;

@@ -88,7 +88,7 @@ namespace GameMaster
 		{
 			if (_tempState == GameState.Gameplay)
 			{
-				StertPlaying();
+				StartPlaying();
 			} else if (_tempState == GameState.Shop)
 			{
 				GoShopping();
@@ -112,7 +112,7 @@ namespace GameMaster
 		{
 			ChangheLayout(GameState.GameOver);
 		}
-		public void StertPlaying()
+		public void StartPlaying()
 		{
 			ChangheLayout(GameState.Gameplay);
 			Playing = true;
