@@ -5,7 +5,7 @@ using rodzajezaklęć;
 using UnityEngine;
 using zaklecie;
 using Random = System.Random;
-
+using GameMaster;
 namespace BaseUnits
 {
     public class EnemyBase : MonoBehaviour
@@ -30,7 +30,7 @@ namespace BaseUnits
         public int MaxHP;
         public int Opancerzenie; //Odporność na ataki fizyczne
         public float atackspeed = 1;
-        public int ZadawaneObrażenia;
+        private int ZadawaneObrażenia=1;//TODO wyzerować
         public Odporności Odporność = Odporności.Zero;
         public Podatności Podatność = Podatności.Zero;
 
@@ -67,49 +67,48 @@ namespace BaseUnits
             {
                 if (atacking)
                 {
-                    CzasNastępnegoAtaku.StartCounting(atackspeed);//To przenieść w inne miejsca
+                    CzasNastępnegoAtaku.StartCounting(atackspeed); //To przenieść w inne miejsca
                     if (CzasNastępnegoAtaku.IsAfterCountDown())
                     {
                         Player.instance.HitPlayer(ZadawaneObrażenia);
                         Debug.Log(gameObject.name + " HitPlayer with :" + ZadawaneObrażenia);
                     }
                     return;
-                } 
-               
-
-
-                    UpdateMovementSpeed();
-                    if (!BędzieWZamku)
-                    {
-                        updateScale();
-                    }
-                    if (transform.position.y < 1 && !JestwZamku)
-                    {
-                        gameObject.tag = "Untagged";
-
-                        BędzieWZamku = true;
-                        if (transform.position.y < -2)
-                        {
-                            gameObject.tag = "Enemy";
-                            BędzieWZamku = false;
-                            JestwZamku = true;
-                            if (rand.Next(100) > 50)
-                            {
-                                transform.position = new Vector3(-10, -1, 0);
-                            } else
-                            {
-                                transform.position = new Vector3(10, -1, 0);
-                            }
-                            //TODO przesunięcia
-                            LewoNaPrawo();
-                            SetVelocity();
-                            Sprite.sortingOrder = 31;//TODO Ogarnąć layery
-                        }
-                   
                 }
 
-            } 
-            else
+
+
+                UpdateMovementSpeed();
+                if (!BędzieWZamku)
+                {
+                    updateScale();
+                }
+                if (transform.position.y < 1 && !JestwZamku)
+                {
+                    gameObject.tag = "Untagged";
+
+                    BędzieWZamku = true;
+                    if (transform.position.y < -2)
+                    {
+                        gameObject.tag = "Enemy";
+                        BędzieWZamku = false;
+                        JestwZamku = true;
+                        if (rand.Next(100) > 50)
+                        {
+                            transform.position = new Vector3(-10, -1, 0);
+                        } else
+                        {
+                            transform.position = new Vector3(10, -1, 0);
+                        }
+                        //TODO przesunięcia
+                        LewoNaPrawo();
+                        SetVelocity();
+                        Sprite.sortingOrder = 31; //TODO Ogarnąć layery
+                    }
+
+                }
+
+            } else
             //HP poniżej zera po raz pierwszy
             {
 

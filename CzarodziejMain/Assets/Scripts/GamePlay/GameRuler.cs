@@ -64,6 +64,10 @@ namespace GameMaster
 			if (Stery.GoToMenue()) {
 				GoMainMenue();
 			}
+		    if (Stery.WyjdźZGry())
+		    {
+		        Application.Quit();
+		    }
 		}
 
 		public GameState GetCurrentState()

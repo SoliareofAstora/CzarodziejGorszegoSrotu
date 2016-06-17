@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 	public Text żyćko;
 	public int HP=300;
 	public Bańka bańka;
+    public bool alive = true;
     //private Animator Anim;
     public Player()
     {
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
 
 	private void Funeral()
 	{
+	    alive = false;
 		GameRuler.instance.GameOver();
 
 	}
@@ -53,7 +55,11 @@ public class Player : MonoBehaviour
 			
 			
 		} else {
-			Funeral();
+		    if (alive)
+		    {
+                Funeral();
+            }
+			
 		}
 		if (!GameRuler.Playing) return;
         FocusAtMouse();
