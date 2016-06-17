@@ -1,12 +1,12 @@
 ﻿using BaseUnits;
 using EnemyEnums;
 
-public class Dyniogłowy : Base
+public class Dyniogłowy : EnemyBase
 {
     public Dyniogłowy()
     {
         BaseSpeed = 100;
-        CzasUmierania = 3;
+        DługośćAnimacjiUmierania = 3;
         MaxHP = 100;
         SR = SposóbRysowania.JedenKierunek;
     }

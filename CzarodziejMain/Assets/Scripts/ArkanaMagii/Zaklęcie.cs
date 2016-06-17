@@ -56,26 +56,20 @@ namespace zaklecie
 		// Update is called once per frame
 		private void Update()
 		{
-			if (destroyed)
+			if (!destroyed) return;
+			if (czaskońca.IsAfterCountDown())
 			{
-
-				if (czaskońca.IsAfterCountDown())
-				{
-					Destroy(gameObject);
-				}
+				Destroy(gameObject);
 			}
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
-			if (other.tag=="Enemy")
-			{
-				destroyed = true;
-				czaskońca.StartCounting();
-				rb.velocity = Vector2.zero;
-				anim.SetBool("BlowUp", true);
-			}
-
+			if (other.tag != "Enemy") return;
+			destroyed = true;
+			czaskońca.StartCounting();
+			rb.velocity = Vector2.zero;
+			anim.SetBool("BlowUp", true);
 		}
 
 	}

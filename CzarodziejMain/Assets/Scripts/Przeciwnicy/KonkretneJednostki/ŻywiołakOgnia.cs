@@ -1,7 +1,7 @@
 ﻿using BaseUnits;
 using EnemyEnums;
 
-public class ŻuwiołakOgnia : Base
+public class ŻuwiołakOgnia : EnemyBase
 {
     public ŻuwiołakOgnia()
     {

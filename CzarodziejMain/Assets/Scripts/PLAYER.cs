@@ -1,20 +1,24 @@
 ﻿using GameMaster;
 using Sterowanie;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     public static Player instance;
+	public Text żyćko;
+	public int HP=300;
+	public Bańka bańka;
     //private Animator Anim;
-	public GameObject Fireball;
     public Player()
     {
         instance = this;
     }
 
-    private void Awake()
-    {
-        //MusicManager.play("CzarnaMsza", 1.0f, 1.0f);
+	private void Awake()
+	{
+	    bańka = GetComponentInChildren<Bańka>();
+	    //MusicManager.play("CzarnaMsza", 1.0f, 1.0f);
     }
 
     private void Start()
@@ -22,14 +26,40 @@ public class Player : MonoBehaviour
       //  Anim = GetComponent<Animator>();
     }
 
+	public void HitPlayer(int dmg)
+	{
+		if (bańka.Hitit(dmg))
+		{
+			Debug.Log("Bańka hp:" + bańka.HP);
+			return;
+		}
+		HP -= dmg;
+		Debug.Log("Czarodziej hp:"+HP);
+	}
+
+	private void Funeral()
+	{
+		GameRuler.instance.GameOver();
+
+	}
+
+	//public GameObject Fireball;
     // Update is called once per frame
     private void Update()
     {
-        if (!GameRuler.Playing) return;
+	    żyćko.text = "żyćko = " + HP;
+		if (HP > 0) {
+
+			
+			
+		} else {
+			Funeral();
+		}
+		if (!GameRuler.Playing) return;
         FocusAtMouse();
         if (Stery.Strzel())
         {
-	        Instantiate(Fireball, transform.position, transform.rotation);
+	        //Instantiate(Fireball, transform.position, transform.rotation);
         }
     }
 

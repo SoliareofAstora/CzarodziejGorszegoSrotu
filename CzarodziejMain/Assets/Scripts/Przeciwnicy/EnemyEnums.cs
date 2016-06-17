@@ -1,12 +1,19 @@
 ﻿namespace EnemyEnums
 {
+    public enum AkcjaPrzeciwnika
+    {
+        Idzie, 
+        WchodziDoZamku,
+        JestWZamku,
+        AtakujeCzarodzieja
+    }
     public enum DziałająceEfekty
     {
         Zero,
         Podpalenie,
         Zamrożenie,
     }
-    //Spowolnienie konkretne znajduje się w Base.
+    //Spowolnienie konkretne znajduje się w EnemyBase.
     public enum SpowolnieniaRuchu
     {
         Normalnie,

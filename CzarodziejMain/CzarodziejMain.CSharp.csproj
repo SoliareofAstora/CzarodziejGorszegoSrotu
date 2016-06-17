@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.4f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -70,11 +72,12 @@
     <Compile Include="Assets\Scripts\ArkanaMagii\KsięgaCzarów.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\RodzajeZaklęć.cs" />
     <Compile Include="Assets\Scripts\ArkanaMagii\Zaklęcie.cs" />
+    <Compile Include="Assets\Scripts\Bańka.cs" />
     <Compile Include="Assets\Scripts\GamePlay\GameRuler.cs" />
     <Compile Include="Assets\Scripts\GamePlay\SpawnRuler.cs" />
     <Compile Include="Assets\Scripts\MainCastle.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
-    <Compile Include="Assets\Scripts\Przeciwnicy\Base.cs" />
+    <Compile Include="Assets\Scripts\Przeciwnicy\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\EnemyEnums.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\BardzoBrzydkiTroll.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\Dyniogłowy.cs" />

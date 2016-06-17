@@ -1,12 +1,12 @@
 ﻿using BaseUnits;
 using EnemyEnums;
 
-public class Rycerzyk : Base
+public class Rycerzyk : EnemyBase
 {
     public Rycerzyk()
     {
         BaseSpeed = 120;
-        CzasUmierania = 2;
+        DługośćAnimacjiUmierania = 2;
         MaxHP = 200;
         SR = SposóbRysowania.JedenKierunek;
     }

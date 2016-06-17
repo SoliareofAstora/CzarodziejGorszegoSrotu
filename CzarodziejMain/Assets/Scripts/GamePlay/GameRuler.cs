@@ -9,23 +9,29 @@ namespace gamestate
 		Gameplay,
 		Shop,
 		Pauza,
-		MainMenue
+		MainMenue,
+		GameOver,
 	}
 }
 
 namespace GameMaster
 {
+    /// <summary>
+    /// Klasa odpowiadająca za zmienianie UI w czasie rozgrywki.
+    /// </summary>
 	public class GameRuler : MonoBehaviour
 	{
-		private GameObject[] _stateUi;
-		private GameState _tempState;
+		public static GameRuler instance;
+		public GameObject[] _stateUi;
+		public GameState _tempState;
 		public static bool Playing { get; private set; }
 
 		private void Awake()
 		{
+			instance = this;
 			// ReSharper disable once ObjectCreationAsStatement
 			new Stery();
-			_stateUi = new GameObject[sizeof (GameState)];
+			_stateUi = new GameObject[sizeof (GameState)+1];
 			for (var i = 0; i < _stateUi.Length; i++)
 			{
 				if (GameObject.Find(((GameState) i).ToString()) == null)
@@ -82,13 +88,13 @@ namespace GameMaster
 		{
 			if (_tempState == GameState.Gameplay)
 			{
-				StartGameplay();
+				StertPlaying();
 			} else if (_tempState == GameState.Shop)
 			{
 				GoShopping();
 			} else if (_tempState == GameState.Pauza)
 			{
-				Debug.LogError("Coś się spiepszło z odpauzowywaniem");
+				Debug.LogError("Próbujesz zapauzować pauzę?");
 				GoMainMenue();
 			} else if (_tempState == GameState.MainMenue)
 			{
@@ -102,7 +108,11 @@ namespace GameMaster
 			ChangheLayout(GameState.MainMenue);
 		}
 
-		public void StartGameplay()
+		public void GameOver()
+		{
+			ChangheLayout(GameState.GameOver);
+		}
+		public void StertPlaying()
 		{
 			ChangheLayout(GameState.Gameplay);
 			Playing = true;
@@ -112,12 +122,13 @@ namespace GameMaster
 		{
 		}
 
+        //Zamyka interfejs, następnie uruchamia jeden
 		public void ChangheLayout(GameState gamseState)
 		{
 			ResetUIlayout();
 			_stateUi[(int) gamseState].SetActive(true);
 		}
-
+        //Zamyka wszystkie user interfejsy
 		private void ResetUIlayout()
 		{
 			foreach (var t in _stateUi)

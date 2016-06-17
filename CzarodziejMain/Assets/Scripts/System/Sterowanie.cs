@@ -5,12 +5,13 @@ namespace Sterowanie
 {
 	public enum Akcja
 	{
-		Zakl1,
-		Zakl2,
-		Zakl3,
-		Zakl4,
-		RzucenieZaklęcia1,
-		RzucenieZaklęcia2,
+		Wybór1,
+		Wybór2,
+		Wybór3,
+		Wybór4,
+		Rzut1,
+		Rzut2,
+		Rzut3,
 		Pauza,
 		Menue,
 		Exit
@@ -18,6 +19,7 @@ namespace Sterowanie
 
 	public class Stery
 	{
+        //TODO Zmiana sterowania za pomocą boola
 		private static Dictionary<Akcja, KeyCode> stery;
 
 		public Stery()
@@ -32,12 +34,13 @@ namespace Sterowanie
 		public void UstawDomyślneStery()
 		{
 			stery.Clear();
-			stery.Add(Akcja.Zakl1, KeyCode.Q);
-			stery.Add(Akcja.Zakl2, KeyCode.W);
-			stery.Add(Akcja.Zakl3, KeyCode.E);
-			stery.Add(Akcja.Zakl4, KeyCode.R);
-			stery.Add(Akcja.RzucenieZaklęcia1, KeyCode.Mouse0);
-			stery.Add(Akcja.RzucenieZaklęcia2, KeyCode.Mouse1);
+			stery.Add(Akcja.Wybór1, KeyCode.Q);
+			stery.Add(Akcja.Wybór2, KeyCode.W);
+			stery.Add(Akcja.Wybór3, KeyCode.E);
+			stery.Add(Akcja.Wybór4, KeyCode.R);
+			stery.Add(Akcja.Rzut1, KeyCode.Mouse0);
+			stery.Add(Akcja.Rzut2, KeyCode.Mouse1);
+			stery.Add(Akcja.Rzut3, KeyCode.Space);
 			stery.Add(Akcja.Pauza, KeyCode.P);
 			stery.Add(Akcja.Menue, KeyCode.M);
 			stery.Add(Akcja.Exit, KeyCode.Escape);
@@ -45,7 +48,7 @@ namespace Sterowanie
 
 		public static bool Strzel()
 		{
-			return Input.GetKeyDown(stery[Akcja.RzucenieZaklęcia1]);
+			return Input.GetKeyDown(stery[Akcja.Rzut1]);
 		}
 
 		public static bool WyjdźZGry()
