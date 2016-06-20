@@ -9,7 +9,7 @@ public class SpawnRuler : MonoBehaviour
     }
 
     private Random rand;
-    private Vector2 RozmiarMapy = new Vector2(10, 9); //PoleSpawnu
+    public Vector2 RozmiarMapy = new Vector2(10, 10); //PoleSpawnu
     private Vector2 SpawnPoint; //TODO usunięcia
 
     //tabliac wszystkich przeciwników którzy mogą wyjść.
@@ -21,9 +21,15 @@ public class SpawnRuler : MonoBehaviour
         if (Input.GetKey(KeyCode.Space)) {
             //Wybór losowego przeciwnika
             var wybór = rand.Next(TablicaPrzeciwników.Length);
+            ChooseSpawnPoint();
 
+            //TODO Skasować i poprawić funkcję losującą położenie
+            if (SpawnPoint.y<10)
+            {
+               return;
+            }
             //Sespawnowanie przeciwnika
-            Instantiate(TablicaPrzeciwników[wybór], ChooseSpawnPoint(), Quaternion.Euler(Vector3.zero));
+            Instantiate(TablicaPrzeciwników[wybór], SpawnPoint, Quaternion.Euler(Vector3.zero));
         }
     }
     /// <summary>Funkcja wybierająca wektor3 na około widocznej mapki</summary>

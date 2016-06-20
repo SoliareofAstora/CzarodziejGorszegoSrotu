@@ -17,6 +17,7 @@ namespace zaklecie
 
 		public Zaklęcie()
 		{
+
 		}
 
 		private void Awake()
@@ -38,7 +39,7 @@ namespace zaklecie
 			return Obrażenia;
 		}
 
-		/*
+        /*
     public float rozmiar;
         public float szybkość;
         public RodzajeZaklęć rz;
@@ -47,8 +48,17 @@ namespace zaklecie
              pojawianie się obiektów na mapie
 
              */
-		// Use this for initialization
-		private void Start()
+
+        //TODO Symulacja trzeciego wymiaru - zmiana skalowania
+        private void UpdateScale() {
+            var x = transform.position.x;
+            var y = -transform.position.y;
+            var Delta2 = 1 / Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.y, 2) + 1);
+            transform.localScale = new Vector3(Delta2, Delta2, Delta2);
+            rb.velocity *= Delta2;
+        }
+        // Use this for initialization
+        private void Start()
 		{
 			rb.velocity = transform.right*Szybkość;
 		}
@@ -56,6 +66,7 @@ namespace zaklecie
 		// Update is called once per frame
 		private void Update()
 		{
+            UpdateScale();
 			if (!destroyed) return;
 			if (czaskońca.IsAfterCountDown())
 			{
@@ -63,13 +74,18 @@ namespace zaklecie
 			}
 		}
 
+	    public void DestroySpell()
+	    {
+            destroyed = true;
+            czaskońca.StartCounting();
+            rb.velocity = Vector2.zero;
+            anim.SetBool("BlowUp", true);
+        }
 		private void OnTriggerEnter2D(Collider2D other)
 		{
 			if (other.tag != "Enemy") return;
-			destroyed = true;
-			czaskońca.StartCounting();
-			rb.velocity = Vector2.zero;
-			anim.SetBool("BlowUp", true);
+            DestroySpell();
+
 		}
 
 	}

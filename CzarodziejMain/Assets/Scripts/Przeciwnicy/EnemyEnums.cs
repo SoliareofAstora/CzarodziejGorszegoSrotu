@@ -1,11 +1,12 @@
 ﻿namespace EnemyEnums
 {
-    public enum AkcjaPrzeciwnika
+    public enum EnemyState
     {
         Idzie, 
         WchodziDoZamku,
         JestWZamku,
-        AtakujeCzarodzieja
+        AtakujeCzarodzieja,
+        Umarty
     }
     public enum DziałająceEfekty
     {

@@ -5,44 +5,52 @@ using rodzajezaklęć;
 using UnityEngine;
 using zaklecie;
 using Random = System.Random;
-using GameMaster;
+
 namespace BaseUnits
 {
     public class EnemyBase : MonoBehaviour
     {
         //Renderowanie
+        public SposóbRysowania SR;
         private Animator anim;
         private SpriteRenderer Sprite;
-        public SposóbRysowania SR;
+
+
+        //Atrybuty jednostki       
+        public EnemyState state;
         public float DługośćAnimacjiUmierania;
-
-        //Poruszanie się
-        private Rigidbody2D rb;
-        public short BaseSpeed { set; get; }//TODO średnio podoba mi się to rozwiązanie
-        public bool BędzieWZamku;
-        public bool JestwZamku;
-        public bool atacking;
-        public Vector2 VektorPoczątkowy;
-        public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
-
-        //Atrybuty jednostki
         private int HP;
-        public int MaxHP;
-        public int Opancerzenie; //Odporność na ataki fizyczne
         public float atackspeed = 1;
-        private int ZadawaneObrażenia=1;//TODO wyzerować
+        public int MaxHP;
+        private int ZadawaneObrażenia = 25;      
+        public short BaseSpeed;
         public Odporności Odporność = Odporności.Zero;
+        public int Opancerzenie; //Odporność na ataki fizyczne
         public Podatności Podatność = Podatności.Zero;
+
 
         //System
         private Clock KlepsydraŚmierci;
         private Clock CzasNastępnegoAtaku;
         public Random rand;
 
- 
+        //Poruszanie się
+        private Rigidbody2D rb;
+       public Vector2 VektorPoczątkowy;
+
+        
+        
+        public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
+        
+
+        
+
+
+
 
         private void Awake()
         {
+            state = new EnemyState();
             Sprite = GetComponent<SpriteRenderer>();
             rb = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
@@ -60,39 +68,31 @@ namespace BaseUnits
             UstawAnimację();
         }
 
-        //Tu przebiega cała logika trolli
-        private void LateUpdate()
+        //Służy do aktualizowania fizyki
+        private void FixedUpdate()
         {
-            if (HP > 0)
+            if (state == EnemyState.AtakujeCzarodzieja || state == EnemyState.Umarty) return;
+            UpdateMovementSpeed();
+            if (state == EnemyState.Idzie) UpdateScale();
+        }
+
+        //Tu przebiega cała logika trolli
+        private void Update()
+        {
+            switch (state)
             {
-                if (atacking)
-                {
-                    CzasNastępnegoAtaku.StartCounting(atackspeed); //To przenieść w inne miejsca
-                    if (CzasNastępnegoAtaku.IsAfterCountDown())
+                case EnemyState.Idzie:
+                    if (transform.position.y < 1)
                     {
-                        Player.instance.HitPlayer(ZadawaneObrażenia);
-                        Debug.Log(gameObject.name + " HitPlayer with :" + ZadawaneObrażenia);
+                        state = EnemyState.WchodziDoZamku;
                     }
-                    return;
-                }
+                    break;
 
-
-
-                UpdateMovementSpeed();
-                if (!BędzieWZamku)
-                {
-                    updateScale();
-                }
-                if (transform.position.y < 1 && !JestwZamku)
-                {
+                case EnemyState.WchodziDoZamku:
                     gameObject.tag = "Untagged";
-
-                    BędzieWZamku = true;
                     if (transform.position.y < -2)
                     {
                         gameObject.tag = "Enemy";
-                        BędzieWZamku = false;
-                        JestwZamku = true;
                         if (rand.Next(100) > 50)
                         {
                             transform.position = new Vector3(-10, -1, 0);
@@ -100,37 +100,60 @@ namespace BaseUnits
                         {
                             transform.position = new Vector3(10, -1, 0);
                         }
+
                         //TODO przesunięcia
                         LewoNaPrawo();
                         SetVelocity();
                         Sprite.sortingOrder = 31; //TODO Ogarnąć layery
+                        state = EnemyState.JestWZamku;
+                    }
+                    break;
+
+                case EnemyState.JestWZamku:
+                    //TODO Usunąć stąd szerokość czarodzieja
+                    if (transform.position.x < 2 && transform.position.x > -2)
+                    {
+                        rb.velocity = Vector2.zero;
+                        anim.SetBool("Atak", true);
+                        state = EnemyState.AtakujeCzarodzieja;
                     }
 
-                }
 
-            } else
-            //HP poniżej zera po raz pierwszy
-            {
+                    break;
 
-                Funeral();
+                case EnemyState.AtakujeCzarodzieja:
+                    CzasNastępnegoAtaku.StartCounting(atackspeed); //To przenieść w inne miejsca
+                    if (CzasNastępnegoAtaku.IsAfterCountDown())
+                    {
+                        Player.instance.HitPlayer(ZadawaneObrażenia);
+                        Debug.Log(gameObject.name + " HitPlayer with :" + ZadawaneObrażenia);
+                    }
+                    break;
+
+                case EnemyState.Umarty:
+                    Funeral();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
+        private void LateUpdate()
+        {
+            if (HP < 0) {
+                KillIt();
+            }
+        }
         //Zdrezenia z innymi obiektami
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.tag == "Enemy") return;
-            if (other.tag == "Zaklęcie" && !BędzieWZamku)
+            if (other.tag == "Zaklęcie" && state!=EnemyState.WchodziDoZamku)
             {
                 Oberwałem(other.GetComponentInParent<Zaklęcie>());
             }
-            if (other.tag == "Player" && JestwZamku)
-            {
-                atacking = true;
-                rb.velocity = Vector2.zero;
-                anim.SetBool("Atak", true);
-            }
         }
+
         //Ustawia początkową prędkość. Wywoływane po rozpoczęciu
         private void SetVelocity()
         {
@@ -144,20 +167,14 @@ namespace BaseUnits
             Destroy(GetComponent<BoxCollider2D>());
             Destroy(rb);
             tag = "DeadEnemy";
-            rb.velocity = Vector2.zero;
             anim.SetBool("Alive", false);
             KlepsydraŚmierci.StartCounting(DługośćAnimacjiUmierania);
+            state = EnemyState.Umarty;
         }
+
         //Funkcja wywoływana poczas oczekiwania na pogrzeb 
         private void Funeral()
         {
-            ////
-            Destroy(GetComponent<BoxCollider2D>());
-            tag = "DeadEnemy";
-            rb.velocity = Vector2.zero;
-            anim.SetBool("Alive", false);
-            KlepsydraŚmierci.StartCounting(DługośćAnimacjiUmierania);
-            ////
             if (KlepsydraŚmierci.IsAfterCountDown())
             {
                 Destroy(gameObject);
@@ -176,27 +193,30 @@ namespace BaseUnits
             }
         }
 
+
+        //Todo zmienić nazwę
         public void LewoNaPrawo()
         {
-            if (transform.position.x > 0)
-            {
-                transform.localScale = new Vector3(transform.localScale.x*-1, transform.localScale.y, transform.localScale.z);
-            }
+            transform.localScale = transform.position.x > 0
+                ? new Vector3(-1, 1, 1)
+                : new Vector3(1, 1, 1);
         }
 
-
-        private void updateScale()
+        //TODO Symulacja trzeciego wymiaru - zmiana skalowania
+        private void UpdateScale()
         {
-            var Delta = (-transform.position.y + 10)/10;
-            transform.localScale = new Vector3(Delta, Delta, Delta);
-            //TODO usunięcia bądź zoptymalizowania
-            LewoNaPrawo();
-            rb.velocity *= Delta;
+            var x = transform.position.x;
+            var y = -transform.position.y;
+            var Delta2 = 1/Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.y, 2) + 1);
+            transform.localScale = transform.position.x > 0
+                ? new Vector3(-Delta2, Delta2, Delta2)
+                : new Vector3(Delta2, Delta2, Delta2);
+            rb.velocity *= Delta2;
         }
+
 
         private void UpdateMovementSpeed()
         {
-
             float aktualnaPręskość = 1;
             switch (DeltaSpeed)
             {
@@ -216,13 +236,13 @@ namespace BaseUnits
                     throw new ArgumentOutOfRangeException();
             }
 
-            rb.velocity = VektorPoczątkowy*aktualnaPręskość*Time.deltaTime*10;
+            rb.velocity = VektorPoczątkowy*aktualnaPręskość;
         }
 
         //Zadawanie obrażeń przeciwnikowi w zależności od jego statystyk
         private void Oberwałem(Zaklęcie zaklęcie)
         {
-            var Obrażenia= zaklęcie.GetDmg(); 
+            var Obrażenia = zaklęcie.GetDmg();
             switch (zaklęcie.GetTypeZaklęć())
             {
                 case RodzajeZaklęć.KulaOgnia:

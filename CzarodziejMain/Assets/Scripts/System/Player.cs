@@ -42,10 +42,9 @@ public class Player : MonoBehaviour
 	{
 	    alive = false;
 		GameRuler.instance.GameOver();
-
 	}
 
-	//public GameObject Fireball;
+	public GameObject Fireball;
     // Update is called once per frame
     private void Update()
     {
@@ -65,7 +64,7 @@ public class Player : MonoBehaviour
         FocusAtMouse();
         if (Stery.Strzel())
         {
-	        //Instantiate(Fireball, transform.position, transform.rotation);
+	        Instantiate(Fireball, transform.position, transform.rotation);
         }
     }
 

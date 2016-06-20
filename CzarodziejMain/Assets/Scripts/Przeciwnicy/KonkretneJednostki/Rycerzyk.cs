@@ -5,7 +5,7 @@ public class Rycerzyk : EnemyBase
 {
     public Rycerzyk()
     {
-        BaseSpeed = 120;
+        BaseSpeed = 60;
         DługośćAnimacjiUmierania = 2;
         MaxHP = 200;
         SR = SposóbRysowania.JedenKierunek;
