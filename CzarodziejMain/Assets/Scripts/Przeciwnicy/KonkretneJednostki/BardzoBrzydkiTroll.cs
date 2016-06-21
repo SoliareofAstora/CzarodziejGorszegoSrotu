@@ -1,5 +1,4 @@
 ﻿using BaseUnits;
-using EnemyEnums;
 
 public class BardzoBrzydkiTroll : EnemyBase
 {

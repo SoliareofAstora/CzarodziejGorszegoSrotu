@@ -31,11 +31,9 @@ public class Player : MonoBehaviour
 	{
 		if (bańka.Hitit(dmg))
 		{
-			Debug.Log("Bańka hp:" + bańka.HP);
 			return;
 		}
 		HP -= dmg;
-		Debug.Log("Czarodziej hp:"+HP);
 	}
 
 	private void Funeral()

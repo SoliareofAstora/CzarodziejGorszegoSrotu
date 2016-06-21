@@ -1,5 +1,4 @@
 ﻿using System;
-using EnemyEnums;
 using MyClock;
 using rodzajezaklęć;
 using UnityEngine;
@@ -8,8 +7,45 @@ using Random = System.Random;
 
 namespace BaseUnits
 {
+
+    #region Enums
+
+    public enum EnemyState
+    {
+        Idzie,
+        WchodziDoZamku,
+        JestWZamku,
+        AtakujeCzarodzieja,
+        Umarty
+    }
+
+    public enum DziałająceEfekty
+    {
+        Zero,
+        Podpalenie,
+        Zamrożenie,
+    }
+
+    //Spowolnienie konkretne znajduje się w EnemyBase.
+    public enum SpowolnieniaRuchu
+    {
+        Normalnie,
+        Spowolniony,
+        BardzoSpowolniony,
+        Zatrzymany
+    }
+
+    public enum SposóbRysowania
+    {
+        JedenKierunek
+    }
+
+    #endregion
+
     public class EnemyBase : MonoBehaviour
     {
+        #region Zmienne
+
         //Renderowanie
         public SposóbRysowania SR;
         private Animator anim;
@@ -17,17 +53,15 @@ namespace BaseUnits
 
 
         //Atrybuty jednostki       
-        public EnemyState state;
+        private EnemyState state;
         public float DługośćAnimacjiUmierania;
         private int HP;
-        public float atackspeed = 1;
         public int MaxHP;
-        private int ZadawaneObrażenia = 25;      
+        public float atackspeed = 1;
+        public int ZadawaneObrażenia = 25;
         public short BaseSpeed;
-        public Odporności Odporność = Odporności.Zero;
         public int Opancerzenie; //Odporność na ataki fizyczne
-        public Podatności Podatność = Podatności.Zero;
-
+        public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
 
         //System
         private Clock KlepsydraŚmierci;
@@ -36,17 +70,14 @@ namespace BaseUnits
 
         //Poruszanie się
         private Rigidbody2D rb;
-       public Vector2 VektorPoczątkowy;
+        public Vector2 VektorPoczątkowy;
 
-        
-        
-        public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
-        
 
         
 
+        #endregion
 
-
+        #region UnityGameplay
 
         private void Awake()
         {
@@ -71,7 +102,12 @@ namespace BaseUnits
         //Służy do aktualizowania fizyki
         private void FixedUpdate()
         {
-            if (state == EnemyState.AtakujeCzarodzieja || state == EnemyState.Umarty) return;
+            switch (state)
+            {
+                case EnemyState.AtakujeCzarodzieja:
+                case EnemyState.Umarty:
+                    return;
+            }
             UpdateMovementSpeed();
             if (state == EnemyState.Idzie) UpdateScale();
         }
@@ -93,7 +129,7 @@ namespace BaseUnits
                     if (transform.position.y < -2)
                     {
                         gameObject.tag = "Enemy";
-                        if (rand.Next(100) > 50)
+                        if (transform.position.x>0)
                         {
                             transform.position = new Vector3(-10, -1, 0);
                         } else
@@ -116,6 +152,9 @@ namespace BaseUnits
                         rb.velocity = Vector2.zero;
                         anim.SetBool("Atak", true);
                         state = EnemyState.AtakujeCzarodzieja;
+
+                        //TEST
+                        Destroy(rb);
                     }
 
 
@@ -126,7 +165,6 @@ namespace BaseUnits
                     if (CzasNastępnegoAtaku.IsAfterCountDown())
                     {
                         Player.instance.HitPlayer(ZadawaneObrażenia);
-                        Debug.Log(gameObject.name + " HitPlayer with :" + ZadawaneObrażenia);
                     }
                     break;
 
@@ -140,19 +178,25 @@ namespace BaseUnits
 
         private void LateUpdate()
         {
-            if (HP < 0) {
+            if (HP < 0)
+            {
                 KillIt();
             }
         }
+
         //Zdrezenia z innymi obiektami
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.tag == "Enemy") return;
-            if (other.tag == "Zaklęcie" && state!=EnemyState.WchodziDoZamku)
+            if (other.tag == "Zaklęcie" && state != EnemyState.WchodziDoZamku)
             {
                 Oberwałem(other.GetComponentInParent<Zaklęcie>());
             }
         }
+
+        #endregion
+
+        #region Funkcje i proceduty
 
         //Ustawia początkową prędkość. Wywoływane po rozpoczęciu
         private void SetVelocity()
@@ -205,8 +249,6 @@ namespace BaseUnits
         //TODO Symulacja trzeciego wymiaru - zmiana skalowania
         private void UpdateScale()
         {
-            var x = transform.position.x;
-            var y = -transform.position.y;
             var Delta2 = 1/Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.y, 2) + 1);
             transform.localScale = transform.position.x > 0
                 ? new Vector3(-Delta2, Delta2, Delta2)
@@ -214,7 +256,7 @@ namespace BaseUnits
             rb.velocity *= Delta2;
         }
 
-
+        //TODO Dostosować rzeczywiste wartości do spowolnienia. Czy na pewno wszystkie jednostki jednakowo zwalniają?
         private void UpdateMovementSpeed()
         {
             float aktualnaPręskość = 1;
@@ -235,7 +277,6 @@ namespace BaseUnits
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
             rb.velocity = VektorPoczątkowy*aktualnaPręskość;
         }
 
@@ -252,34 +293,10 @@ namespace BaseUnits
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            switch (Podatność)
-            {
-                case Podatności.Zero:
-                    break;
-                case Podatności.PodarnośćNaOgień:
-                    break;
-                case Podatności.PodatnośćNaLód:
-                    break;
-                case Podatności.PodatnośćNaPrąd:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            switch (Odporność)
-            {
-                case Odporności.Zero:
-                    break;
-                case Odporności.OdpornośćNaOgień:
-                    break;
-                case Odporności.OdpornośćNaLód:
-                    break;
-                case Odporności.OdpornośćNaPrąd:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
             HP -= Obrażenia;
         }
+
+        #endregion
     }
 }
 

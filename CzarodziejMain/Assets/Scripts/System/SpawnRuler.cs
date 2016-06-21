@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using Random = System.Random;
 
 public class SpawnRuler : MonoBehaviour
@@ -8,6 +9,8 @@ public class SpawnRuler : MonoBehaviour
         instance = this;
     }
 
+    public Text tekst;
+    private int i;
     private Random rand;
     public Vector2 RozmiarMapy = new Vector2(10, 10); //PoleSpawnu
     private Vector2 SpawnPoint; //TODO usunięcia
@@ -29,6 +32,8 @@ public class SpawnRuler : MonoBehaviour
                return;
             }
             //Sespawnowanie przeciwnika
+            i++;
+            tekst.text = i.ToString();
             Instantiate(TablicaPrzeciwników[wybór], SpawnPoint, Quaternion.Euler(Vector3.zero));
         }
     }

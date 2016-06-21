@@ -1,21 +1,17 @@
-﻿using gamestate;
+﻿
 using Sterowanie;
 using UnityEngine;
 
-namespace gamestate
-{
-	public enum GameState
-	{
-		Gameplay,
-		Shop,
-		Pauza,
-		MainMenue,
-		GameOver,
-	}
-}
 
 namespace GameMaster
 {
+    public enum GameState {
+        Gameplay,
+        Shop,
+        Pauza,
+        MainMenue,
+        GameOver,
+    }
     /// <summary>
     /// Klasa odpowiadająca za zmienianie UI w czasie rozgrywki.
     /// </summary>
