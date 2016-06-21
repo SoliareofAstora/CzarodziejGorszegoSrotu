@@ -55,7 +55,7 @@ namespace zaklecie
             var y = -transform.position.y;
             var Delta2 = 1 / Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.y, 2) + 1);
             transform.localScale = new Vector3(Delta2, Delta2, Delta2);
-            rb.velocity *= Delta2;
+            //rb.velocity *= Delta2;
         }
         // Use this for initialization
         private void Start()
