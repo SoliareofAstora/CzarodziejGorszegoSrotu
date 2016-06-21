@@ -48,12 +48,12 @@ namespace BaseUnits
 
         //Renderowanie
         public SposóbRysowania SR;
-        private Animator anim;
-        private SpriteRenderer Sprite;
+        public Animator anim;
+        public SpriteRenderer Sprite;
 
 
         //Atrybuty jednostki       
-        private EnemyState state;
+        public EnemyState state;
         public float DługośćAnimacjiUmierania;
         private int HP;
         public int MaxHP;
@@ -64,12 +64,12 @@ namespace BaseUnits
         public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
 
         //System
-        private Clock KlepsydraŚmierci;
-        private Clock CzasNastępnegoAtaku;
+        public Clock KlepsydraŚmierci;
+        public Clock CzasNastępnegoAtaku;
         public Random rand;
 
         //Poruszanie się
-        private Rigidbody2D rb;
+        public Rigidbody2D rb;
         public Vector2 VektorPoczątkowy;
 
 
@@ -102,79 +102,17 @@ namespace BaseUnits
         //Służy do aktualizowania fizyki
         private void FixedUpdate()
         {
-            switch (state)
+            if (state == EnemyState.AtakujeCzarodzieja || state == EnemyState.Umarty)
             {
-                case EnemyState.AtakujeCzarodzieja:
-                case EnemyState.Umarty:
-                    return;
+                return;
             }
             UpdateMovementSpeed();
-            if (state == EnemyState.Idzie) UpdateScale();
-        }
-
-        //Tu przebiega cała logika trolli
-        private void Update()
-        {
-            switch (state)
+            if (state!=EnemyState.JestWZamku)
             {
-                case EnemyState.Idzie:
-                    if (transform.position.y < 1)
-                    {
-                        state = EnemyState.WchodziDoZamku;
-                    }
-                    break;
-
-                case EnemyState.WchodziDoZamku:
-                    gameObject.tag = "Untagged";
-                    if (transform.position.y < -2)
-                    {
-                        gameObject.tag = "Enemy";
-                        if (transform.position.x>0)
-                        {
-                            transform.position = new Vector3(-10, -1, 0);
-                        } else
-                        {
-                            transform.position = new Vector3(10, -1, 0);
-                        }
-
-                        //TODO przesunięcia
-                        LewoNaPrawo();
-                        SetVelocity();
-                        Sprite.sortingOrder = 31; //TODO Ogarnąć layery
-                        state = EnemyState.JestWZamku;
-                    }
-                    break;
-
-                case EnemyState.JestWZamku:
-                    //TODO Usunąć stąd szerokość czarodzieja
-                    if (transform.position.x < 2 && transform.position.x > -2)
-                    {
-                        rb.velocity = Vector2.zero;
-                        anim.SetBool("Atak", true);
-                        state = EnemyState.AtakujeCzarodzieja;
-
-                        //TEST
-                        Destroy(rb);
-                    }
-
-
-                    break;
-
-                case EnemyState.AtakujeCzarodzieja:
-                    CzasNastępnegoAtaku.StartCounting(atackspeed); //To przenieść w inne miejsca
-                    if (CzasNastępnegoAtaku.IsAfterCountDown())
-                    {
-                        Player.instance.HitPlayer(ZadawaneObrażenia);
-                    }
-                    break;
-
-                case EnemyState.Umarty:
-                    Funeral();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                UpdateScale();
             }
         }
+
 
         private void LateUpdate()
         {
@@ -199,14 +137,14 @@ namespace BaseUnits
         #region Funkcje i proceduty
 
         //Ustawia początkową prędkość. Wywoływane po rozpoczęciu
-        private void SetVelocity()
+        public void SetVelocity()
         {
             VektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y - 1)*BaseSpeed/100;
             rb.velocity = VektorPoczątkowy;
         }
 
         //Funkcja wywoływana podczas umierania
-        private void KillIt()
+        public void KillIt()
         {
             Destroy(GetComponent<BoxCollider2D>());
             Destroy(rb);
@@ -217,7 +155,7 @@ namespace BaseUnits
         }
 
         //Funkcja wywoływana poczas oczekiwania na pogrzeb 
-        private void Funeral()
+        public void Funeral()
         {
             if (KlepsydraŚmierci.IsAfterCountDown())
             {
@@ -247,7 +185,7 @@ namespace BaseUnits
         }
 
         //TODO Symulacja trzeciego wymiaru - zmiana skalowania
-        private void UpdateScale()
+        public void UpdateScale()
         {
             var Delta2 = 1/Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.y, 2) + 1);
             transform.localScale = transform.position.x > 0
@@ -257,7 +195,7 @@ namespace BaseUnits
         }
 
         //TODO Dostosować rzeczywiste wartości do spowolnienia. Czy na pewno wszystkie jednostki jednakowo zwalniają?
-        private void UpdateMovementSpeed()
+        public void UpdateMovementSpeed()
         {
             float aktualnaPręskość = 1;
             switch (DeltaSpeed)
@@ -281,7 +219,7 @@ namespace BaseUnits
         }
 
         //Zadawanie obrażeń przeciwnikowi w zależności od jego statystyk
-        private void Oberwałem(Zaklęcie zaklęcie)
+        public void Oberwałem(Zaklęcie zaklęcie)
         {
             var Obrażenia = zaklęcie.GetDmg();
             switch (zaklęcie.GetTypeZaklęć())

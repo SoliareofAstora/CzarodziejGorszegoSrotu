@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -60,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -87,6 +79,7 @@
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\BardzoBrzydkiTroll.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\Rycerzyk.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\KonkretneJednostki\ŻywiołakOgnia.cs" />
+    <Compile Include="Assets\Scripts\Przeciwnicy\Wręcz.cs" />
     <Compile Include="Assets\Scripts\System\Clock.cs" />
     <Compile Include="Assets\Scripts\System\GameRuler.cs" />
     <Compile Include="Assets\Scripts\System\KillZone.cs" />
@@ -102,9 +95,6 @@
     <Compile Include="Assets\Udźwiękowienie\MusicManager\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\Udźwiękowienie\MusicManager\TestScene\ExampleScript.cs" />
     <Compile Include="Assets\zzzzzzzzzzzzzzzzzz\Dungeon Art Pack\AnimateSprite.cs" />
-    <Compile Include="Assets\zzzzzzzzzzzzzzzzzz\Goblin Archer\Scripts\Arrow.cs" />
-    <Compile Include="Assets\zzzzzzzzzzzzzzzzzz\Goblin Archer\Scripts\MouseController.cs" />
-    <Compile Include="Assets\zzzzzzzzzzzzzzzzzz\Orc Warrior\Scripts\MouseController.cs" />
     <Compile Include="Assets\zzzzzzzzzzzzzzzzzz\Pathfinding\Scenes\Scripts\AI.cs" />
     <Compile Include="Assets\zzzzzzzzzzzzzzzzzz\Pathfinding\Scenes\Scripts\GridPlayer.cs" />
     <Compile Include="Assets\zzzzzzzzzzzzzzzzzz\Pathfinding\Scenes\Scripts\GridPlayer2D.cs" />

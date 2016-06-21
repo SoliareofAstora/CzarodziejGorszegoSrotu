@@ -1,6 +1,6 @@
 ﻿using BaseUnits;
 
-public class Rycerzyk : EnemyBase
+public class Rycerzyk : Wręcz
 {
     public Rycerzyk()
     {

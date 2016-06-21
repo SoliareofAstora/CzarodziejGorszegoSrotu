@@ -4,10 +4,9 @@ using UnityEngine.UI;
 
 public class Bańka : MonoBehaviour
 {
-
-	public int HP =200;
-	public Animator anim;
-	public Text HAPEKI;
+	public int Wytrzumałość =200;
+	private Animator anim;
+	public Text Hapeki;
 	// Use this for initialization
 	void Start ()
 	{
@@ -16,13 +15,13 @@ public class Bańka : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
-		if (HP>0)
+
+		if (Wytrzumałość>0)
 		{
-			HAPEKI.text = "Bańka's HP = " + HP;
+			Hapeki.text = "Bańka's Wytrzumałość = " + Wytrzumałość;
 		} else
 		{
-			HAPEKI.text = "Bańka's HP = 0";
+			Hapeki.text = "Bańka's Wytrzumałość = 0";
 			anim.SetBool("Zepsute", true);
 		}
 		
@@ -30,7 +29,7 @@ public class Bańka : MonoBehaviour
 
 	public bool Hitit(int dmg)
 	{
-		HP -= dmg;
-		return HP > 0;
+		Wytrzumałość -= dmg;
+		return Wytrzumałość > 0;
 	}
 }
