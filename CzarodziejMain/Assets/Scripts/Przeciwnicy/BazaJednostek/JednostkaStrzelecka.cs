@@ -4,17 +4,16 @@ using BaseUnit;
 using UnityEngine;
 using Random = System.Random;
 
+/// <summary>
+/// Jednostka zatrzymująca się przed zamkiem i rozpoczynająca atakowanie czarodzieja
+/// </summary>
 public class JednostkaStrzelecka : EnemyBase
 {
     public float Zasięg;
-    public Random rand;
 
     private void Start()
     {
-        rand = new Random();
-        float i=rand.Next(100);
-        i = i/100;
-        Zasięg -= i;
+        Zasięg -= (float)new Random().Next(100)/100;
 
     }
     //Tu przebiega cała logika trolli
@@ -23,21 +22,14 @@ public class JednostkaStrzelecka : EnemyBase
         switch (state)
         {
             case EnemyState.Idzie:
-                if (Mathf.Sqrt(Mathf.Pow(transform.position.x, 2)/3 + Mathf.Pow(transform.position.y, 2)) < Zasięg)
+                if (Mathf.Pow(transform.position.x, 2)/3 + Mathf.Pow(transform.position.y, 2) < Zasięg)
                 {
-                    rb.velocity = Vector2.zero;
-
-                    anim.SetBool("Atak", true);
-                    state = EnemyState.AtakujeCzarodzieja;
+                    ZacznijAtakowaćCzarodzieja();
                 }
                 break;
 
             case EnemyState.AtakujeCzarodzieja:
-                CzasNastępnegoAtaku.StartCounting(atackspeed); //To przenieść w inne miejsca
-                if (CzasNastępnegoAtaku.IsAfterCountDown())
-                {
-                    Player.instance.HitPlayer(ZadawaneObrażenia);
-                }
+                ZaatakujCzarodzieja();
                 break;
 
             case EnemyState.Umarty:

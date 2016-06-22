@@ -9,7 +9,7 @@ class Łucznik : JednostkaStrzelecka
 {
     public Łucznik()
     {
-        Zasięg = 3;
+        Zasięg = 9;
         BaseSpeed = 60;
         DługośćAnimacjiUmierania = 1;
         MaxHP = 200;

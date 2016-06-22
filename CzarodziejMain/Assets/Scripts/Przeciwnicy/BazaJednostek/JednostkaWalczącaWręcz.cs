@@ -7,61 +7,48 @@ using BaseUnit;
 /// <summary>
 /// Klasa któa wchodzi do zamku i atakuje czarodzieja wręcz
 /// </summary>
-public class JednostkaWalczącaWręcz : EnemyBase {
-
-
-
-    //Tu przebiega cała logika trolli
-    private void Update() {
-        switch (state) {
+public class JednostkaWalczącaWręcz : EnemyBase
+{
+    //Logika
+    private void Update()
+    {
+        switch (state)
+        {
             case EnemyState.Idzie:
-            if (transform.position.y < 1) {
-                state = EnemyState.WchodziDoZamku;
-            }
-            break;
+
+                if (transform.position.y < 1)
+                {
+                    state = EnemyState.WchodziDoZamku;
+                }
+                break;
 
             case EnemyState.WchodziDoZamku:
-            gameObject.tag = "Untagged";
-            if (transform.position.y < -2) {
-                gameObject.tag = "Enemy";
-                if (transform.position.x > 0) {
-                    transform.position = new Vector3(-10, -1, 0);
-                } else {
-                    transform.position = new Vector3(10, -1, 0);
+                gameObject.tag = "Untagged";
+                if (transform.position.y < -2)
+                {
+                    GetIntoCastle();
                 }
-                LewoNaPrawo();
-                SetVelocity();
-                Sprite.sortingOrder = 31;
-                state = EnemyState.JestWZamku;
-            }
-            break;
+                break;
 
             case EnemyState.JestWZamku:
-            //TODO Usunąć stąd szerokość czarodzieja
-            if (transform.position.x < 2 && transform.position.x > -2) {
-                rb.velocity = Vector2.zero;
-                anim.SetBool("Atak", true);
-                state = EnemyState.AtakujeCzarodzieja;
-
-                //TEST
-                Destroy(rb);
-            }
+                //Usunąć stąd szerokość czarodzieja
+                if (transform.position.x < 2 && transform.position.x > -2)
+                {
+                    ZacznijAtakowaćCzarodzieja();
+                }
 
 
-            break;
+                break;
 
             case EnemyState.AtakujeCzarodzieja:
-            CzasNastępnegoAtaku.StartCounting(atackspeed); //To przenieść w inne miejsca
-            if (CzasNastępnegoAtaku.IsAfterCountDown()) {
-                Player.instance.HitPlayer(ZadawaneObrażenia);
-            }
-            break;
+                ZaatakujCzarodzieja();
+                break;
 
             case EnemyState.Umarty:
-            Funeral();
-            break;
+                Funeral();
+                break;
             default:
-            throw new ArgumentOutOfRangeException();
+                throw new ArgumentOutOfRangeException();
         }
     }
 }

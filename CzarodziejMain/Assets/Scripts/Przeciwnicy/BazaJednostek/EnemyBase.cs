@@ -2,12 +2,13 @@
 using MyClock;
 using rodzajezaklęć;
 using UnityEngine;
+using UnityEngine.Assertions.Comparers;
 using zaklecie;
 
 namespace BaseUnit
 {
 
-    #region Enums
+    #region Enums & Structs
 
     public enum EnemyState
     {
@@ -25,7 +26,6 @@ namespace BaseUnit
         Zamrożenie,
     }
 
-    //Spowolnienie konkretne znajduje się w EnemyBase.
     public enum SpowolnieniaRuchu
     {
         Normalnie,
@@ -39,6 +39,28 @@ namespace BaseUnit
         JedenKierunek
     }
 
+    public enum RodzajAtaku {
+         ogień,
+         zimno,
+         prąd,
+         woda,
+         spowolnienie,
+         pancerz
+    }
+    public class Podatność
+    {
+        public int[] Podatności;
+        public Podatność()
+        {
+            Podatności=new int[sizeof(RodzajAtaku)+1];
+        }
+        public float GetOdporność(RodzajAtaku rodzaj)
+        {
+            //TODO W tym miejscu chyba trzeba będzie dodać wartości pogodynkoe :)
+            return (float)Podatności[(int) rodzaj]/100;
+        }
+
+    }
     #endregion
 
     public class EnemyBase : MonoBehaviour
@@ -57,9 +79,8 @@ namespace BaseUnit
         private int HP;
         public int MaxHP;
         public float atackspeed = 1;
-        public int ZadawaneObrażenia = 25;
+        public int ZadawaneObrażenia = 5;
         public short BaseSpeed;
-        public int Opancerzenie; //Odporność na ataki fizyczne
         public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
 
         //System
@@ -72,7 +93,7 @@ namespace BaseUnit
         public Vector2 VektorPoczątkowy;
 
 
-        
+
 
         #endregion
 
@@ -101,7 +122,7 @@ namespace BaseUnit
                 return;
             }
             UpdateMovementSpeed();
-            if (state!=EnemyState.JestWZamku)
+            if (state != EnemyState.JestWZamku)
             {
                 UpdateScale();
             }
@@ -129,27 +150,59 @@ namespace BaseUnit
         #endregion
 
         #region Funkcje i proceduty
+
         //Funkcja wywoływana poczas oczekiwania na pogrzeb 
         //TODO Symulacja trzeciego wymiaru - zmiana skalowania
-        public void UpdateScale() {
-            var t = 2/ Mathf.Sqrt(Mathf.Pow(transform.position.x, 2)/3 + Mathf.Pow(transform.position.y, 2) + 1);
+        public void UpdateScale()
+        {
+            float scale = 1/(Mathf.Sqrt(Mathf.Pow(transform.position.x, 2)/3 + Mathf.Pow(transform.position.y, 2)) + 1.5f) + 0.2f;
             transform.localScale = transform.position.x > 0
-                ? new Vector3(-t, t, t)
-                : new Vector3(t, t, t);
-            rb.velocity *= t;
+                ? new Vector3(-scale, scale, scale)
+                : new Vector3(scale, scale, scale);
+            rb.velocity *= scale;
         }
+
         //Zadawanie obrażeń przeciwnikowi w zależności od jego statystyk
-        public void Oberwałem(Zaklęcie zaklęcie) {
+        public void Oberwałem(Zaklęcie zaklęcie)
+        {
             var Obrażenia = zaklęcie.GetDmg();
-            switch (zaklęcie.GetTypeZaklęć()) {
+            switch (zaklęcie.GetTypeZaklęć())
+            {
                 case RodzajeZaklęć.KulaOgnia:
-                break;
+                    break;
                 case RodzajeZaklęć.LodowaStrzała:
-                break;
+                    break;
                 default:
-                throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException();
             }
             HP -= Obrażenia;
+        }
+        public void ZaatakujCzarodzieja() {
+            CzasNastępnegoAtaku.StartCounting(atackspeed);
+            if (CzasNastępnegoAtaku.IsAfterCountDown()) {
+                Player.instance.HitPlayer(ZadawaneObrażenia);
+            }
+        }
+        public void ZacznijAtakowaćCzarodzieja()
+        {
+            rb.velocity = Vector2.zero;
+            anim.SetBool("Atak", true);
+            state = EnemyState.AtakujeCzarodzieja;
+            //TODO To może być neizbędne do usunięcia podczas zabawy z wiatrem
+            Destroy(rb);
+        }
+
+        public void GetIntoCastle()
+        {
+            state = EnemyState.JestWZamku;
+            gameObject.tag = "Enemy";
+            transform.position = transform.position.x > 0
+                ? new Vector3(-10, -1, 0)
+                : new Vector3(10, -1, 0);
+            LewoNaPrawo();
+            SetVelocity();
+            Sprite.sortingOrder = 31;
+
         }
         //Funkcja wywoływana podczas umierania
         public void KillIt() {
@@ -169,7 +222,10 @@ namespace BaseUnit
         public void SetVelocity()
         {
             VektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y - 1)*BaseSpeed/100;
-            rb.velocity = VektorPoczątkowy;
+            if (state==EnemyState.JestWZamku)
+            {
+                VektorPoczątkowy *= 0.5f;
+            }
         }
 
 
