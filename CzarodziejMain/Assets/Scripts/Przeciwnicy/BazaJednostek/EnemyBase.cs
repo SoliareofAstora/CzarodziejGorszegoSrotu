@@ -4,6 +4,7 @@ using rodzajezaklęć;
 using UnityEngine;
 using UnityEngine.Assertions.Comparers;
 using zaklecie;
+using Random = System.Random;
 
 namespace BaseUnit
 {
@@ -196,7 +197,7 @@ namespace BaseUnit
         {
             state = EnemyState.JestWZamku;
             gameObject.tag = "Enemy";
-            transform.position = transform.position.x > 0
+            transform.position = new Random().Next(100) > 50
                 ? new Vector3(-10, -1, 0)
                 : new Vector3(10, -1, 0);
             LewoNaPrawo();

@@ -77,6 +77,8 @@ namespace zaklecie
 	    public void DestroySpell()
 	    {
             destroyed = true;
+            //TODO TagMenager
+            Destroy(collider);
             czaskońca.StartCounting();
             rb.velocity = Vector2.zero;
             anim.SetBool("BlowUp", true);
