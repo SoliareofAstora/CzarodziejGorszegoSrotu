@@ -86,7 +86,7 @@ namespace BaseUnit
 
         //System
         public Clock KlepsydraŚmierci;
-        public Clock CzasNastępnegoAtaku;
+        public SuperClock CzasNastępnegoAtaku;
 
 
         //Poruszanie się
@@ -109,7 +109,7 @@ namespace BaseUnit
             HP = MaxHP;
             anim.SetBool("Alive", true);
             KlepsydraŚmierci = new Clock();
-            CzasNastępnegoAtaku = new Clock();
+            CzasNastępnegoAtaku = new SuperClock(atackspeed);
             SetVelocity();
             UstawAnimację();
         }
@@ -178,12 +178,7 @@ namespace BaseUnit
             }
             HP -= Obrażenia;
         }
-        public void ZaatakujCzarodzieja() {
-            CzasNastępnegoAtaku.StartCounting(atackspeed);
-            if (CzasNastępnegoAtaku.IsAfterCountDown()) {
-                Player.instance.HitPlayer(ZadawaneObrażenia);
-            }
-        }
+
         public void ZacznijAtakowaćCzarodzieja()
         {
             rb.velocity = Vector2.zero;

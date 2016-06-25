@@ -9,6 +9,13 @@ using BaseUnit;
 /// </summary>
 public class JednostkaWalczącaWręcz : EnemyBase
 {
+
+    public void ZaatakujCzarodzieja() {
+        CzasNastępnegoAtaku.StartCounting();
+        if (CzasNastępnegoAtaku.IsAfterCountDown()) {
+            Player.instance.HitPlayer(ZadawaneObrażenia);
+        }
+    }
     //Logika
     private void Update()
     {

@@ -11,6 +11,7 @@ public class JednostkaStrzelecka : EnemyBase
 {
     public float Zasięg;
 
+
     private void Start()
     {
         Zasięg -= (float)new Random().Next(100)/100;
@@ -29,8 +30,11 @@ public class JednostkaStrzelecka : EnemyBase
                 break;
 
             case EnemyState.AtakujeCzarodzieja:
-                ZaatakujCzarodzieja();
-                break;
+            CzasNastępnegoAtaku.StartCounting();
+            if (CzasNastępnegoAtaku.IsAfterCountDown()) {
+
+            }
+            break;
 
             case EnemyState.Umarty:
                 Funeral();
