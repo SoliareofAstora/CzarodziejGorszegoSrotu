@@ -32,7 +32,7 @@ public class JednostkaStrzelecka : EnemyBase
             case EnemyState.AtakujeCzarodzieja:
             CzasNastępnegoAtaku.StartCounting();
             if (CzasNastępnegoAtaku.IsAfterCountDown()) {
-
+                //TODO Strzel strzałą
             }
             break;
 

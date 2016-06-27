@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -85,9 +87,10 @@
     <Compile Include="Assets\Scripts\System\Clock.cs" />
     <Compile Include="Assets\Scripts\System\GameRuler.cs" />
     <Compile Include="Assets\Scripts\System\KillZone.cs" />
-    <Compile Include="Assets\Scripts\System\Player.cs" />
+    <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\System\SpawnRuler.cs" />
     <Compile Include="Assets\Scripts\System\Sterowanie.cs" />
+    <Compile Include="Assets\Scripts\System\Tags.cs" />
     <Compile Include="Assets\Scripts\UI\GameplayUI.cs" />
     <Compile Include="Assets\Scripts\UI\MainMenueUI.cs" />
     <Compile Include="Assets\Scripts\UI\PauzaUI.cs" />

@@ -1,4 +1,5 @@
 ﻿
+using Assets.Scripts.System;
 using Sterowanie;
 using UnityEngine;
 
@@ -27,6 +28,12 @@ namespace GameMaster
 			instance = this;
 			// ReSharper disable once ObjectCreationAsStatement
 			new Stery();
+		  //  new Tags();
+
+
+
+
+
 			_stateUi = new GameObject[sizeof (GameState)+1];
 			for (var i = 0; i < _stateUi.Length; i++)
 			{

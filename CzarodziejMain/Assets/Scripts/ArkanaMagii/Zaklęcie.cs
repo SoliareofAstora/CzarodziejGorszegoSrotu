@@ -7,7 +7,7 @@ namespace zaklecie
 	public class Zaklęcie : MonoBehaviour
 	{
 		private Rigidbody2D rb;
-		private CircleCollider2D collider;
+		private CircleCollider2D circleCollider2D;
 		private Animator anim;
 		public SuperClock czaskońca;
 		public int Obrażenia;
@@ -22,6 +22,7 @@ namespace zaklecie
 
 		private void Awake()
 		{
+		    circleCollider2D = GetComponent<CircleCollider2D>();
 			anim = GetComponent<Animator>();
 			rb = GetComponent<Rigidbody2D>();
 			czaskońca = new SuperClock(1);
@@ -51,8 +52,7 @@ namespace zaklecie
 
         //TODO Symulacja trzeciego wymiaru - zmiana skalowania
         private void UpdateScale() {
-            var x = transform.position.x;
-            var y = -transform.position.y;
+
             var Delta2 = 1 / Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.y, 2) + 1);
             transform.localScale = new Vector3(Delta2, Delta2, Delta2);
             //rb.velocity *= Delta2;
@@ -66,7 +66,7 @@ namespace zaklecie
 		// Update is called once per frame
 		private void Update()
 		{
-            UpdateScale();
+           // UpdateScale();
 			if (!destroyed) return;
 			if (czaskońca.IsAfterCountDown())
 			{
@@ -77,8 +77,8 @@ namespace zaklecie
 	    public void DestroySpell()
 	    {
             destroyed = true;
-            //TODO TagMenager
-            Destroy(collider);
+            //TODO Tags
+            Destroy(circleCollider2D);
             czaskońca.StartCounting();
             rb.velocity = Vector2.zero;
             anim.SetBool("BlowUp", true);
@@ -89,6 +89,7 @@ namespace zaklecie
             DestroySpell();
 
 		}
+
 
 	}
 }

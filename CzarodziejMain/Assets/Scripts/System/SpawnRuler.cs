@@ -22,6 +22,10 @@ public class SpawnRuler : MonoBehaviour
     private void Update() {
         //Stawianie przeciwników pierszego sortu naokoło mapy
         if (Input.GetKey(KeyCode.Space)) {
+            if (new Random().Next(100)<70)
+            {
+                return;
+            }
             //Wybór losowego przeciwnika
             var wybór = rand.Next(TablicaPrzeciwników.Length);
             ChooseSpawnPoint();

@@ -6,6 +6,33 @@ using UnityEngine.Assertions.Comparers;
 using zaklecie;
 using Random = System.Random;
 
+/*
+ 
+     TODO
+     Zabijanie przeciwników, różne update dla różnych jednostek
+     Każdy rodzaj zaklęcia musi mieć osobny OnTriggerEnter
+     Stworzyć tag menager.
+     
+     
+     
+     
+     
+     */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 namespace BaseUnit
 {
 
@@ -87,7 +114,7 @@ namespace BaseUnit
         //System
         public Clock KlepsydraŚmierci;
         public SuperClock CzasNastępnegoAtaku;
-
+        public WpływCzarów Wpływ;
 
         //Poruszanie się
         public Rigidbody2D rb;
@@ -102,6 +129,7 @@ namespace BaseUnit
 
         private void Awake()
         {
+            Wpływ = GetComponentInChildren<WpływCzarów>();
             state = new EnemyState();
             Sprite = GetComponent<SpriteRenderer>();
             rb = GetComponent<Rigidbody2D>();
@@ -132,6 +160,12 @@ namespace BaseUnit
 
         private void LateUpdate()
         {
+            if (!Wpływ.StillFrozen())
+            {
+                anim.speed = 1;
+                DeltaSpeed= SpowolnieniaRuchu.Normalnie;
+            }
+            
             if (HP < 0)
             {
                 KillIt();
@@ -152,6 +186,28 @@ namespace BaseUnit
 
         #region Funkcje i proceduty
 
+
+        //Zadawanie obrażeń przeciwnikowi w zależności od jego statystyk
+        public void Oberwałem(Zaklęcie zaklęcie)
+        {
+
+            var Obrażenia = zaklęcie.GetDmg();
+            switch (zaklęcie.GetTypeZaklęć())
+            {
+                case RodzajeZaklęć.KulaOgnia:
+                    break;
+                case RodzajeZaklęć.LodowaStrzała:
+                    Wpływ.Zamróź();
+                    Obrażenia = 0;
+                    anim.speed = 0;
+                    DeltaSpeed = SpowolnieniaRuchu.Zatrzymany;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            HP -= Obrażenia;
+        }
+
         //Funkcja wywoływana poczas oczekiwania na pogrzeb 
         //TODO Symulacja trzeciego wymiaru - zmiana skalowania
         public void UpdateScale()
@@ -163,21 +219,6 @@ namespace BaseUnit
             rb.velocity *= scale;
         }
 
-        //Zadawanie obrażeń przeciwnikowi w zależności od jego statystyk
-        public void Oberwałem(Zaklęcie zaklęcie)
-        {
-            var Obrażenia = zaklęcie.GetDmg();
-            switch (zaklęcie.GetTypeZaklęć())
-            {
-                case RodzajeZaklęć.KulaOgnia:
-                    break;
-                case RodzajeZaklęć.LodowaStrzała:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            HP -= Obrażenia;
-        }
 
         public void ZacznijAtakowaćCzarodzieja()
         {
@@ -198,6 +239,7 @@ namespace BaseUnit
             LewoNaPrawo();
             SetVelocity();
             Sprite.sortingOrder = 31;
+            Wpływ.GetComponent<SpriteRenderer>().sortingOrder = 32;
 
         }
         //Funkcja wywoływana podczas umierania

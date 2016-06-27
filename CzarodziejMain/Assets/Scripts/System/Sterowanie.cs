@@ -52,7 +52,7 @@ namespace Sterowanie
         {
             if (stery.ContainsValue(key))
             {
-                Debug.LogWarning("Klarisz jest już w użyciu");
+                Debug.LogWarning("Klawisz jest już w użyciu");
                 return false;
             }
             Debug.Log("Zmiana sterowania");
@@ -61,9 +61,12 @@ namespace Sterowanie
             return true;
         }
 
-        public static bool Strzel()
+        public static bool Strzel1()
         {
             return Input.GetKeyDown(stery[Akcja.Rzut1]);
+        }
+        public static bool Strzel2() {
+            return Input.GetKeyDown(stery[Akcja.Rzut2]);
         }
 
         public static bool WyjdźZGry()

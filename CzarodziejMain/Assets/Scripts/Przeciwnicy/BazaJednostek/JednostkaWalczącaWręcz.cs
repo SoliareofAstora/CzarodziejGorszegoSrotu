@@ -39,7 +39,7 @@ public class JednostkaWalczącaWręcz : EnemyBase
 
             case EnemyState.JestWZamku:
                 //Usunąć stąd szerokość czarodzieja
-                if (transform.position.x < 2 && transform.position.x > -2)
+                if (transform.position.x < Player.instance.szerokość && transform.position.x > -Player.instance.szerokość)
                 {
                     ZacznijAtakowaćCzarodzieja();
                 }

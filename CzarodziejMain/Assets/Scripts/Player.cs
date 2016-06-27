@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public static Player instance;
+    public  float szerokość =2.5f;
 	public Text żyćko;
 	public int HP=300;
 	public Bańka bańka;
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
 	}
 
 	public GameObject Fireball;
+    public GameObject SopelLodu;
     // Update is called once per frame
     private void Update()
     {
@@ -60,9 +62,12 @@ public class Player : MonoBehaviour
 		}
 		if (!GameRuler.Playing) return;
         FocusAtMouse();
-        if (Stery.Strzel())
+        if (Stery.Strzel1())
         {
 	        Instantiate(Fireball, transform.position, transform.rotation);
+        }
+        if (Stery.Strzel2()) {
+            Instantiate(SopelLodu, transform.position, transform.rotation);
         }
     }
 
