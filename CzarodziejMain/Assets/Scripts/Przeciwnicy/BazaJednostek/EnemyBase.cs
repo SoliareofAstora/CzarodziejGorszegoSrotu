@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Remoting;
 using MyClock;
 using rodzajezaklęć;
 using UnityEngine;
@@ -13,7 +14,7 @@ using Random = System.Random;
      Każdy rodzaj zaklęcia musi mieć osobny OnTriggerEnter
      Stworzyć tag menager.
      
-     
+     Poruszanie się jednostki jako wektor JEDNOSTKOWY!!!
      
      
      
@@ -138,7 +139,7 @@ namespace BaseUnit
             anim.SetBool("Alive", true);
             KlepsydraŚmierci = new Clock();
             CzasNastępnegoAtaku = new SuperClock(atackspeed);
-            SetVelocity();
+            UpdateVelocity();
             UstawAnimację();
         }
 
@@ -150,6 +151,7 @@ namespace BaseUnit
             {
                 return;
             }
+            UpdateVelocity();
             UpdateMovementSpeed();
             if (state != EnemyState.JestWZamku)
             {
@@ -217,6 +219,8 @@ namespace BaseUnit
                 ? new Vector3(-scale, scale, scale)
                 : new Vector3(scale, scale, scale);
             rb.velocity *= scale;
+
+       
         }
 
 
@@ -237,7 +241,7 @@ namespace BaseUnit
                 ? new Vector3(-10, -1, 0)
                 : new Vector3(10, -1, 0);
             LewoNaPrawo();
-            SetVelocity();
+            UpdateVelocity();
             Sprite.sortingOrder = 31;
             Wpływ.GetComponent<SpriteRenderer>().sortingOrder = 32;
 
@@ -257,13 +261,15 @@ namespace BaseUnit
             }
         }
         //Ustawia początkową prędkość. Wywoływane po rozpoczęciu
-        public void SetVelocity()
+        public void UpdateVelocity()
         {
-            VektorPoczątkowy = new Vector2(-transform.position.x, -transform.position.y - 1)*BaseSpeed/100;
-            if (state==EnemyState.JestWZamku)
+            //todo nie sprawdzać warunku, tylko to ogarnąć w innej częsci kodu.
+            if (state==EnemyState.WchodziDoZamku)
             {
-                VektorPoczątkowy *= 0.5f;
+                return;
             }
+            var length = (float) Math.Sqrt(Math.Pow(transform.position.x, 2) +Math.Pow(transform.position.y+1,2));
+            VektorPoczątkowy = new Vector2(-transform.position.x/length, (-transform.position.y-1)/length)*BaseSpeed/25;
         }
 
 
@@ -316,6 +322,10 @@ namespace BaseUnit
             rb.velocity = VektorPoczątkowy*aktualnaPręskość;
         }
 
+        public float GetDistance()
+        {
+            return  (float)Math.Sqrt(Math.Pow(transform.position.x, 2) + Math.Pow(transform.position.y + 1, 2));
+        }
 
 
         #endregion

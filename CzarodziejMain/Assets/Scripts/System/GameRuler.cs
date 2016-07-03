@@ -48,7 +48,7 @@ namespace GameMaster
 		private void Start()
 		{
 			Playing = false;
-			GoMainMenue();
+			StartPlaying();
 		}
 
 		private void Update()

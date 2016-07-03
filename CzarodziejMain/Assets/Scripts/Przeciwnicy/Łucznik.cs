@@ -5,12 +5,12 @@ using System.Text;
 using BaseUnit;
 
 
-class Łucznik : JednostkaStrzelecka
+class Łucznik : RangedUnit
 {
     public Łucznik()
     {
-        Zasięg = 9;
-        BaseSpeed = 60;
+        range = 9;
+        BaseSpeed = 90;
         DługośćAnimacjiUmierania = 1;
         MaxHP = 200;
         SR = SposóbRysowania.JedenKierunek;

@@ -79,7 +79,7 @@
     <Compile Include="Assets\Scripts\MainCastle.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\BardzoBrzydkiTroll.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\BazaJednostek\EnemyBase.cs" />
-    <Compile Include="Assets\Scripts\Przeciwnicy\BazaJednostek\JednostkaStrzelecka.cs" />
+    <Compile Include="Assets\Scripts\Przeciwnicy\BazaJednostek\RangedUnit.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\BazaJednostek\JednostkaWalczącaWręcz.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\Rycerzyk.cs" />
     <Compile Include="Assets\Scripts\Przeciwnicy\Łucznik.cs" />

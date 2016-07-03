@@ -11,6 +11,7 @@ public class SpawnRuler : MonoBehaviour
 
     public Text tekst;
     private int i;
+    public int seed_0_to_100;
     private Random rand;
     public Vector2 RozmiarMapy = new Vector2(10, 10); //PoleSpawnu
     private Vector2 SpawnPoint; //TODO usunięcia
@@ -22,7 +23,7 @@ public class SpawnRuler : MonoBehaviour
     private void Update() {
         //Stawianie przeciwników pierszego sortu naokoło mapy
         if (Input.GetKey(KeyCode.Space)) {
-            if (new Random().Next(100)<70)
+            if (!(new Random().Next(100)< seed_0_to_100))
             {
                 return;
             }
