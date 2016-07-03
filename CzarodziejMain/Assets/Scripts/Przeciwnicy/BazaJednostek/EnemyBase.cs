@@ -113,7 +113,6 @@ namespace BaseUnit
         public SpowolnieniaRuchu DeltaSpeed = SpowolnieniaRuchu.Normalnie;
 
         //System
-        public Clock KlepsydraŚmierci;
         public SuperClock CzasNastępnegoAtaku;
         public WpływCzarów Wpływ;
 
@@ -137,7 +136,6 @@ namespace BaseUnit
             anim = GetComponent<Animator>();
             HP = MaxHP;
             anim.SetBool("Alive", true);
-            KlepsydraŚmierci = new Clock();
             CzasNastępnegoAtaku = new SuperClock(atackspeed);
             UpdateVelocity();
             UstawAnimację();
@@ -252,13 +250,8 @@ namespace BaseUnit
             Destroy(rb);
             tag = "DeadEnemy";
             anim.SetBool("Alive", false);
-            KlepsydraŚmierci.StartCounting(DługośćAnimacjiUmierania);
+            Destroy(gameObject,DługośćAnimacjiUmierania);
             state = EnemyState.Umarty;
-        }
-        public void Funeral() {
-            if (KlepsydraŚmierci.IsAfterCountDown()) {
-                Destroy(gameObject);
-            }
         }
         //Ustawia początkową prędkość. Wywoływane po rozpoczęciu
         public void UpdateVelocity()

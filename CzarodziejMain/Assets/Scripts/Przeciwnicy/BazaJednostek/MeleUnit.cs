@@ -7,7 +7,7 @@ using BaseUnit;
 /// <summary>
 /// Klasa któa wchodzi do zamku i atakuje czarodzieja wręcz
 /// </summary>
-public class JednostkaWalczącaWręcz : EnemyBase
+public class MeleUnit : EnemyBase
 {
 
     public void ZaatakujCzarodzieja() {
@@ -52,7 +52,7 @@ public class JednostkaWalczącaWręcz : EnemyBase
                 break;
 
             case EnemyState.Umarty:
-                Funeral();
+                
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

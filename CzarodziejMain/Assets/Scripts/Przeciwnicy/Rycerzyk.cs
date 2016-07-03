@@ -1,6 +1,6 @@
 ﻿using BaseUnit;
 
-public class Rycerzyk : JednostkaWalczącaWręcz
+public class Rycerzyk : MeleUnit
 {
     public Rycerzyk()
     {

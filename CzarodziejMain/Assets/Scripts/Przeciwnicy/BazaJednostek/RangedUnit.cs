@@ -37,8 +37,8 @@ public class RangedUnit : EnemyBase
             break;
 
             case EnemyState.Umarty:
-                Funeral();
-                break;
+                return;
+               
             default:
                 throw new ArgumentOutOfRangeException();
         }

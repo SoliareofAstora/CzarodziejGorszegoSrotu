@@ -36,7 +36,10 @@ namespace MyClock
             _odlicza = true;
         }
 
-
+        public void WaitASecond()
+        {
+            _time += Time.deltaTime;
+        }
         public void CheckIfDone()
         {
             IsAfterCountDown();

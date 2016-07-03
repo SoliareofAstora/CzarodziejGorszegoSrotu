@@ -1,6 +1,6 @@
 ﻿using BaseUnit;
 
-public class BardzoBrzydkiTroll : JednostkaWalczącaWręcz
+public class BardzoBrzydkiTroll : MeleUnit
 {
     public BardzoBrzydkiTroll()
     {

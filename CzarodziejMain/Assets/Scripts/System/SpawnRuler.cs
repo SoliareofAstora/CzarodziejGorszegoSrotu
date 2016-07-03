@@ -23,6 +23,8 @@ public class SpawnRuler : MonoBehaviour
     private void Update() {
         //Stawianie przeciwników pierszego sortu naokoło mapy
         if (Input.GetKey(KeyCode.Space)) {
+
+            //todo inny warunek
             if (!(new Random().Next(100)< seed_0_to_100))
             {
                 return;
