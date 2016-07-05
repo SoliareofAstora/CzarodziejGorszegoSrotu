@@ -1,42 +1,42 @@
 ﻿using UnityEngine;
 
-namespace MyClock
+namespace StopWatches
 {
     //Czasomież połączony ze stałym czasem 
-    public class SuperClock : Clock
+    public class DefinedStopwatch : Stopwatch
     {
-        private readonly float _czasOdliczania;
+        private readonly float _DefinedCooldown;
 
-        public SuperClock(float cooldown)
+        public DefinedStopwatch(float cooldown)
         {
-            _czasOdliczania = cooldown;
+            _DefinedCooldown = cooldown;
         }
 
         public void StartCounting()
         {
-            StartCounting(_czasOdliczania);
+            StartCounting(_DefinedCooldown);
         }
 
         public void JustStartCounting()
         {
-            JustStartCounting(_czasOdliczania);
+            JustStartCounting(_DefinedCooldown);
         }
     }
 
-    public class Clock
+    public class Stopwatch
     {
-        private bool _odlicza;
+        private bool _counting;
         private float _time;
 
 
         public void StartCounting(float deltaT)
         {
-            if (_odlicza) return;
+            if (_counting) return;
             _time = Time.time + deltaT;
-            _odlicza = true;
+            _counting = true;
         }
 
-        public void WaitASecond()
+        public void Wait()
         {
             _time += Time.deltaTime;
         }
@@ -48,7 +48,7 @@ namespace MyClock
         public void JustStartCounting(float deltaT)
         {
             _time = Time.time + deltaT;
-            _odlicza = true;
+            _counting = true;
         }
 
         public bool IsBeforeCountDown()
@@ -59,7 +59,7 @@ namespace MyClock
         public bool IsAfterCountDown()
         {
             if (Time.time < _time) return false;
-            _odlicza = false;
+            _counting = false;
             return true;
         }
     }

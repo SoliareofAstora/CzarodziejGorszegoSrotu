@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     public static Player instance;
-    public  float szerokość =2.5f;
-	public Text żyćko;
+    //Dlaczego tu nie const?
+    public float  Size =2.5f;
+	public Text HitPoints;
 	public int HP=300;
-	public Bańka bańka;
+	public Bańka DefenseSphere;
     public bool alive = true;
     //private Animator Anim;
     public Player()
@@ -19,7 +20,7 @@ public class Player : MonoBehaviour
 
 	private void Awake()
 	{
-	    bańka = GetComponentInChildren<Bańka>();
+	    DefenseSphere = GetComponentInChildren<Bańka>();
 	    //MusicManager.play("CzarnaMsza", 1.0f, 1.0f);
     }
 
@@ -30,7 +31,7 @@ public class Player : MonoBehaviour
 
 	public void HitPlayer(int dmg)
 	{
-		if (bańka.Hitit(dmg))
+		if (DefenseSphere.Hitit(dmg))
 		{
 			return;
 		}
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
 	private void Funeral()
 	{
 	    alive = false;
-		GameRuler.instance.GameOver();
+		GameRuler.Instance.GameOver();
 	}
 
 	public GameObject Fireball;
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-	    żyćko.text = "żyćko = " + HP;
+	    HitPoints.text = "żyćko = " + HP;
 		if (HP > 0) {
 
 			
@@ -62,11 +63,11 @@ public class Player : MonoBehaviour
 		}
 		if (!GameRuler.Playing) return;
         FocusAtMouse();
-        if (Stery.Strzel1())
+        if (Stery.Shoot1())
         {
 	        Instantiate(Fireball, transform.position, transform.rotation);
         }
-        if (Stery.Strzel2()) {
+        if (Stery.Shoot2()) {
             Instantiate(SopelLodu, transform.position, transform.rotation);
         }
     }

@@ -3,90 +3,91 @@ using UnityEngine;
 
 namespace Sterowanie
 {
-    public enum Akcja
+    public enum ActionList
     {
-        Wybór1,
-        Wybór2,
-        Wybór3,
-        Wybór4,
-        Rzut1,
-        Rzut2,
-        Rzut3,
-        Pauza,
+        A,
+        B,
+        C,
+        D,
+        Shoot1,
+        Shoot2,
+        Shoot3,
+        Pause,
         Menue,
         Exit
     }
 
     public class Stery
     {
-        private static Dictionary<Akcja, KeyCode> stery;
+        private static Dictionary<ActionList, KeyCode> _keys;
 
         public Stery()
         {
-            stery = new Dictionary<Akcja, KeyCode>();
+            _keys = new Dictionary<ActionList, KeyCode>();
+
             //todo zapisywanie wybranego sterowania, przygotować sterowanie domyślne do innych typów gier
             if (true)
             {
-                UstawDomyślneStery();
+                DefaultKeys();
             }
         }
 
         //Rodzaj sterowania - MOBA
-        public void UstawDomyślneStery()
+        public void DefaultKeys()
         {
-            stery.Clear();
-            stery.Add(Akcja.Wybór1, KeyCode.Q);
-            stery.Add(Akcja.Wybór2, KeyCode.W);
-            stery.Add(Akcja.Wybór3, KeyCode.E);
-            stery.Add(Akcja.Wybór4, KeyCode.R);
-            stery.Add(Akcja.Rzut1, KeyCode.Mouse0);
-            stery.Add(Akcja.Rzut2, KeyCode.Mouse1);
-            stery.Add(Akcja.Rzut3, KeyCode.Space);
-            stery.Add(Akcja.Pauza, KeyCode.P);
-            stery.Add(Akcja.Menue, KeyCode.M);
-            stery.Add(Akcja.Exit, KeyCode.Escape);
+            _keys.Clear();
+            _keys.Add(ActionList.A, KeyCode.Q);
+            _keys.Add(ActionList.B, KeyCode.W);
+            _keys.Add(ActionList.C, KeyCode.E);
+            _keys.Add(ActionList.D, KeyCode.R);
+            _keys.Add(ActionList.Shoot1, KeyCode.Mouse0);
+            _keys.Add(ActionList.Shoot2, KeyCode.Mouse1);
+            _keys.Add(ActionList.Shoot3, KeyCode.Space);
+            _keys.Add(ActionList.Pause, KeyCode.P);
+            _keys.Add(ActionList.Menue, KeyCode.M);
+            _keys.Add(ActionList.Exit, KeyCode.Escape);
         }
 
         //Jesli klawisz jest już w użyciu, zwraca false. Jeśli można zmienić zwraca true
-        public static bool ZmieńSterowanie(Akcja akcja, KeyCode key)
+        public static bool ChangeKey(ActionList action, KeyCode key)
         {
-            if (stery.ContainsValue(key))
+            if (_keys.ContainsValue(key))
             {
                 Debug.LogWarning("Klawisz jest już w użyciu");
                 return false;
             }
             Debug.Log("Zmiana sterowania");
-            stery.Remove(akcja);
-            stery.Add(akcja,key);
+            _keys.Remove(action);
+            _keys.Add(action,key);
             return true;
         }
 
-        public static bool Strzel1()
+        public static bool Shoot1()
         {
-            return Input.GetKeyDown(stery[Akcja.Rzut1]);
+            return Input.GetKeyDown(_keys[ActionList.Shoot1]);
         }
-        public static bool Strzel2() {
-            return Input.GetKeyDown(stery[Akcja.Rzut2]);
+        public static bool Shoot2() {
+            return Input.GetKeyDown(_keys[ActionList.Shoot2]);
         }
 
-        public static bool WyjdźZGry()
+        public static bool ExitGame()
         {
-            return Input.GetKeyDown(stery[Akcja.Exit]);
+            return Input.GetKeyDown(_keys[ActionList.Exit]);
         }
 
         public static bool GoToMenue()
         {
-            return Input.GetKey(stery[Akcja.Menue]);
+            return Input.GetKey(_keys[ActionList.Menue]);
         }
 
-        public static bool ZaóbPauzę()
+        public static bool PauseTheGame()
         {
-            return Input.GetKeyDown(stery[Akcja.Pauza]);
+            return Input.GetKeyDown(_keys[ActionList.Pause]);
         }
 
-        public static bool Wybierz(Akcja e)
+        public static bool Select(ActionList e)
         {
-            return Input.GetKeyDown(stery[e]);
+            return Input.GetKeyDown(_keys[e]);
         }
     }
 }

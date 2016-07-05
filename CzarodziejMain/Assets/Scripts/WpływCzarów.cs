@@ -1,16 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
-using MyClock;
+using StopWatches;
 using UnityEditorInternal;
 
 public class WpływCzarów : MonoBehaviour
 {
     public Animator anim;
-    public Clock CzasLodu;
+    public Stopwatch CzasLodu;
 	// Use this for initialization
 	void Start ()
 	{
-        CzasLodu= new Clock();
+        CzasLodu= new Stopwatch();
 	    anim = GetComponent<Animator>();
 	}
 	

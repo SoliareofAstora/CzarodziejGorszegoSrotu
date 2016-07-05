@@ -18,15 +18,14 @@ namespace GameMaster
     /// </summary>
 	public class GameRuler : MonoBehaviour
 	{
-		public static GameRuler instance;
+		public static GameRuler Instance;
 		public GameObject[] _stateUi;
-		public GameState _tempState;
+		private GameState _tempState;
 		public static bool Playing { get; private set; }
 
 		private void Awake()
 		{
-			instance = this;
-			// ReSharper disable once ObjectCreationAsStatement
+			Instance = this;
 			new Stery();
 		  //  new Tags();
 
@@ -53,7 +52,7 @@ namespace GameMaster
 
 		private void Update()
 		{
-			if (Stery.ZaóbPauzę())
+			if (Stery.PauseTheGame())
 			{
 				if (GetCurrentState() == GameState.Pauza)
 				{
@@ -67,7 +66,7 @@ namespace GameMaster
 			if (Stery.GoToMenue()) {
 				GoMainMenue();
 			}
-		    if (Stery.WyjdźZGry())
+		    if (Stery.ExitGame())
 		    {
 		        Application.Quit();
 		    }
