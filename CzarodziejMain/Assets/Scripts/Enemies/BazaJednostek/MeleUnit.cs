@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections;
-using BaseUnit;
+using Assets.Scripts.Enemies.BazaJednostek;
 
 
 /// <summary>

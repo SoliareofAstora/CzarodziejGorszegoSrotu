@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using StopWatches;
+using Assets.Scripts.System;
 using UnityEditorInternal;
 
 public class WpływCzarów : MonoBehaviour

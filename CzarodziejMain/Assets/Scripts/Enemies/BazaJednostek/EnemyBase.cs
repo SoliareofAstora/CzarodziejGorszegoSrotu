@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Runtime.Remoting;
-using StopWatches;
+using Assets.Scripts.System;
 using rodzajezaklęć;
 using UnityEngine;
-using UnityEngine.Assertions.Comparers;
 using zaklecie;
 using Random = System.Random;
 
@@ -20,71 +18,8 @@ using Random = System.Random;
 
 
 
-namespace BaseUnit
+namespace Assets.Scripts.Enemies.BazaJednostek
 {
-
-    #region Enums & Structs
-
-    public enum EnemyState
-    {
-        WalkingUp,
-        GettingIntoCastle,
-        OnTheWizardsWall,
-        Atacking,
-        Dead
-    }
-
-    public enum LongTermEffect
-    {
-        Zero,
-        Podpalenie,
-        Zamrożenie,
-        otrucie,
-
-    }
-
-    public enum MovementSpeedEnum
-    {
-        Normalnie,
-        Spowolniony,
-        BardzoSpowolniony,
-        Zatrzymany
-    }
-
-    public enum RenderTypes
-    {
-        JustSingleDirection
-    }
-
-    public enum TypeOfDefence {
-         Fire,
-         Cold,
-         Energy,
-         Water,
-         DeltaSpeed,
-         Armor
-    }
-    public class Defence
-    {
-        public int[] Defences;
-        public Defence()
-        {
-            Defences = new int[sizeof(TypeOfDefence)+1];
-        }
-        public float GetDefence(TypeOfDefence rodzaj)
-        {
-            //TODO W tym miejscu chyba trzeba będzie dodać wartości pogodynkoe :)
-            return (float)Defences[(int) rodzaj]/100;
-        }
-    }
-
-    //Klasa przeliczająca wszystko
-    public class HP
-    {
-        
-    }
-    #endregion
-
     public class EnemyBase : MonoBehaviour
     {
         #region Variables
@@ -97,6 +32,7 @@ namespace BaseUnit
 
         //Atrybuty jednostki       
         public EnemyState state;
+        public Defence defence;
         public float DeathAnimationDuration;
         private int HP;
         public int maxHP;

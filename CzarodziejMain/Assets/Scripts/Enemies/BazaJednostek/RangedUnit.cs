@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
-using BaseUnit;
+using Assets.Scripts.Enemies.BazaJednostek;
 using UnityEngine;
 using Random = System.Random;
 

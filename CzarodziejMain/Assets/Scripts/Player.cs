@@ -1,7 +1,8 @@
-﻿using GameMaster;
+﻿using Assets.Scripts.System;
 using Sterowanie;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts.Spells;
 
 public class Player : MonoBehaviour
 {
