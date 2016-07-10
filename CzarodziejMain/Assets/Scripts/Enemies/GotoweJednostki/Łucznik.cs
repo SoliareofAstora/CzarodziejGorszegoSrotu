@@ -10,7 +10,6 @@ class Łucznik : RangedUnit
     public Łucznik()
     {
         range = 9;
-        BaseSpeed = 90;
         DeathAnimationDuration = 1;
         maxHP = 200;
         renderType = RenderTypes.JustSingleDirection;

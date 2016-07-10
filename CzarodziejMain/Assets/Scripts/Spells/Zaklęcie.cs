@@ -9,7 +9,7 @@ namespace zaklecie
 		private Rigidbody2D rb;
 		private CircleCollider2D circleCollider2D;
 		private Animator anim;
-		public DefinedStopwatch czaskońca;
+		public PreDefinedStopwatch czaskońca;
 		public int Obrażenia;
 		public RodzajeZaklęć rodzaj;
 		public float Szybkość;
@@ -25,7 +25,7 @@ namespace zaklecie
 		    circleCollider2D = GetComponent<CircleCollider2D>();
 			anim = GetComponent<Animator>();
 			rb = GetComponent<Rigidbody2D>();
-			czaskońca = new DefinedStopwatch(1);
+			czaskońca = new PreDefinedStopwatch(1);
 			destroyed = false;
 
 		}

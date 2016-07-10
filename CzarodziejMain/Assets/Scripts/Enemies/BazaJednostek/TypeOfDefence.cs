@@ -6,7 +6,7 @@ namespace Assets.Scripts.Enemies
         Cold,
         Energy,
         Water,
-        DeltaSpeed,
+        Speed,
         Armor
     }
 }

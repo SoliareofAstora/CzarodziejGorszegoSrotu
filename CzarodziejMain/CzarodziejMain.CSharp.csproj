@@ -74,14 +74,13 @@
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\Defence.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\EnemyEnums.cs" />
+    <Compile Include="Assets\Scripts\Enemies\BazaJednostek\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\MeleUnit.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\RangedUnit.cs" />
-    <Compile Include="Assets\Scripts\Enemies\GotoweJednostki\BardzoBrzydkiTroll.cs" />
     <Compile Include="Assets\Scripts\Enemies\GotoweJednostki\Rycerzyk.cs" />
     <Compile Include="Assets\Scripts\Enemies\GotoweJednostki\Łucznik.cs" />
-    <Compile Include="Assets\Scripts\Enemies\GotoweJednostki\ŻywiołakOgnia.cs" />
     <Compile Include="Assets\Scripts\Enemies\SpawnRuler.cs" />
-    <Compile Include="Assets\Scripts\Enemies\TypeOfDefence.cs" />
+    <Compile Include="Assets\Scripts\Enemies\BazaJednostek\TypeOfDefence.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\SpellEffect.cs" />
     <Compile Include="Assets\Scripts\Spells\Bańka.cs" />

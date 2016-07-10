@@ -3,11 +3,11 @@
 namespace Assets.Scripts.System
 {
     //Czasomież połączony ze stałym czasem 
-    public class DefinedStopwatch : Stopwatch
+    public class PreDefinedStopwatch : Stopwatch
     {
         private readonly float _DefinedCooldown;
 
-        public DefinedStopwatch(float cooldown)
+        public PreDefinedStopwatch(float cooldown)
         {
             _DefinedCooldown = cooldown;
         }
