@@ -1,13 +1,13 @@
 ﻿using System;
-using Assets.Scripts.Enemies.BazaJednostek;
 using UnityEngine;
 
-namespace Assets.Scripts.Enemies.BazaJednostek2
+namespace Assets.Scripts.Enemies.BazaJednostek
 {
     public class EnemyMovement : MonoBehaviour
     {
         private int BaseSpeed;
         public MovementSpeedEnum DeltaSpeed;
+        //Wektor jednostkowy
         public Vector2 DirectionVector;
         public Rigidbody2D rb;
 
@@ -21,13 +21,14 @@ namespace Assets.Scripts.Enemies.BazaJednostek2
         public void UpdateDirection()
         {
             var length = GetDistance();
-            DirectionVector = new Vector2(-rb.position.x/length, (-rb.position.y-1)/length);
+            DirectionVector = new Vector2(-rb.position.x/length, (-rb.position.y - 1)/length);
         }
 
         public void SetBaseSpeed(short i)
         {
             BaseSpeed = i;
         }
+
         public void Stop()
         {
             rb.velocity = Vector2.zero;
@@ -70,7 +71,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek2
 
         public float GetDistance()
         {
-            return (float) Math.Sqrt(Math.Pow(transform.position.x, 2) + Math.Pow(transform.position.y-1, 2));
+            return (float) Math.Sqrt(Math.Pow(transform.position.x, 2) + Math.Pow(transform.position.y - 1, 2));
         }
 
         private void OnDestroy()

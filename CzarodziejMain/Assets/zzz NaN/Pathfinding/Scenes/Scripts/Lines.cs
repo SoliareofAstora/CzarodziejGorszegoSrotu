@@ -1,21 +1,21 @@
 using UnityEngine;
 using System.Collections;
 
-public class Lines : MonoBehaviour 
+public class Lines : MonoBehaviour
 {
     private LineRenderer lineRenderer;
     private GridPlayer playerScript;
 
-	void Start () 
+    void Start()
     {
         lineRenderer = gameObject.GetComponent<LineRenderer>();
         playerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<GridPlayer>();
-	}
-	
-	void Update () 
+    }
+
+    void Update()
     {
         DrawPath();
-	}
+    }
 
     private void DrawPath()
     {
@@ -27,8 +27,7 @@ public class Lines : MonoBehaviour
             {
                 lineRenderer.SetPosition(i, playerScript.Path[i] + Vector3.up);
             }
-        }
-        else
+        } else
         {
             lineRenderer.SetVertexCount(0);
         }

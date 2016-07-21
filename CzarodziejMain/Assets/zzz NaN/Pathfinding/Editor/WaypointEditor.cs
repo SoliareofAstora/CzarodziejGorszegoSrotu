@@ -3,27 +3,25 @@ using UnityEditor;
 using System.Collections;
 using System.Collections.Generic;
 
-public class WaypointEditor : EditorWindow 
+public class WaypointEditor : EditorWindow
 {
     WaypointNode activeNode = null;
     private GameObject waypointPrefab = null;
     private bool canPlaceNewWaypoint = true;
     private bool itsActive = true;
 
-    
-    [MenuItem("Window/Pathfinding/WaypointEditor")]
-    public static void ShowWindow()
+
+    [MenuItem("Window/Pathfinding/WaypointEditor")] public static void ShowWindow()
     {
-        EditorWindow.GetWindow(typeof(WaypointEditor));
+        EditorWindow.GetWindow(typeof (WaypointEditor));
     }
 
     void OnGUI()
     {
         if (waypointPrefab == null)
         {
-            waypointPrefab = (GameObject)Resources.Load("Prefabs/Waypoint");
-        }
-        else
+            waypointPrefab = (GameObject) Resources.Load("Prefabs/Waypoint");
+        } else
         {
             canPlaceNewWaypoint = true;
         }
@@ -36,9 +34,11 @@ public class WaypointEditor : EditorWindow
         GUILayout.Label("6. Left click + CTRL + ALT: disconnect both waypoints in both directions \n");
         GUILayout.Label("Active = " + itsActive + "\n");
 
-        if(GUILayout.Button("Activate/Deactivate"))
+        if (GUILayout.Button("Activate/Deactivate"))
         {
-            itsActive = (itsActive) ? false : true;
+            itsActive = (itsActive)
+                ? false
+                : true;
         }
 
         //Used for the editor window
@@ -63,7 +63,7 @@ public class WaypointEditor : EditorWindow
                 {
                     if (waypointPrefab != null && canPlaceNewWaypoint && hit.transform.name != "Waypoint")
                     {
-                        GameObject newWaypoint = (GameObject)PrefabUtility.InstantiatePrefab(waypointPrefab);
+                        GameObject newWaypoint = (GameObject) PrefabUtility.InstantiatePrefab(waypointPrefab);
                         newWaypoint.transform.position = hit.point;
 
                         if (activeNode != null)
@@ -78,8 +78,7 @@ public class WaypointEditor : EditorWindow
                         newWaypoint.transform.parent = pFinder.transform;
                         canPlaceNewWaypoint = false;
                         EditorUtility.SetDirty(activeNode);
-                    }
-                    else if (hit.transform.name == "Waypoint")
+                    } else if (hit.transform.name == "Waypoint")
                     {
                         if (activeNode != null)
                         {
@@ -92,8 +91,7 @@ public class WaypointEditor : EditorWindow
                         EditorUtility.SetDirty(activeNode);
                     }
                 }
-            }
-            else if (Event.current.control && !Event.current.alt && Event.current.type == EventType.MouseUp && Event.current.button == 1)
+            } else if (Event.current.control && !Event.current.alt && Event.current.type == EventType.MouseUp && Event.current.button == 1)
             {
                 Event e = Event.current;
                 RaycastHit hit;
@@ -115,8 +113,7 @@ public class WaypointEditor : EditorWindow
                         }
                     }
                 }
-            }
-            else if (Event.current.alt && !Event.current.control && Event.current.type == EventType.MouseUp && Event.current.button == 0)
+            } else if (Event.current.alt && !Event.current.control && Event.current.type == EventType.MouseUp && Event.current.button == 0)
             {
                 Event e = Event.current;
                 RaycastHit hit;
@@ -136,8 +133,7 @@ public class WaypointEditor : EditorWindow
                         }
                     }
                 }
-            }
-            else if (Event.current.control && Event.current.alt && Event.current.type == EventType.MouseUp && Event.current.button == 1)
+            } else if (Event.current.control && Event.current.alt && Event.current.type == EventType.MouseUp && Event.current.button == 1)
             {
                 Event e = Event.current;
                 RaycastHit hit;
@@ -161,8 +157,7 @@ public class WaypointEditor : EditorWindow
                         GameObject.DestroyImmediate(hit.transform.gameObject);
                     }
                 }
-            }
-            else if (Event.current.alt && Event.current.control && Event.current.type == EventType.MouseUp && Event.current.button == 0)
+            } else if (Event.current.alt && Event.current.control && Event.current.type == EventType.MouseUp && Event.current.button == 0)
             {
                 Event e = Event.current;
                 RaycastHit hit;

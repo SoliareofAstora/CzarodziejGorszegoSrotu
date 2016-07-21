@@ -18,8 +18,7 @@ public class SearchPlayerAI : Pathfinding
         {
             _player = player.transform;
             StartCoroutine(FindPathTimer());
-        }
-        else
+        } else
             Debug.Log("Error: No gameobject found with the tag Player!");
     }
 
@@ -36,7 +35,7 @@ public class SearchPlayerAI : Pathfinding
     {
         if (Vector3.Distance(transform.position, _player.position) > MinDistanceToPlayer)
         {
-            transform.position = Vector3.MoveTowards(transform.position, Path[0] + new Vector3(0, AIPivotPointYValueOverGround, 0), Time.deltaTime * AISpeed);
+            transform.position = Vector3.MoveTowards(transform.position, Path[0] + new Vector3(0, AIPivotPointYValueOverGround, 0), Time.deltaTime*AISpeed);
             if (Vector3.Distance(transform.position, Path[0]) < 0.4F)
             {
                 Path.RemoveAt(0);
@@ -47,7 +46,7 @@ public class SearchPlayerAI : Pathfinding
     IEnumerator FindPathTimer()
     {
         FindPath(transform.position, _player.position);
-        yield return new WaitForSeconds((float)(1.0f / SearchesPerSecond));
+        yield return new WaitForSeconds((float) (1.0f/SearchesPerSecond));
         StartCoroutine(FindPathTimer());
     }
 }

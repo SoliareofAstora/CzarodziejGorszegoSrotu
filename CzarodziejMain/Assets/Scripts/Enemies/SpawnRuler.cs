@@ -5,7 +5,9 @@ using Random = System.Random;
 public class SpawnRuler : MonoBehaviour
 {
     public static SpawnRuler instance;
-    public SpawnRuler() {
+
+    public SpawnRuler()
+    {
         instance = this;
     }
 
@@ -20,12 +22,13 @@ public class SpawnRuler : MonoBehaviour
     [SerializeField] public GameObject[] TablicaPrzeciwników;
 
     // Spawnowanie przeciwników
-    private void Update() {
+    private void Update()
+    {
         //Stawianie przeciwników pierszego sortu naokoło mapy
-        if (Input.GetKey(KeyCode.Space)) {
-
+        if (Input.GetKey(KeyCode.Space))
+        {
             //todo inny warunek
-            if (!(new Random().Next(100)< seed_0_to_100))
+            if (!(new Random().Next(100) < seed_0_to_100))
             {
                 return;
             }
@@ -34,9 +37,9 @@ public class SpawnRuler : MonoBehaviour
             ChooseSpawnPoint();
 
             //TODO Skasować i poprawić funkcję losującą położenie
-            if (SpawnPoint.y<10)
+            if (SpawnPoint.y < 10)
             {
-               return;
+                return;
             }
             //Sespawnowanie przeciwnika
             i++;
@@ -44,31 +47,31 @@ public class SpawnRuler : MonoBehaviour
             Instantiate(TablicaPrzeciwników[wybór], SpawnPoint, Quaternion.Euler(Vector3.zero));
         }
     }
+
     /// <summary>Funkcja wybierająca wektor3 na około widocznej mapki</summary>
-    public Vector2 ChooseSpawnPoint() {
+    public Vector2 ChooseSpawnPoint()
+    {
         float alfa = rand.Next(360) - 179;
         var Tangens = Mathf.Tan(alfa);
-        if (Tangens > 1 || Tangens < -1) {
-            Tangens = Mathf.Cos(alfa) / Mathf.Sin(alfa);
-            if (Tangens < 0) {
+        if (Tangens > 1 || Tangens < -1)
+        {
+            Tangens = Mathf.Cos(alfa)/Mathf.Sin(alfa);
+            if (Tangens < 0)
+            {
                 //Spawnowanie po bokach ekranu
                 // SpawnPoint = new Vector2(-RozmiarMapy.x, -RozmiarMapy.y*Tangens);
             }
-        } else {
+        } else
+        {
             //Spawnowanie na górnej krawędzi ekranu
-            SpawnPoint = new Vector2(RozmiarMapy.x * Tangens, RozmiarMapy.y);
+            SpawnPoint = new Vector2(RozmiarMapy.x*Tangens, RozmiarMapy.y);
         }
         return SpawnPoint;
     }
-
-
-
 
 
     private void Awake()
     {
         rand = new Random();
     }
-
-
 }

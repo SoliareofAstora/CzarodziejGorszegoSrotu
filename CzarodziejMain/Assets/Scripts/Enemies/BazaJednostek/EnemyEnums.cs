@@ -9,23 +9,24 @@ namespace Assets.Scripts.Enemies.BazaJednostek
         Dead
     }
 
-    public enum LongTermEffect {
+    public enum LongTermEffect
+    {
         Zero,
         Podpalenie,
         Zamrozenie,
         Otrucie
-
     }
 
-    public enum MovementSpeedEnum {
+    public enum MovementSpeedEnum
+    {
         Normalnie,
         Spowolniony,
         BardzoSpowolniony,
         Zatrzymany
     }
 
-    public enum RenderTypes {
+    public enum RenderTypes
+    {
         JustSingleDirection
     }
-
 }

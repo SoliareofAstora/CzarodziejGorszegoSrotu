@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-public class WaypointPlayer : Pathfinding {
-
+public class WaypointPlayer : Pathfinding
+{
     private CharacterController controller;
     private LineRenderer lineRenderer;
 
@@ -24,8 +24,7 @@ public class WaypointPlayer : Pathfinding {
 
     private void FindPath()
     {
-
-     if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1"))
         {
             //Call minimap
             Ray ray = Camera.main.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
@@ -44,7 +43,7 @@ public class WaypointPlayer : Pathfinding {
         {
             Vector3 direction = (Path[0] - transform.position).normalized;
 
-            controller.SimpleMove(direction * 10F);
+            controller.SimpleMove(direction*10F);
             if (Vector3.Distance(transform.position - Vector3.up, Path[0]) < 1F)
             {
                 Path.RemoveAt(0);
@@ -62,8 +61,7 @@ public class WaypointPlayer : Pathfinding {
             {
                 lineRenderer.SetPosition(i, Path[i] + Vector3.up);
             }
-        }
-        else
+        } else
         {
             lineRenderer.SetVertexCount(0);
         }

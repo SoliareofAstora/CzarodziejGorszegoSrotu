@@ -58,7 +58,7 @@ namespace Sterowanie
             }
             Debug.Log("Zmiana sterowania");
             _keys.Remove(action);
-            _keys.Add(action,key);
+            _keys.Add(action, key);
             return true;
         }
 
@@ -66,7 +66,9 @@ namespace Sterowanie
         {
             return Input.GetKeyDown(_keys[ActionList.Shoot1]);
         }
-        public static bool Shoot2() {
+
+        public static bool Shoot2()
+        {
             return Input.GetKeyDown(_keys[ActionList.Shoot2]);
         }
 

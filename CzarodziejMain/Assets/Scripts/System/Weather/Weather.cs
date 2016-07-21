@@ -4,7 +4,8 @@ using Assets.Scripts.Enemies;
 
 namespace Assets.Scripts.System
 {
-    public class Weather {
+    public class Weather
+    {
         public static Dictionary<TypeOfDefence, short> DeltaWeatherDefence;
 
         //TODO public static Dictionary<int, short> 
@@ -12,36 +13,40 @@ namespace Assets.Scripts.System
 
         private TypeOfWeather weather;
 
-        public Weather() {
+        public Weather()
+        {
             DeltaWeatherDefence = new Dictionary<TypeOfDefence, short>();
             weather = TypeOfWeather.Normalnie;
         }
 
-        public void UpdateWeather() {
+        public void UpdateWeather()
+        {
             ResetWeather();
-            switch (weather) {
+            switch (weather)
+            {
                 case TypeOfWeather.Normalnie:
 
-                break;
+                    break;
                 case TypeOfWeather.BardzoCiepło:
-                DeltaWeatherDefence.Add(TypeOfDefence.Fire, 20);
-                break;
+                    DeltaWeatherDefence.Add(TypeOfDefence.Fire, 20);
+                    break;
                 case TypeOfWeather.LekkiDeszczyk:
-                DeltaWeatherDefence.Add(TypeOfDefence.Fire, -10);
-                break;
+                    DeltaWeatherDefence.Add(TypeOfDefence.Fire, -10);
+                    break;
                 case TypeOfWeather.Ulewa:
-                DeltaWeatherDefence.Add(TypeOfDefence.Fire, -30);
-                break;
+                    DeltaWeatherDefence.Add(TypeOfDefence.Fire, -30);
+                    break;
                 case TypeOfWeather.Śnieg:
-                DeltaWeatherDefence.Add(TypeOfDefence.Fire, -0);
-                break;
+                    DeltaWeatherDefence.Add(TypeOfDefence.Fire, -0);
+                    break;
 
                 default:
-                throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
-        public void ResetWeather() {
+        public void ResetWeather()
+        {
             DeltaWeatherDefence.Clear();
         }
 

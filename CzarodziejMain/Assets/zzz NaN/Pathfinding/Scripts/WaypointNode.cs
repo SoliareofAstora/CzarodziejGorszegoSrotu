@@ -2,8 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-[ExecuteInEditMode]
-public class WaypointNode : MonoBehaviour
+[ExecuteInEditMode] public class WaypointNode : MonoBehaviour
 {
     public Vector3 position;
     public int ID = 0;
@@ -20,7 +19,7 @@ public class WaypointNode : MonoBehaviour
 
     void Start()
     {
-        if(Application.isPlaying)
+        if (Application.isPlaying)
         {
             gameObject.GetComponent<Collider>().enabled = false;
         }
@@ -44,15 +43,19 @@ public class WaypointNode : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = (isActive) ? Color.yellow : Color.red;
+        Gizmos.color = (isActive)
+            ? Color.yellow
+            : Color.red;
         Gizmos.DrawCube(position, new Vector3(1, 1, 1));
 
         foreach (WaypointNode n in neighbors)
         {
             if (n != null)
             {
-                Gizmos.color = (isActive) ? Color.yellow : Color.red;
-                Gizmos.DrawLine(position + Vector3.up * 0.5F, n.position + Vector3.up * 0.5F);
+                Gizmos.color = (isActive)
+                    ? Color.yellow
+                    : Color.red;
+                Gizmos.DrawLine(position + Vector3.up*0.5F, n.position + Vector3.up*0.5F);
             }
         }
     }

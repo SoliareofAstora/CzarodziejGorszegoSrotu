@@ -4,15 +4,14 @@ using Assets.Scripts.System;
 
 public class SpellEffect : MonoBehaviour
 {
+    public Stopwatch Duration;
+    // Use this for initialization
+    void Start()
+    {
+    }
 
-	public Stopwatch Duration;
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Update is called once per frame
+    void Update()
+    {
+    }
 }

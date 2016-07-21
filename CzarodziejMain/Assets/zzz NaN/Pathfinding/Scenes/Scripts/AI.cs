@@ -1,20 +1,20 @@
 using UnityEngine;
 using System.Collections;
 
-public class AI : Pathfinding {
-
+public class AI : Pathfinding
+{
     public Transform player;
     private CharacterController controller;
     private bool newPath = true;
     private bool moving = false;
     private GameObject[] AIList;
 
-	void Start () 
+    void Start()
     {
         AIList = GameObject.FindGameObjectsWithTag("Enemy");
-	}
-	
-	void Update () 
+    }
+
+    void Update()
     {
         if (Vector3.Distance(player.position, transform.position) < 25F && !moving)
         {
@@ -23,12 +23,10 @@ public class AI : Pathfinding {
                 StartCoroutine(NewPath());
             }
             moving = true;
-        }
-        else if (Vector3.Distance(player.position, transform.position) < 2F)
+        } else if (Vector3.Distance(player.position, transform.position) < 2F)
         {
             //Stop!
-        }
-        else if (Vector3.Distance(player.position, transform.position) < 35F && moving)
+        } else if (Vector3.Distance(player.position, transform.position) < 35F && moving)
         {
             if (Path.Count > 0)
             {
@@ -36,8 +34,7 @@ public class AI : Pathfinding {
                 {
                     StartCoroutine(NewPath());
                 }
-            }
-            else
+            } else
             {
                 if (newPath)
                 {
@@ -46,12 +43,11 @@ public class AI : Pathfinding {
             }
             //Move the ai towards the player
             MoveMethod();
-        }
-        else
+        } else
         {
             moving = false;
         }
-	}
+    }
 
     IEnumerator NewPath()
     {
@@ -70,24 +66,24 @@ public class AI : Pathfinding {
 
             foreach (GameObject g in AIList)
             {
-                if(Vector3.Distance(g.transform.position, transform.position) < 1F)
+                if (Vector3.Distance(g.transform.position, transform.position) < 1F)
                 {
                     Vector3 dir = (transform.position - g.transform.position).normalized;
                     dir.Set(dir.x, 0, dir.z);
-                    direction += 0.2F * dir;
+                    direction += 0.2F*dir;
                 }
             }
 
             direction.Normalize();
 
-            
-            transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, Time.deltaTime * 12F);
+
+            transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, Time.deltaTime*12F);
             if (transform.position.x < Path[0].x + 0.4F && transform.position.x > Path[0].x - 0.4F && transform.position.z > Path[0].z - 0.4F && transform.position.z < Path[0].z + 0.4F)
             {
                 Path.RemoveAt(0);
             }
 
-            RaycastHit[] hit = Physics.RaycastAll(transform.position + (Vector3.up * 20F), Vector3.down, 100);
+            RaycastHit[] hit = Physics.RaycastAll(transform.position + (Vector3.up*20F), Vector3.down, 100);
             float maxY = -Mathf.Infinity;
             foreach (RaycastHit h in hit)
             {

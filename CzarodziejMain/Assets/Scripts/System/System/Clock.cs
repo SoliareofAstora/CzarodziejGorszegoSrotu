@@ -40,6 +40,7 @@ namespace Assets.Scripts.System
         {
             _time += Time.deltaTime;
         }
+
         public void CheckIfDone()
         {
             IsAfterCountDown();

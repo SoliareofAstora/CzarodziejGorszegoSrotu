@@ -3,15 +3,16 @@ using Sterowanie;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Spells;
+using Assets.Scripts.System.GameRuler;
 
 public class Player : MonoBehaviour
 {
     public static Player instance;
     //Dlaczego tu nie const?
-    public float  Size =2.5f;
-	public Text HitPoints;
-	public int HP=300;
-	public Bańka DefenseSphere;
+    public float Size = 2.5f;
+    public Text HitPoints;
+    public int HP = 300;
+    public Bańka DefenseSphere;
     public bool alive = true;
     //private Animator Anim;
     public Player()
@@ -19,56 +20,55 @@ public class Player : MonoBehaviour
         instance = this;
     }
 
-	private void Awake()
-	{
-	    DefenseSphere = GetComponentInChildren<Bańka>();
-	    //MusicManager.play("CzarnaMsza", 1.0f, 1.0f);
+    private void Awake()
+    {
+        DefenseSphere = GetComponentInChildren<Bańka>();
+        //MusicManager.play("CzarnaMsza", 1.0f, 1.0f);
     }
 
     private void Start()
     {
-      //  Anim = GetComponent<Animator>();
+        //  Anim = GetComponent<Animator>();
     }
 
-	public void HitPlayer(int dmg)
-	{
-		if (DefenseSphere.Hitit(dmg))
-		{
-			return;
-		}
-		HP -= dmg;
-	}
+    public void HitPlayer(int dmg)
+    {
+        if (DefenseSphere.Hitit(dmg))
+        {
+            return;
+        }
+        HP -= dmg;
+    }
 
-	private void Funeral()
-	{
-	    alive = false;
-		GameRuler.Instance.GameOver();
-	}
+    private void Funeral()
+    {
+        alive = false;
+        UiRuler.Instance.GameOver();
+    }
 
-	public GameObject Fireball;
+    public GameObject Fireball;
     public GameObject SopelLodu;
     // Update is called once per frame
     private void Update()
     {
-	    HitPoints.text = "żyćko = " + HP;
-		if (HP > 0) {
-
-			
-			
-		} else {
-		    if (alive)
-		    {
+        HitPoints.text = "żyćko = " + HP;
+        if (HP > 0)
+        {
+        } else
+        {
+            if (alive)
+            {
                 Funeral();
             }
-			
-		}
-		if (!GameRuler.Playing) return;
+        }
+        if (!UiRuler.HeroControl) return;
         FocusAtMouse();
         if (Stery.Shoot1())
         {
-	        Instantiate(Fireball, transform.position, transform.rotation);
+            Instantiate(Fireball, transform.position, transform.rotation);
         }
-        if (Stery.Shoot2()) {
+        if (Stery.Shoot2())
+        {
             Instantiate(SopelLodu, transform.position, transform.rotation);
         }
     }

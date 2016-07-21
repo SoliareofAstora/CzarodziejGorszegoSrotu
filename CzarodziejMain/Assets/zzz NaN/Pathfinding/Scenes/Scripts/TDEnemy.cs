@@ -8,8 +8,8 @@ public class TDEnemy : Pathfinding
 
     private bool pathMover = true;
     private bool newPath = true;
-	
-	void Update () 
+
+    void Update()
     {
         if (transform.position.x < 10.2F)
         {
@@ -19,12 +19,11 @@ public class TDEnemy : Pathfinding
             }
 
             Movement();
-        }
-        else
+        } else
         {
             DestroyImmediate(gameObject);
         }
-	}
+    }
 
     IEnumerator PathTimer()
     {
@@ -38,7 +37,6 @@ public class TDEnemy : Pathfinding
     {
         if (Path.Count > 0)
         {
-
             if (pathMover)
             {
                 //StartCoroutine(PathRemoval(4F + 2F));
@@ -48,16 +46,16 @@ public class TDEnemy : Pathfinding
             {
                 Path.RemoveAt(0);
             }
-                
+
 
             if (Path.Count > 0)
-            {             
+            {
                 Vector3 direction = (new Vector3(Path[0].x, transform.position.y, Path[0].z) - transform.position).normalized;
                 if (direction == Vector3.zero)
                 {
-                   // direction = (end - transform.position).normalized;
+                    // direction = (end - transform.position).normalized;
                 }
-                transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, Time.deltaTime * 4F);
+                transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, Time.deltaTime*4F);
             }
         }
     }
@@ -65,13 +63,11 @@ public class TDEnemy : Pathfinding
     IEnumerator PathRemoval(float speed)
     {
         pathMover = false;
-        yield return new WaitForSeconds((1 * Pathfinder.Instance.Tilesize) / speed);
+        yield return new WaitForSeconds((1*Pathfinder.Instance.Tilesize)/speed);
         if (Path.Count > 0)
         {
             Path.RemoveAt(0);
         }
-        pathMover= true;
+        pathMover = true;
     }
-
-
 }

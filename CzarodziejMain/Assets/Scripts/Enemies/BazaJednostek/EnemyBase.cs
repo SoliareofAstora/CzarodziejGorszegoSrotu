@@ -1,5 +1,4 @@
 ﻿using System;
-using Assets.Scripts.Enemies.BazaJednostek2;
 using Assets.Scripts.System;
 using rodzajezaklęć;
 using UnityEngine;
@@ -15,9 +14,6 @@ using Random = System.Random;
      
      
      */
-
-
-
 
 namespace Assets.Scripts.Enemies.BazaJednostek
 {
@@ -48,19 +44,13 @@ namespace Assets.Scripts.Enemies.BazaJednostek
         //Poruszanie się
         public EnemyMovement Movement;
 
-
-
-
         #endregion
 
-
-
         #region UnityFunctions
+
         private void Awake()
         {
             Movement = GetComponent<EnemyMovement>();
-
-
 
             Wpływ = GetComponentInChildren<WpływCzarów>();
             state = EnemyState.WalkingUp;
@@ -69,7 +59,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             HP = maxHP;
             anim.SetBool("Alive", true);
             CzasNastępnegoAtaku = new PreDefinedStopwatch(atackSpeed);
-            UpdateVelocity();
+            Movement.UpdateDirection();
             UstawAnimację();
         }
 
@@ -81,11 +71,14 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             {
                 return;
             }
-            UpdateVelocity();
+            if (state != EnemyState.GettingIntoCastle)
+            {
+                Movement.UpdateDirection();
+            }
             Movement.UpdateSpeed();
             if (state != EnemyState.OnTheWizardsWall)
             {
-                Movement. UpdateScale();
+                Movement.UpdateScale();
             }
         }
 
@@ -95,9 +88,9 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             if (!Wpływ.StillFrozen())
             {
                 anim.speed = 1;
-                Movement. DeltaSpeed = MovementSpeedEnum.Normalnie;
+                Movement.DeltaSpeed = MovementSpeedEnum.Normalnie;
             }
-            
+
             if (HP < 0)
             {
                 KillIt();
@@ -118,11 +111,9 @@ namespace Assets.Scripts.Enemies.BazaJednostek
 
         #region Funkcje i proceduty
 
-
         //Zadawanie obrażeń przeciwnikowi w zależności od jego statystyk
         public void OnSpellDMG(Zaklęcie zaklęcie)
         {
-
             var Obrażenia = zaklęcie.GetDmg();
             switch (zaklęcie.GetTypeZaklęć())
             {
@@ -132,7 +123,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
                     Wpływ.Zamróź();
                     Obrażenia = 0;
                     anim.speed = 0;
-                Movement. DeltaSpeed = MovementSpeedEnum.Zatrzymany;
+                    Movement.DeltaSpeed = MovementSpeedEnum.Zatrzymany;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -143,10 +134,9 @@ namespace Assets.Scripts.Enemies.BazaJednostek
         //Funkcja wywoływana poczas oczekiwania na pogrzeb 
 
 
-
         public void StartAtacking()
         {
-            Movement. Stop();
+            Movement.Stop();
             anim.SetBool("Atak", true);
             state = EnemyState.Atacking;
             //TODO To może być neizbędne do usunięcia podczas zabawy z wiatrem
@@ -160,32 +150,20 @@ namespace Assets.Scripts.Enemies.BazaJednostek
                 ? new Vector3(-10, -1, 0)
                 : new Vector3(10, -1, 0);
             LewoNaPrawo();
-            UpdateVelocity();
-            Sprite.sortingOrder = 31;
-            Wpływ.GetComponent<SpriteRenderer>().sortingOrder = 32;
-
+            Movement.UpdateDirection();
+            ChangeSpriteLayer(31);
         }
+
         //Funkcja wywoływana podczas umierania
-        public void KillIt() {
+        public void KillIt()
+        {
             Destroy(GetComponent<BoxCollider2D>());
             Destroy(Movement);
             tag = "DeadEnemy";
             anim.SetBool("Alive", false);
-            Destroy(gameObject,DeathAnimationDuration);
+            Destroy(gameObject, DeathAnimationDuration);
             state = EnemyState.Dead;
         }
-        //Ustawia początkową prędkość. Wywoływane po rozpoczęciu
-        public void UpdateVelocity()
-        {
-            //todo nie sprawdzać warunku, tylko to ogarnąć w innej częsci kodu.
-            if (state==EnemyState.GettingIntoCastle)
-            {
-                return;
-            }
-            //Wektor Jednostkowy przechowujący kierunek w którym przeciwnik zmieża.
-            Movement. UpdateDirection();
- }
-
 
 
         public void UstawAnimację()
@@ -200,6 +178,11 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             }
         }
 
+        public void ChangeSpriteLayer(int i)
+        {
+            Sprite.sortingOrder = i;
+            Wpływ.GetComponent<SpriteRenderer>().sortingOrder = i + 1;
+        }
 
         //Todo zmienić nazwę
         public void LewoNaPrawo()
@@ -211,11 +194,6 @@ namespace Assets.Scripts.Enemies.BazaJednostek
 
 
         //TODO Lepsza obsługa klasy, przejścia stanów jako funkcje
-
-
-
-
-
 
         #endregion
     }

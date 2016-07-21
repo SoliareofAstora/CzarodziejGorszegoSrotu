@@ -9,18 +9,8 @@ public class NodeSearch : IComparable<NodeSearch>
     public int F = 0;
     public float Fv = 0F;
 
-    public int ID
-    {
-        get
-        {
-            return id;
-        }
-        private set
-        {
-            this.id = value;
-        }
-    }
-    
+    public int ID { get { return id; } private set { this.id = value; } }
+
     public NodeSearch(int i, int f)
     {
         id = i;

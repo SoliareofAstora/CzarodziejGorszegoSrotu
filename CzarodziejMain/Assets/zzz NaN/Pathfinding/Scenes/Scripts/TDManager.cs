@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class TDManager : MonoBehaviour 
+public class TDManager : MonoBehaviour
 {
     public GameObject start;
     public GameObject end;
@@ -14,13 +14,13 @@ public class TDManager : MonoBehaviour
 
     void Start()
     {
-       StartCoroutine(SpawnEnemy());
+        StartCoroutine(SpawnEnemy());
     }
-	
-	void Update () 
+
+    void Update()
     {
         StartCoroutine(PlaceTowers());
-	}
+    }
 
     private RaycastHit CheckPosition()
     {
@@ -38,13 +38,11 @@ public class TDManager : MonoBehaviour
             if (hit.transform.tag == "Ground")
             {
                 ghostTower.GetComponent<Renderer>().material.color = Color.green;
-            }
-            else
+            } else
             {
                 ghostTower.GetComponent<Renderer>().material.color = Color.red;
             }
-        }
-        else
+        } else
         {
             ghostTower.GetComponent<Renderer>().material.color = Color.red;
         }
@@ -60,7 +58,9 @@ public class TDManager : MonoBehaviour
         //Make sure that we did hit something
         if (hit.transform != null)
         {
-            canPlace = (hit.transform.tag == "Ground") ? true : false;
+            canPlace = (hit.transform.tag == "Ground")
+                ? true
+                : false;
         }
 
         if (Input.GetButtonDown("Fire1") && canPlace)
@@ -69,11 +69,11 @@ public class TDManager : MonoBehaviour
             towers.Add(newTower);
             yield return new WaitForEndOfFrame();
             Pathfinder.Instance.InsertInQueue(start.transform.position, end.transform.position, CheckRoute);
-        }      
+        }
     }
 
     private void CheckRoute(List<Vector3> list)
-    {     
+    {
         //If we get a list that is empty there is no path, and we blocked the road
         //Then remove the last added tower!
         if (list.Count < 1 || list == null)

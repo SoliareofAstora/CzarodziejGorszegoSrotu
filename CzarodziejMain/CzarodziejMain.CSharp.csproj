@@ -17,7 +17,7 @@
     </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
-    <UnityVersion>5.3.5f1</UnityVersion>
+    <UnityVersion>5.3.5p8</UnityVersion>
     <RootNamespace>
     </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
@@ -60,14 +60,14 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Xcode">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.iOS.Extensions.Common">
-      <HintPath>Library\UnityAssemblies\UnityEditor.iOS.Extensions.Common.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -77,10 +77,10 @@
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\MeleUnit.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\RangedUnit.cs" />
+    <Compile Include="Assets\Scripts\Enemies\BazaJednostek\TypeOfDefence.cs" />
     <Compile Include="Assets\Scripts\Enemies\GotoweJednostki\Rycerzyk.cs" />
     <Compile Include="Assets\Scripts\Enemies\GotoweJednostki\Łucznik.cs" />
     <Compile Include="Assets\Scripts\Enemies\SpawnRuler.cs" />
-    <Compile Include="Assets\Scripts\Enemies\BazaJednostek\TypeOfDefence.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\SpellEffect.cs" />
     <Compile Include="Assets\Scripts\Spells\Bańka.cs" />
@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Spells\RodzajeZaklęć.cs" />
     <Compile Include="Assets\Scripts\Spells\Zaklęcie.cs" />
     <Compile Include="Assets\Scripts\System\GameRuler\GameRuler.cs" />
+    <Compile Include="Assets\Scripts\System\GameRuler\UiRuler.cs" />
     <Compile Include="Assets\Scripts\System\GameRuler\Tags.cs" />
     <Compile Include="Assets\Scripts\System\MainCastle.cs" />
     <Compile Include="Assets\Scripts\System\System\Clock.cs" />

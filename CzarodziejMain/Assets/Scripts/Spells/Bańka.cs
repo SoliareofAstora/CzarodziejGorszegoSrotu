@@ -3,9 +3,6 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.Spells
 {
-
-
-
     public class Bańka : MonoBehaviour
     {
         public int Wytrzumałość = 200;
@@ -21,7 +18,6 @@ namespace Assets.Scripts.Spells
         // Update is called once per frame
         void Update()
         {
-
             rotation = new Quaternion(0, transform.rotation.y - 90, 0, 0);
 
             if (Wytrzumałość > 0)
@@ -32,7 +28,6 @@ namespace Assets.Scripts.Spells
                 Hapeki.text = "Bańka's hp = 0";
                 anim.SetBool("Zepsute", true);
             }
-
         }
 
         public bool Hitit(int dmg)

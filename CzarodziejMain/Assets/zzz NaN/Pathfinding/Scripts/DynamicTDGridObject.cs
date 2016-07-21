@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public class DynamicTDGridObject : MonoBehaviour 
+public class DynamicTDGridObject : MonoBehaviour
 {
     private List<Vector2> IDs = new List<Vector2>();
 
@@ -16,7 +16,7 @@ public class DynamicTDGridObject : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(DelayStart()); 
+        StartCoroutine(DelayStart());
     }
 
     void Update()
@@ -44,7 +44,7 @@ public class DynamicTDGridObject : MonoBehaviour
         Bounds bR = GetComponent<Renderer>().bounds;
         Bounds bM = gameObject.GetComponent<MeshFilter>().mesh.bounds;
         checkList = DynamicSetupList(bR.min.x, bR.max.x, bR.min.z, bR.max.z, bR, bM);
-  
+
         Pathfinder.Instance.DynamicMapEdit(checkList, UpdateList);
     }
 
@@ -62,13 +62,13 @@ public class DynamicTDGridObject : MonoBehaviour
     }
 
     private List<Vector3> DynamicSetupList(float minX, float maxX, float minZ, float maxZ, Bounds bR, Bounds bM)
-    {      
+    {
         List<Vector3> checkList = new List<Vector3>();
         float Tilesize = Pathfinder.Instance.Tilesize;
 
-        for (float i = minZ; i < maxZ; i += Tilesize / 2)
+        for (float i = minZ; i < maxZ; i += Tilesize/2)
         {
-            for (float j = minX; j < maxX; j += Tilesize / 2)
+            for (float j = minX; j < maxX; j += Tilesize/2)
             {
                 for (float k = bR.min.y; k < bR.max.y; k += Tilesize)
                 {
@@ -96,7 +96,7 @@ public class DynamicTDGridObject : MonoBehaviour
             RemoveFromMap();
             UpdateMap();
         }
-        
+
         //Wait amount of time and call its self recursively
         yield return new WaitForSeconds(_timer);
         StartCoroutine(CoroutineUpdate(_timer));

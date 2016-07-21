@@ -2,9 +2,9 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class WaypointListNode  
+public class WaypointListNode
 {
-	public Vector3 position;
+    public Vector3 position;
     public int ID = 0;
     public WaypointListNode parent = null;
 
@@ -22,7 +22,6 @@ public class WaypointListNode
 
     void Start()
     {
-
     }
 
     public WaypointListNode()

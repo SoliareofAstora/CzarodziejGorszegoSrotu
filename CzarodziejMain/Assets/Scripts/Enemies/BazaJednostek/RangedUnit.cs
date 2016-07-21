@@ -14,9 +14,9 @@ public class RangedUnit : EnemyBase
 
     private void Start()
     {
-        range -= (float)new Random().Next(100)/50;
-
+        range -= (float) new Random().Next(100)/50;
     }
+
     //Tu przebiega cała logika trolli
     private void Update()
     {
@@ -30,15 +30,16 @@ public class RangedUnit : EnemyBase
                 break;
 
             case EnemyState.Atacking:
-            CzasNastępnegoAtaku.StartCounting();
-            if (CzasNastępnegoAtaku.IsAfterCountDown()) {
-                //TODO Strzel strzałą
-            }
-            break;
+                CzasNastępnegoAtaku.StartCounting();
+                if (CzasNastępnegoAtaku.IsAfterCountDown())
+                {
+                    //TODO Strzel strzałą
+                }
+                break;
 
             case EnemyState.Dead:
                 return;
-               
+
             default:
                 throw new ArgumentOutOfRangeException();
         }

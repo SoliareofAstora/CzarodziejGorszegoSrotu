@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-public class Pathfinder : MonoBehaviour 
+public class Pathfinder : MonoBehaviour
 {
     //Singleton
     private static Pathfinder instance;
-    public static Pathfinder Instance { get { return instance; } private set {} }
+    public static Pathfinder Instance { get { return instance; } private set { } }
 
     //Variables
     private Node[,] Map = null;
@@ -49,8 +49,8 @@ public class Pathfinder : MonoBehaviour
         instance = this;
     }
 
-	
-	void Start () 
+
+    void Start()
     {
         if (Tilesize <= 0)
         {
@@ -58,13 +58,13 @@ public class Pathfinder : MonoBehaviour
         }
 
         Pathfinder.Instance.CreateMap();
-	}
+    }
 
 
     float overalltimer = 0;
     int iterations = 0;
     //Go through one 
-	void Update () 
+    void Update()
     {
         timeleft -= Time.deltaTime;
         frames++;
@@ -77,11 +77,11 @@ public class Pathfinder : MonoBehaviour
             timeleft = updateinterval;
             frames = 0;
         }
-        
+
         float timer = 0F;
         float maxtime = 1000/FPS;
         //Bottleneck prevention
-        while(queue.Count > 0 && timer < maxtime)
+        while (queue.Count > 0 && timer < maxtime)
         {
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -96,26 +96,27 @@ public class Pathfinder : MonoBehaviour
         }
 
         DrawMapLines();
-	}
+    }
 
     #region map
+
     //-------------------------------------------------INSTANIATE MAP-----------------------------------------------//
 
     private void CreateMap()
     {
         //Find positions for start and end of map
-        int startX  = (int)MapStartPosition.x;
-        int startZ  = (int)MapStartPosition.y;
-        int endX    = (int)MapEndPosition.x;
-        int endZ    = (int)MapEndPosition.y;
+        int startX = (int) MapStartPosition.x;
+        int startZ = (int) MapStartPosition.y;
+        int endX = (int) MapEndPosition.x;
+        int endZ = (int) MapEndPosition.y;
 
         //Find tile width and height
-        int width = (int)((endX - startX) / Tilesize);
-        int height = (int)((endZ - startZ) / Tilesize);
+        int width = (int) ((endX - startX)/Tilesize);
+        int height = (int) ((endZ - startZ)/Tilesize);
 
         //Set map up
         Map = new Node[width, height];
-        int size = width* height;
+        int size = width*height;
         SetListsSize(size);
 
         //Fill up Map
@@ -123,25 +124,24 @@ public class Pathfinder : MonoBehaviour
         {
             for (int j = 0; j < width; j++)
             {
-                float x = startX + (j * Tilesize) + (Tilesize / 2); //Position from where we raycast - X
-                float y = startZ + (i * Tilesize) + (Tilesize / 2); //Position from where we raycast - Z
-                int ID = (i * width) + j; //ID we give to our Node!
-                
+                float x = startX + (j*Tilesize) + (Tilesize/2); //Position from where we raycast - X
+                float y = startZ + (i*Tilesize) + (Tilesize/2); //Position from where we raycast - Z
+                int ID = (i*width) + j; //ID we give to our Node!
+
                 float dist = Mathf.Abs(HighestPoint) + Mathf.Abs(LowestPoint);
-                RaycastHit[] hit; 
+                RaycastHit[] hit;
 
                 if (CheckFullTileSize)
                 {
-                    hit = Physics.SphereCastAll(new Vector3(x, HighestPoint, y), Tilesize / 2, Vector3.down, dist);
-                }
-                else
+                    hit = Physics.SphereCastAll(new Vector3(x, HighestPoint, y), Tilesize/2, Vector3.down, dist);
+                } else
                 {
-                    hit = Physics.SphereCastAll(new Vector3(x, HighestPoint, y), Tilesize / 16, Vector3.down, dist);
+                    hit = Physics.SphereCastAll(new Vector3(x, HighestPoint, y), Tilesize/16, Vector3.down, dist);
                 }
                 bool free = true;
                 float maxY = -Mathf.Infinity;
-                
-                foreach(RaycastHit h in hit)
+
+                foreach (RaycastHit h in hit)
                 {
                     if (DisallowedTags.Contains(h.transform.tag))
                     {
@@ -152,12 +152,10 @@ public class Pathfinder : MonoBehaviour
                             free = false;
                             maxY = h.point.y;
                         }
-                    }
-                    else if(IgnoreTags.Contains(h.transform.tag))
+                    } else if (IgnoreTags.Contains(h.transform.tag))
                     {
                         //Do nothing we ignore these tags
-                    }
-                    else
+                    } else
                     {
                         if (h.point.y > maxY)
                         {
@@ -171,14 +169,14 @@ public class Pathfinder : MonoBehaviour
                 //We hit nothing set tile to false
                 if (free == true)
                 {
-                Map[j, i] = new Node(j, i, 0 ,ID, x, y, false);//Non walkable tile! 
-                }        
+                    Map[j, i] = new Node(j, i, 0, ID, x, y, false); //Non walkable tile! 
+                }
             }
         }
     }
 
     #endregion //End map
-    
+
     //---------------------------------------SETUP PATH QUEUE---------------------------------------//
 
     public void InsertInQueue(Vector3 startPos, Vector3 endPos, Action<List<Vector3>> listMethod)
@@ -188,6 +186,7 @@ public class Pathfinder : MonoBehaviour
     }
 
     #region astar
+
     //---------------------------------------FIND PATH: A*------------------------------------------//
 
     private Node[] openList;
@@ -200,7 +199,7 @@ public class Pathfinder : MonoBehaviour
 
     private void SetListsSize(int size)
     {
-        openList   = new Node[size];
+        openList = new Node[size];
         closedList = new Node[size];
     }
 
@@ -239,10 +238,13 @@ public class Pathfinder : MonoBehaviour
             }
 
             //Clear lists if they are filled
-            Array.Clear(openList, 0, openList.Length); 
+            Array.Clear(openList, 0, openList.Length);
             Array.Clear(closedList, 0, openList.Length);
-            if (sortedOpenList.Count > 0) { sortedOpenList.Clear(); }
-            
+            if (sortedOpenList.Count > 0)
+            {
+                sortedOpenList.Clear();
+            }
+
             //Insert start node
             openList[startNode.ID] = startNode;
             //sortedOpenList.Add(new NodeSearch(startNode.ID, startNode.F));
@@ -279,8 +281,7 @@ public class Pathfinder : MonoBehaviour
                 if (MoveDiagonal)
                 {
                     NeighbourCheck();
-                }
-                else
+                } else
                 {
                     NonDiagonalNeighborCheck();
                 }
@@ -315,9 +316,7 @@ public class Pathfinder : MonoBehaviour
             }
             maxSearchRounds = 0;
             listMethod.Invoke(returnPath);
-
-        }
-        else
+        } else
         {
             maxSearchRounds = 0;
             listMethod.Invoke(new List<Vector3>());
@@ -333,8 +332,12 @@ public class Pathfinder : MonoBehaviour
 
     public bool IsTheClosestNodeWalkable(Vector3 pos)
     {
-        int x = (MapStartPosition.x < 0F) ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x)) / Tilesize)) : Mathf.FloorToInt((pos.x - MapStartPosition.x) / Tilesize);
-        int z = (MapStartPosition.y < 0F) ? Mathf.FloorToInt(((pos.z + Mathf.Abs(MapStartPosition.y)) / Tilesize)) : Mathf.FloorToInt((pos.z - MapStartPosition.y) / Tilesize);
+        int x = (MapStartPosition.x < 0F)
+            ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x))/Tilesize))
+            : Mathf.FloorToInt((pos.x - MapStartPosition.x)/Tilesize);
+        int z = (MapStartPosition.y < 0F)
+            ? Mathf.FloorToInt(((pos.z + Mathf.Abs(MapStartPosition.y))/Tilesize))
+            : Mathf.FloorToInt((pos.z - MapStartPosition.y)/Tilesize);
 
         if (x < 0 || z < 0 || x > Map.GetLength(0) || z > Map.GetLength(1))
             return false;
@@ -344,9 +347,13 @@ public class Pathfinder : MonoBehaviour
     }
 
     private Node FindClosestNode(Vector3 pos)
-    {      
-        int x = (MapStartPosition.x < 0F) ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x)) / Tilesize)) :  Mathf.FloorToInt((pos.x - MapStartPosition.x) / Tilesize);
-        int z = (MapStartPosition.y < 0F) ? Mathf.FloorToInt(((pos.z + Mathf.Abs(MapStartPosition.y)) / Tilesize)) : Mathf.FloorToInt((pos.z - MapStartPosition.y) / Tilesize);
+    {
+        int x = (MapStartPosition.x < 0F)
+            ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x))/Tilesize))
+            : Mathf.FloorToInt((pos.x - MapStartPosition.x)/Tilesize);
+        int z = (MapStartPosition.y < 0F)
+            ? Mathf.FloorToInt(((pos.z + Mathf.Abs(MapStartPosition.y))/Tilesize))
+            : Mathf.FloorToInt((pos.z - MapStartPosition.y)/Tilesize);
 
         if (x < 0 || z < 0 || x > Map.GetLength(0) || z > Map.GetLength(1))
             return null;
@@ -356,8 +363,7 @@ public class Pathfinder : MonoBehaviour
         if (n.walkable)
         {
             return new Node(x, z, n.yCoord, n.ID, n.xCoord, n.zCoord, n.walkable);
-        }
-        else
+        } else
         {
             //If we get a non walkable tile, then look around its neightbours
             for (int i = z - 1; i < z + 2; i++)
@@ -379,16 +385,20 @@ public class Pathfinder : MonoBehaviour
     }
 
     private void FindEndNode(Vector3 pos)
-    {       
-        int x = (MapStartPosition.x < 0F) ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x)) / Tilesize)) : Mathf.FloorToInt((pos.x - MapStartPosition.x) / Tilesize);
-        int z = (MapStartPosition.y < 0F) ? Mathf.FloorToInt(((pos.z + Mathf.Abs(MapStartPosition.y)) / Tilesize)) : Mathf.FloorToInt((pos.z - MapStartPosition.y) / Tilesize);
+    {
+        int x = (MapStartPosition.x < 0F)
+            ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x))/Tilesize))
+            : Mathf.FloorToInt((pos.x - MapStartPosition.x)/Tilesize);
+        int z = (MapStartPosition.y < 0F)
+            ? Mathf.FloorToInt(((pos.z + Mathf.Abs(MapStartPosition.y))/Tilesize))
+            : Mathf.FloorToInt((pos.z - MapStartPosition.y)/Tilesize);
 
         Node closestNode = Map[x, z];
         List<Node> walkableNodes = new List<Node>();
 
         int turns = 1;
 
-        while(walkableNodes.Count < 1 && maxSearchRounds < (int)10/Tilesize)
+        while (walkableNodes.Count < 1 && maxSearchRounds < (int) 10/Tilesize)
         {
             walkableNodes = EndNodeNeighbourCheck(x, z, turns);
             turns++;
@@ -414,9 +424,9 @@ public class Pathfinder : MonoBehaviour
     }
 
     private List<Node> EndNodeNeighbourCheck(int x, int z, int r)
-    {      
+    {
         List<Node> nodes = new List<Node>();
-        
+
         for (int i = z - r; i < z + r + 1; i++)
         {
             for (int j = x - r; j < x + r + 1; j++)
@@ -470,12 +480,11 @@ public class Pathfinder : MonoBehaviour
                                         //Insert on open list
                                         openList[addNode.ID] = addNode;
                                         //Insert on sorted list
-                                        BHInsertNode(new NodeSearch(addNode.ID, addNode.F)); 
+                                        BHInsertNode(new NodeSearch(addNode.ID, addNode.F));
                                         //sortedOpenList.Add(new NodeSearch(addNode.ID, addNode.F));
-                                    }
-                                    else
+                                    } else
                                     {
-                                       ///If it is on openlist then check if the new paths movement cost is lower
+                                        ///If it is on openlist then check if the new paths movement cost is lower
                                         Node n = GetNodeFromOpenList(Map[j, i].ID);
                                         if (currentNode.G + GetMovementCost(x, y, j, i) < openList[Map[j, i].ID].G)
                                         {
@@ -496,7 +505,7 @@ public class Pathfinder : MonoBehaviour
     }
 
     private void NonDiagonalNeighborCheck()
-    {            
+    {
         int x = currentNode.x;
         int y = currentNode.y;
 
@@ -511,7 +520,7 @@ public class Pathfinder : MonoBehaviour
                     if (i != y || j != x)
                     {
                         //Check that we are not moving diagonal
-                        if(GetMovementCost(x, y, j, i) < 14)
+                        if (GetMovementCost(x, y, j, i) < 14)
                         {
                             //Check the node is walkable
                             if (Map[j, i].walkable)
@@ -534,8 +543,7 @@ public class Pathfinder : MonoBehaviour
                                             //Insert on sorted list
                                             BHInsertNode(new NodeSearch(addNode.ID, addNode.F));
                                             //sortedOpenList.Add(new NodeSearch(addNode.ID, addNode.F));
-                                        }
-                                        else
+                                        } else
                                         {
                                             ///If it is on openlist then check if the new paths movement cost is lower
                                             Node n = GetNodeFromOpenList(Map[j, i].ID);
@@ -572,38 +580,50 @@ public class Pathfinder : MonoBehaviour
     //Check if a Node is already on the openList
     private bool OnOpenList(int id)
     {
-        return (openList[id] != null) ? true : false;
+        return (openList[id] != null)
+            ? true
+            : false;
     }
 
     //Check if a Node is already on the closedList
     private bool OnClosedList(int id)
     {
-        return (closedList[id] != null) ? true : false;
+        return (closedList[id] != null)
+            ? true
+            : false;
     }
 
     private int GetHeuristics(int x, int y)
     {
         //Make sure heuristic aggression is not less then 0!
-        int HA = (HeuristicAggression < 0) ? 0 : HeuristicAggression;
-        return (int)(Mathf.Abs(x - endNode.x) * (10F + (10F * HA))) + (int)(Mathf.Abs(y - endNode.y) * (10F + (10F * HA)));
+        int HA = (HeuristicAggression < 0)
+            ? 0
+            : HeuristicAggression;
+        return (int) (Mathf.Abs(x - endNode.x)*(10F + (10F*HA))) + (int) (Mathf.Abs(y - endNode.y)*(10F + (10F*HA)));
     }
 
     private int GetHeuristics(Node a, Node b)
     {
         //Make sure heuristic aggression is not less then 0!
-        int HA = (HeuristicAggression < 0) ? 0 : HeuristicAggression;
-        return (int)(Mathf.Abs(a.x - b.x) * (10F + (10F * HA))) + (int)(Mathf.Abs(a.y - b.y) * (10F + (10F * HA)));
+        int HA = (HeuristicAggression < 0)
+            ? 0
+            : HeuristicAggression;
+        return (int) (Mathf.Abs(a.x - b.x)*(10F + (10F*HA))) + (int) (Mathf.Abs(a.y - b.y)*(10F + (10F*HA)));
     }
 
     private int GetMovementCost(int x, int y, int j, int i)
     {
         //Moving straight or diagonal?
-        return (x != j && y != i) ? 14 : 10;
+        return (x != j && y != i)
+            ? 14
+            : 10;
     }
 
     private Node GetNodeFromOpenList(int id)
     {
-        return (openList[id] != null) ? openList[id] : null;
+        return (openList[id] != null)
+            ? openList[id]
+            : null;
     }
 
     #region Binary_Heap (min)
@@ -625,14 +645,13 @@ public class Pathfinder : MonoBehaviour
 
         while (canMoveFurther)
         {
-            int parent = Mathf.FloorToInt((index - 1) / 2);
+            int parent = Mathf.FloorToInt((index - 1)/2);
 
             if (index == 0) //We are the root
             {
                 canMoveFurther = false;
                 openList[sortedOpenList[index].ID].sortedIndex = 0;
-            }
-            else
+            } else
             {
                 if (sortedOpenList[index].F < sortedOpenList[parent].F)
                 {
@@ -646,8 +665,7 @@ public class Pathfinder : MonoBehaviour
 
                     //Reset index to parent ID
                     index = parent;
-                }
-                else
+                } else
                 {
                     canMoveFurther = false;
                 }
@@ -663,14 +681,13 @@ public class Pathfinder : MonoBehaviour
 
         while (canMoveFurther)
         {
-            int parent = Mathf.FloorToInt((index - 1) / 2);
+            int parent = Mathf.FloorToInt((index - 1)/2);
 
             if (index == 0) //We are the root
             {
                 canMoveFurther = false;
                 openList[sortedOpenList[index].ID].sortedIndex = 0;
-            }
-            else
+            } else
             {
                 if (sortedOpenList[index].F < sortedOpenList[parent].F)
                 {
@@ -684,8 +701,7 @@ public class Pathfinder : MonoBehaviour
 
                     //Reset index to parent ID
                     index = parent;
-                }
-                else
+                } else
                 {
                     canMoveFurther = false;
                 }
@@ -695,14 +711,12 @@ public class Pathfinder : MonoBehaviour
 
     private int BHGetLowest()
     {
-       
         if (sortedOpenList.Count == 1) //Remember 0 is our root
         {
             int ID = sortedOpenList[0].ID;
-            sortedOpenList.RemoveAt(0);           
+            sortedOpenList.RemoveAt(0);
             return ID;
-        }
-        else if (sortedOpenList.Count > 1)
+        } else if (sortedOpenList.Count > 1)
         {
             //save lowest not, take our leaf as root, and remove it! Then switch through children to find right place.
             int ID = sortedOpenList[0].ID;
@@ -715,15 +729,14 @@ public class Pathfinder : MonoBehaviour
             //Sort the list before returning the ID
             while (canMoveFurther)
             {
-                int child1 = (index * 2) + 1;
-                int child2 = (index * 2) + 2;
+                int child1 = (index*2) + 1;
+                int child2 = (index*2) + 2;
                 int switchIndex = -1;
 
                 if (child1 < sortedOpenList.Count)
                 {
                     switchIndex = child1;
-                }
-                else
+                } else
                 {
                     break;
                 }
@@ -746,19 +759,16 @@ public class Pathfinder : MonoBehaviour
 
                     //Switch around idnex
                     index = switchIndex;
-                }
-                else
+                } else
                 {
                     break;
-                }    
+                }
             }
             return ID;
-          
-        }
-        else
+        } else
         {
             return -1;
-        }    
+        }
     }
 
     #endregion
@@ -769,17 +779,17 @@ public class Pathfinder : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-         //if (DrawMapInEditor == true && Map != null)
-         //   {
-         //       for (int i = 0; i < Map.GetLength(1); i++)
-         //       {
-         //           for (int j = 0; j < Map.GetLength(0); j++)
-         //           {
-         //               Gizmos.color = (Map[j, i].walkable) ? new Color(0, 0.8F, 0, 0.5F) : new Color(0.8F, 0, 0, 0.5F);
-         //               Gizmos.DrawCube(new Vector3(Map[j, i].xCoord, Map[j, i].yCoord + 0.1F, Map[j, i].zCoord), new Vector3(Tilesize, 0.5F, Tilesize));
-         //           }
-         //       }
-         //   }
+        //if (DrawMapInEditor == true && Map != null)
+        //   {
+        //       for (int i = 0; i < Map.GetLength(1); i++)
+        //       {
+        //           for (int j = 0; j < Map.GetLength(0); j++)
+        //           {
+        //               Gizmos.color = (Map[j, i].walkable) ? new Color(0, 0.8F, 0, 0.5F) : new Color(0.8F, 0, 0, 0.5F);
+        //               Gizmos.DrawCube(new Vector3(Map[j, i].xCoord, Map[j, i].yCoord + 0.1F, Map[j, i].zCoord), new Vector3(Tilesize, 0.5F, Tilesize));
+        //           }
+        //       }
+        //   }
     }
 
     void DrawMapLines()
@@ -792,7 +802,7 @@ public class Pathfinder : MonoBehaviour
                 {
                     if (!Map[j, i].walkable)
                         continue;
-                    
+
                     for (int y = i - 1; y < i + 2; y++)
                     {
                         for (int x = j - 1; x < j + 2; x++)
@@ -800,7 +810,7 @@ public class Pathfinder : MonoBehaviour
                             if (y < 0 || x < 0 || y >= Map.GetLength(1) || x >= Map.GetLength(0))
                                 continue;
 
-                            if(!Map[x, y].walkable)
+                            if (!Map[x, y].walkable)
                                 continue;
 
                             if (Map[j, i].yCoord > Map[x, y].yCoord && Mathf.Abs(Map[j, i].yCoord - Map[x, y].yCoord) > MaxFalldownHeight)
@@ -808,7 +818,7 @@ public class Pathfinder : MonoBehaviour
 
                             if (Map[j, i].yCoord < Map[x, y].yCoord && Mathf.Abs(Map[x, y].yCoord - Map[j, i].yCoord) > ClimbLimit)
                                 continue;
-                          
+
                             Vector3 start = new Vector3(Map[j, i].xCoord, Map[j, i].yCoord + 0.1f, Map[j, i].zCoord);
                             Vector3 end = new Vector3(Map[x, y].xCoord, Map[x, y].yCoord + 0.1f, Map[x, y].zCoord);
 
@@ -831,7 +841,7 @@ public class Pathfinder : MonoBehaviour
     {
         foreach (Vector2 v in ids)
         {
-            Map[(int)v.x, (int)v.y].walkable = true;
+            Map[(int) v.x, (int) v.y].walkable = true;
         }
     }
 
@@ -844,28 +854,26 @@ public class Pathfinder : MonoBehaviour
         if (startNode == null)
             return;
 
-        int xIterations = Mathf.CeilToInt(Mathf.Abs((b.max.x - b.min.x) / Tilesize)) + 2;
-        int zIterations = Mathf.CeilToInt(Mathf.Abs((b.max.z - b.min.z) / Tilesize)) + 2;
+        int xIterations = Mathf.CeilToInt(Mathf.Abs((b.max.x - b.min.x)/Tilesize)) + 2;
+        int zIterations = Mathf.CeilToInt(Mathf.Abs((b.max.z - b.min.z)/Tilesize)) + 2;
 
         for (int i = startNode.x - 2; i < startNode.x + xIterations; i++)
         {
             for (int j = startNode.y - 2; j < startNode.y + zIterations; j++)
             {
-                if (i >= 0 &&  j >= 0 && i < Map.GetLength(0) && j < Map.GetLength(1))
+                if (i >= 0 && j >= 0 && i < Map.GetLength(0) && j < Map.GetLength(1))
                 {
-
                     float dist = Mathf.Abs(HighestPoint) + Mathf.Abs(LowestPoint);
                     RaycastHit[] hit;
 
                     if (CheckFullTileSize)
                     {
-                        hit = Physics.SphereCastAll(new Vector3(Map[i, j].xCoord, HighestPoint, Map[i, j].zCoord), Tilesize / 2, Vector3.down, dist);
-                    }
-                    else
+                        hit = Physics.SphereCastAll(new Vector3(Map[i, j].xCoord, HighestPoint, Map[i, j].zCoord), Tilesize/2, Vector3.down, dist);
+                    } else
                     {
-                        hit = Physics.SphereCastAll(new Vector3(Map[i, j].xCoord, HighestPoint, Map[i, j].zCoord), Tilesize / 16, Vector3.down, dist);
+                        hit = Physics.SphereCastAll(new Vector3(Map[i, j].xCoord, HighestPoint, Map[i, j].zCoord), Tilesize/16, Vector3.down, dist);
                     }
-                    
+
                     float maxY = -Mathf.Infinity;
 
                     foreach (RaycastHit h in hit)
@@ -879,12 +887,10 @@ public class Pathfinder : MonoBehaviour
                                 Map[i, j].yCoord = h.point.y;
                                 maxY = h.point.y;
                             }
-                        }
-                        else if (IgnoreTags.Contains(h.transform.tag))
+                        } else if (IgnoreTags.Contains(h.transform.tag))
                         {
                             //Do nothing we ignore these tags
-                        }
-                        else
+                        } else
                         {
                             if (h.point.y > maxY)
                             {
@@ -901,12 +907,16 @@ public class Pathfinder : MonoBehaviour
     }
 
     private List<Vector2> DynamicFindClosestNodes(List<Vector3> vList)
-    {      
+    {
         List<Vector2> returnList = new List<Vector2>();
         foreach (Vector3 pos in vList)
         {
-            int x = (MapStartPosition.x < 0F) ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x)) / Tilesize)) : Mathf.FloorToInt((pos.x - MapStartPosition.x) / Tilesize);
-            int z = (MapStartPosition.y < 0F) ? Mathf.FloorToInt(((pos.z + Mathf.Abs(MapStartPosition.y)) / Tilesize)) : Mathf.FloorToInt((pos.z - MapStartPosition.y) / Tilesize);
+            int x = (MapStartPosition.x < 0F)
+                ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x))/Tilesize))
+                : Mathf.FloorToInt((pos.x - MapStartPosition.x)/Tilesize);
+            int z = (MapStartPosition.y < 0F)
+                ? Mathf.FloorToInt(((pos.z + Mathf.Abs(MapStartPosition.y))/Tilesize))
+                : Mathf.FloorToInt((pos.z - MapStartPosition.y)/Tilesize);
 
             if (x >= 0 && x < Map.GetLength(0) && z >= 0 && z < Map.GetLength(1))
             {

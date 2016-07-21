@@ -1,19 +1,19 @@
 using UnityEngine;
 using System.Collections;
 
-public class SimpleAI : Pathfinding 
+public class SimpleAI : Pathfinding
 {
     public GameObject player;
 
-	void Start () 
+    void Start()
     {
         StartCoroutine(FindPlayer());
-	}
+    }
 
-	void Update () 
+    void Update()
     {
-	    Move();
-	}
+        Move();
+    }
 
     IEnumerator FindPlayer()
     {
@@ -22,6 +22,6 @@ public class SimpleAI : Pathfinding
             FindPath(transform.position, player.transform.position);
         }
         yield return new WaitForSeconds(1F);
-        StartCoroutine(FindPlayer());       
+        StartCoroutine(FindPlayer());
     }
 }

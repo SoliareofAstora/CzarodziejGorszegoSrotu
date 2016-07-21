@@ -5,15 +5,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-[ExecuteInEditMode]
-public class WaypointPathfinder : MonoBehaviour 
+[ExecuteInEditMode] public class WaypointPathfinder : MonoBehaviour
 {
     public enum WaypointMethod
     {
         ExactPosition,
         ClosestWaypoint
     }
-    
+
     //Singleton
     private static WaypointPathfinder instance;
     public static WaypointPathfinder Instance { get { return instance; } private set { } }
@@ -40,7 +39,7 @@ public class WaypointPathfinder : MonoBehaviour
         instance = this;
     }
 
-	void Start () 
+    void Start()
     {
         GameObject[] M = GameObject.FindGameObjectsWithTag("Waypoint");
         Map = new WaypointNode[M.Length];
@@ -52,9 +51,9 @@ public class WaypointPathfinder : MonoBehaviour
 
         openList = new WaypointListNode[Map.Length];
         closedList = new WaypointListNode[Map.Length];
-	}
+    }
 
-    void Update() 
+    void Update()
     {
         timeleft -= Time.deltaTime;
         frames++;
@@ -67,7 +66,7 @@ public class WaypointPathfinder : MonoBehaviour
         }
 
         float timer = 0F;
-        float maxtime = 1000 / FPS;
+        float maxtime = 1000/FPS;
         //Bottleneck prevention
         while (queue.Count > 0 && timer < maxtime)
         {
@@ -79,7 +78,7 @@ public class WaypointPathfinder : MonoBehaviour
             //print("Timer: " + sw.ElapsedMilliseconds);
             timer += sw.ElapsedMilliseconds;
         }
-	}
+    }
 
 
     //---------------------------------------SETUP PATH QUEUE---------------------------------------//
@@ -90,8 +89,8 @@ public class WaypointPathfinder : MonoBehaviour
         queue.Add(q);
     }
 
-
     #region astar
+
     //---------------------------------------FIND PATH: A*------------------------------------------//
 
     private WaypointListNode[] openList;
@@ -116,7 +115,10 @@ public class WaypointPathfinder : MonoBehaviour
             //Clear lists if they are filled
             Array.Clear(openList, 0, openList.Length);
             Array.Clear(closedList, 0, openList.Length);
-            if (sortedOpenList.Count > 0) { sortedOpenList.Clear(); }
+            if (sortedOpenList.Count > 0)
+            {
+                sortedOpenList.Clear();
+            }
 
             //Insert start node
             openList[startNode.ID] = startNode;
@@ -160,8 +162,7 @@ public class WaypointPathfinder : MonoBehaviour
                 if (currentNode.parent != null)
                 {
                     currentNode = currentNode.parent;
-                }
-                else
+                } else
                 {
                     break;
                 }
@@ -193,9 +194,7 @@ public class WaypointPathfinder : MonoBehaviour
             }
 
             return returnPath;
-
-        }
-        else
+        } else
         {
             return null;
         }
@@ -230,10 +229,10 @@ public class WaypointPathfinder : MonoBehaviour
     {
         Stopwatch a = new Stopwatch();
         a.Start();
-        
+
         int ID = -1;
         float lowestDist = Mathf.Infinity;
-        
+
         foreach (WaypointNode m in Map)
         {
             float d = Vector3.Distance(m.position, pos);
@@ -248,8 +247,7 @@ public class WaypointPathfinder : MonoBehaviour
         {
             WaypointListNode wp = new WaypointListNode(Map[ID].position, Map[ID].ID, null, Map[ID].neighbors);
             return wp;
-        }
-        else
+        } else
         {
             return null;
         }
@@ -257,7 +255,6 @@ public class WaypointPathfinder : MonoBehaviour
 
     private void NeighbourCheck()
     {
-
         foreach (WaypointNode wp in currentNode.neighbors)
         {
             if (wp != null)
@@ -276,8 +273,7 @@ public class WaypointPathfinder : MonoBehaviour
                         //Insert on sorted list
                         BHInsertNode(new NodeSearch(addNode.ID, addNode.F));
                         //sortedOpenList.Add(new NodeSearch(addNode.ID, addNode.F));
-                    }
-                    else
+                    } else
                     {
                         ///If it is on openlist then check if the new paths movement cost is lower
                         WaypointListNode n = GetNodeFromOpenList(wp.ID);
@@ -294,7 +290,7 @@ public class WaypointPathfinder : MonoBehaviour
                 }
             }
         }
-     }
+    }
 
     private void ChangeFValue(int id, int F)
     {
@@ -310,13 +306,17 @@ public class WaypointPathfinder : MonoBehaviour
     //Check if a Node is already on the openList
     private bool OnOpenList(int id)
     {
-        return (openList[id] != null) ? true : false;
+        return (openList[id] != null)
+            ? true
+            : false;
     }
 
     //Check if a Node is already on the closedList
     private bool OnClosedList(int id)
     {
-        return (closedList[id] != null) ? true : false;
+        return (closedList[id] != null)
+            ? true
+            : false;
     }
 
     private float GetHeuristics(Vector3 p1, Vector3 p2)
@@ -331,7 +331,9 @@ public class WaypointPathfinder : MonoBehaviour
 
     private WaypointListNode GetNodeFromOpenList(int id)
     {
-        return (openList[id] != null) ? openList[id] : null;
+        return (openList[id] != null)
+            ? openList[id]
+            : null;
     }
 
     #region Binary_Heap (min)
@@ -353,14 +355,13 @@ public class WaypointPathfinder : MonoBehaviour
 
         while (canMoveFurther)
         {
-            int parent = Mathf.FloorToInt((index - 1) / 2);
+            int parent = Mathf.FloorToInt((index - 1)/2);
 
             if (index == 0) //We are the root
             {
                 openList[sortedOpenList[index].ID].sortedIndex = 0;
                 canMoveFurther = false;
-            }
-            else
+            } else
             {
                 if (sortedOpenList[index].Fv < sortedOpenList[parent].Fv)
                 {
@@ -374,8 +375,7 @@ public class WaypointPathfinder : MonoBehaviour
 
                     //Reset index to parent ID
                     index = parent;
-                }
-                else
+                } else
                 {
                     canMoveFurther = false;
                 }
@@ -391,14 +391,13 @@ public class WaypointPathfinder : MonoBehaviour
 
         while (canMoveFurther)
         {
-            int parent = Mathf.FloorToInt((index - 1) / 2);
+            int parent = Mathf.FloorToInt((index - 1)/2);
 
             if (index == 0) //We are the root
             {
                 canMoveFurther = false;
                 openList[sortedOpenList[index].ID].sortedIndex = 0;
-            }
-            else
+            } else
             {
                 if (sortedOpenList[index].Fv < sortedOpenList[parent].Fv)
                 {
@@ -412,8 +411,7 @@ public class WaypointPathfinder : MonoBehaviour
 
                     //Reset index to parent ID
                     index = parent;
-                }
-                else
+                } else
                 {
                     canMoveFurther = false;
                 }
@@ -423,14 +421,12 @@ public class WaypointPathfinder : MonoBehaviour
 
     private int BHGetLowest()
     {
-
         if (sortedOpenList.Count == 1) //Remember 1 is our root
         {
             int ID = sortedOpenList[0].ID;
             sortedOpenList.RemoveAt(0);
             return ID;
-        }
-        else if (sortedOpenList.Count > 1)
+        } else if (sortedOpenList.Count > 1)
         {
             //save lowest not, take our leaf as root, and remove it! Then switch through children to find right place.
             int ID = sortedOpenList[0].ID;
@@ -443,15 +439,14 @@ public class WaypointPathfinder : MonoBehaviour
             //Sort the list before returning the ID
             while (canMoveFurther)
             {
-                int child1 = (index * 2) + 1;
-                int child2 = (index * 2) + 2;
+                int child1 = (index*2) + 1;
+                int child2 = (index*2) + 2;
                 int switchIndex = -1;
 
                 if (child1 < sortedOpenList.Count)
                 {
                     switchIndex = child1;
-                }
-                else
+                } else
                 {
                     break;
                 }
@@ -474,21 +469,20 @@ public class WaypointPathfinder : MonoBehaviour
 
                     //Switch around idnex
                     index = switchIndex;
-                }
-                else
+                } else
                 {
                     break;
                 }
             }
 
             return ID;
-
-        }
-        else
+        } else
         {
             return -1;
         }
     }
+
     #endregion //end BH sort
+
     #endregion //End astar region!
 }

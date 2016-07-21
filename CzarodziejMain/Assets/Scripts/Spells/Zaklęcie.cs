@@ -4,41 +4,39 @@ using UnityEngine;
 
 namespace zaklecie
 {
-	public class Zaklęcie : MonoBehaviour
-	{
-		private Rigidbody2D rb;
-		private CircleCollider2D circleCollider2D;
-		private Animator anim;
-		public PreDefinedStopwatch czaskońca;
-		public int Obrażenia;
-		public RodzajeZaklęć rodzaj;
-		public float Szybkość;
-		private bool destroyed;
+    public class Zaklęcie : MonoBehaviour
+    {
+        private Rigidbody2D rb;
+        private CircleCollider2D circleCollider2D;
+        private Animator anim;
+        public PreDefinedStopwatch czaskońca;
+        public int Obrażenia;
+        public RodzajeZaklęć rodzaj;
+        public float Szybkość;
+        private bool destroyed;
 
-		public Zaklęcie()
-		{
+        public Zaklęcie()
+        {
+        }
 
-		}
+        private void Awake()
+        {
+            circleCollider2D = GetComponent<CircleCollider2D>();
+            anim = GetComponent<Animator>();
+            rb = GetComponent<Rigidbody2D>();
+            czaskońca = new PreDefinedStopwatch(1);
+            destroyed = false;
+        }
 
-		private void Awake()
-		{
-		    circleCollider2D = GetComponent<CircleCollider2D>();
-			anim = GetComponent<Animator>();
-			rb = GetComponent<Rigidbody2D>();
-			czaskońca = new PreDefinedStopwatch(1);
-			destroyed = false;
+        public RodzajeZaklęć GetTypeZaklęć()
+        {
+            return rodzaj;
+        }
 
-		}
-
-		public RodzajeZaklęć GetTypeZaklęć()
-		{
-			return rodzaj;
-		}
-
-		public int GetDmg()
-		{
-			return Obrażenia;
-		}
+        public int GetDmg()
+        {
+            return Obrażenia;
+        }
 
         /*
     public float rozmiar;
@@ -51,31 +49,32 @@ namespace zaklecie
              */
 
         //TODO Symulacja trzeciego wymiaru - zmiana skalowania
-        private void UpdateScale() {
-
-            var Delta2 = 1 / Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.y, 2) + 1);
+        private void UpdateScale()
+        {
+            var Delta2 = 1/Mathf.Sqrt(Mathf.Pow(transform.position.x, 2) + Mathf.Pow(transform.position.y, 2) + 1);
             transform.localScale = new Vector3(Delta2, Delta2, Delta2);
             //rb.velocity *= Delta2;
         }
+
         // Use this for initialization
         private void Start()
-		{
-			rb.velocity = transform.right*Szybkość;
-		}
+        {
+            rb.velocity = transform.right*Szybkość;
+        }
 
-		// Update is called once per frame
-		private void Update()
-		{
-           // UpdateScale();
-			if (!destroyed) return;
-			if (czaskońca.IsAfterCountDown())
-			{
-				Destroy(gameObject);
-			}
-		}
+        // Update is called once per frame
+        private void Update()
+        {
+            // UpdateScale();
+            if (!destroyed) return;
+            if (czaskońca.IsAfterCountDown())
+            {
+                Destroy(gameObject);
+            }
+        }
 
-	    public void DestroySpell()
-	    {
+        public void DestroySpell()
+        {
             destroyed = true;
             //TODO Tags
             Destroy(circleCollider2D);
@@ -83,13 +82,11 @@ namespace zaklecie
             rb.velocity = Vector2.zero;
             anim.SetBool("BlowUp", true);
         }
-		private void OnTriggerEnter2D(Collider2D other)
-		{
-			if (other.tag != "Enemy") return;
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.tag != "Enemy") return;
             DestroySpell();
-
-		}
-
-
-	}
+        }
+    }
 }

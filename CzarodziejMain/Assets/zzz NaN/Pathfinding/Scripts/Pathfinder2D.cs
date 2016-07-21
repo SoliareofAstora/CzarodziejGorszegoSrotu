@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public class Pathfinder2D : MonoBehaviour 
+public class Pathfinder2D : MonoBehaviour
 {
     //Singleton
     private static Pathfinder2D instance;
@@ -75,7 +75,7 @@ public class Pathfinder2D : MonoBehaviour
         }
 
         float timer = 0F;
-        float maxtime = 1000 / FPS;
+        float maxtime = 1000/FPS;
         //Bottleneck prevention
         while (queue.Count > 0 && timer < maxtime)
         {
@@ -95,23 +95,24 @@ public class Pathfinder2D : MonoBehaviour
     }
 
     #region map
+
     //-------------------------------------------------INSTANIATE MAP-----------------------------------------------//
 
     private void Create2DMap()
     {
         //Find positions for start and end of map
-        int startX = (int)MapStartPosition.x;
-        int startY = (int)MapStartPosition.y;
-        int endX = (int)MapEndPosition.x;
-        int endY = (int)MapEndPosition.y;
+        int startX = (int) MapStartPosition.x;
+        int startY = (int) MapStartPosition.y;
+        int endX = (int) MapEndPosition.x;
+        int endY = (int) MapEndPosition.y;
 
         //Find tile width and height
-        int width = (int)((endX - startX) / Tilesize);
-        int height = (int)((endY - startY) / Tilesize);
+        int width = (int) ((endX - startX)/Tilesize);
+        int height = (int) ((endY - startY)/Tilesize);
 
         //Set map up
         Map = new Node[width, height];
-        int size = width * height;
+        int size = width*height;
         SetListsSize(size);
 
         //Fill up Map
@@ -119,13 +120,13 @@ public class Pathfinder2D : MonoBehaviour
         {
             for (int j = 0; j < width; j++)
             {
-                float x = startX + (j * Tilesize) + (Tilesize / 2); //Position from where we raycast - X
-                float y = startY + (i * Tilesize) + (Tilesize / 2); //Position from where we raycast - Z
-                int ID = (i * width) + j; //ID we give to our Node!
+                float x = startX + (j*Tilesize) + (Tilesize/2); //Position from where we raycast - X
+                float y = startY + (i*Tilesize) + (Tilesize/2); //Position from where we raycast - Z
+                int ID = (i*width) + j; //ID we give to our Node!
 
                 float dist = 20;
 
-                RaycastHit[] hit = Physics.SphereCastAll(new Vector3(x, y, zStart), Tilesize / 4, Vector3.forward, dist);
+                RaycastHit[] hit = Physics.SphereCastAll(new Vector3(x, y, zStart), Tilesize/4, Vector3.forward, dist);
                 bool free = true;
                 float maxZ = Mathf.Infinity;
 
@@ -140,12 +141,10 @@ public class Pathfinder2D : MonoBehaviour
                             free = false;
                             maxZ = h.point.z;
                         }
-                    }
-                    else if (IgnoreTags.Contains(h.transform.tag))
+                    } else if (IgnoreTags.Contains(h.transform.tag))
                     {
                         //Do nothing we ignore these tags
-                    }
-                    else
+                    } else
                     {
                         if (h.point.z < maxZ)
                         {
@@ -159,7 +158,7 @@ public class Pathfinder2D : MonoBehaviour
                 //We hit nothing set tile to false
                 if (free == true)
                 {
-                    Map[j, i] = new Node(j, i, y, ID, x, 0, false);//Non walkable tile! 
+                    Map[j, i] = new Node(j, i, y, ID, x, 0, false); //Non walkable tile! 
                 }
             }
         }
@@ -176,6 +175,7 @@ public class Pathfinder2D : MonoBehaviour
     }
 
     #region astar
+
     //---------------------------------------FIND PATH: A*------------------------------------------//
 
     private Node[] openList;
@@ -229,7 +229,10 @@ public class Pathfinder2D : MonoBehaviour
             //Clear lists if they are filled
             Array.Clear(openList, 0, openList.Length);
             Array.Clear(closedList, 0, openList.Length);
-            if (sortedOpenList.Count > 0) { sortedOpenList.Clear(); }
+            if (sortedOpenList.Count > 0)
+            {
+                sortedOpenList.Clear();
+            }
 
             //Insert start node
             openList[startNode.ID] = startNode;
@@ -267,8 +270,7 @@ public class Pathfinder2D : MonoBehaviour
                 if (MoveDiagonal)
                 {
                     NeighbourCheck();
-                }
-                else
+                } else
                 {
                     NonDiagonalNeighborCheck();
                 }
@@ -303,9 +305,7 @@ public class Pathfinder2D : MonoBehaviour
             }
             maxSearchRounds = 0;
             listMethod.Invoke(returnPath);
-
-        }
-        else
+        } else
         {
             maxSearchRounds = 0;
             listMethod.Invoke(new List<Vector3>());
@@ -321,16 +321,19 @@ public class Pathfinder2D : MonoBehaviour
 
     private Node FindClosestNode(Vector3 pos)
     {
-        int x = (MapStartPosition.x < 0F) ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x)) / Tilesize)) : Mathf.FloorToInt((pos.x - MapStartPosition.x) / Tilesize);
-        int y = (MapStartPosition.y < 0F) ? Mathf.FloorToInt(((pos.y + Mathf.Abs(MapStartPosition.y)) / Tilesize)) : Mathf.FloorToInt((pos.y - MapStartPosition.y) / Tilesize);
+        int x = (MapStartPosition.x < 0F)
+            ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x))/Tilesize))
+            : Mathf.FloorToInt((pos.x - MapStartPosition.x)/Tilesize);
+        int y = (MapStartPosition.y < 0F)
+            ? Mathf.FloorToInt(((pos.y + Mathf.Abs(MapStartPosition.y))/Tilesize))
+            : Mathf.FloorToInt((pos.y - MapStartPosition.y)/Tilesize);
 
         Node n = Map[x, y];
 
         if (n.walkable)
         {
             return new Node(x, y, n.yCoord, n.ID, n.xCoord, n.zCoord, n.walkable);
-        }
-        else
+        } else
         {
             //If we get a non walkable tile, then look around its neightbours
             for (int i = y - 1; i < y + 2; i++)
@@ -353,15 +356,19 @@ public class Pathfinder2D : MonoBehaviour
 
     private void FindEndNode(Vector3 pos)
     {
-        int x = (MapStartPosition.x < 0F) ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x)) / Tilesize)) : Mathf.FloorToInt((pos.x - MapStartPosition.x) / Tilesize);
-        int y = (MapStartPosition.y < 0F) ? Mathf.FloorToInt(((pos.y + Mathf.Abs(MapStartPosition.y)) / Tilesize)) : Mathf.FloorToInt((pos.y - MapStartPosition.y) / Tilesize);
+        int x = (MapStartPosition.x < 0F)
+            ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x))/Tilesize))
+            : Mathf.FloorToInt((pos.x - MapStartPosition.x)/Tilesize);
+        int y = (MapStartPosition.y < 0F)
+            ? Mathf.FloorToInt(((pos.y + Mathf.Abs(MapStartPosition.y))/Tilesize))
+            : Mathf.FloorToInt((pos.y - MapStartPosition.y)/Tilesize);
 
         Node closestNode = Map[x, y];
         List<Node> walkableNodes = new List<Node>();
 
         int turns = 1;
 
-        while (walkableNodes.Count < 1 && maxSearchRounds < (int)10 / Tilesize)
+        while (walkableNodes.Count < 1 && maxSearchRounds < (int) 10/Tilesize)
         {
             walkableNodes = EndNodeNeighbourCheck(x, y, turns);
             turns++;
@@ -442,8 +449,7 @@ public class Pathfinder2D : MonoBehaviour
                                     //Insert on sorted list
                                     BHInsertNode(new NodeSearch(addNode.ID, addNode.F));
                                     //sortedOpenList.Add(new NodeSearch(addNode.ID, addNode.F));
-                                }
-                                else
+                                } else
                                 {
                                     ///If it is on openlist then check if the new paths movement cost is lower
                                     Node n = GetNodeFromOpenList(Map[j, i].ID);
@@ -500,8 +506,7 @@ public class Pathfinder2D : MonoBehaviour
                                         //Insert on sorted list
                                         BHInsertNode(new NodeSearch(addNode.ID, addNode.F));
                                         //sortedOpenList.Add(new NodeSearch(addNode.ID, addNode.F));
-                                    }
-                                    else
+                                    } else
                                     {
                                         ///If it is on openlist then check if the new paths movement cost is lower
                                         Node n = GetNodeFromOpenList(Map[j, i].ID);
@@ -537,38 +542,50 @@ public class Pathfinder2D : MonoBehaviour
     //Check if a Node is already on the openList
     private bool OnOpenList(int id)
     {
-        return (openList[id] != null) ? true : false;
+        return (openList[id] != null)
+            ? true
+            : false;
     }
 
     //Check if a Node is already on the closedList
     private bool OnClosedList(int id)
     {
-        return (closedList[id] != null) ? true : false;
+        return (closedList[id] != null)
+            ? true
+            : false;
     }
 
     private int GetHeuristics(int x, int y)
     {
         //Make sure heuristic aggression is not less then 0!
-        int HA = (HeuristicAggression < 0) ? 0 : HeuristicAggression;
-        return (int)(Mathf.Abs(x - endNode.x) * (10F + (10F * HA))) + (int)(Mathf.Abs(y - endNode.y) * (10F + (10F * HA)));
+        int HA = (HeuristicAggression < 0)
+            ? 0
+            : HeuristicAggression;
+        return (int) (Mathf.Abs(x - endNode.x)*(10F + (10F*HA))) + (int) (Mathf.Abs(y - endNode.y)*(10F + (10F*HA)));
     }
 
     private int GetHeuristics(Node a, Node b)
     {
         //Make sure heuristic aggression is not less then 0!
-        int HA = (HeuristicAggression < 0) ? 0 : HeuristicAggression;
-        return (int)(Mathf.Abs(a.x - b.x) * (10F + (10F * HA))) + (int)(Mathf.Abs(a.y - b.y) * (10F + (10F * HA)));
+        int HA = (HeuristicAggression < 0)
+            ? 0
+            : HeuristicAggression;
+        return (int) (Mathf.Abs(a.x - b.x)*(10F + (10F*HA))) + (int) (Mathf.Abs(a.y - b.y)*(10F + (10F*HA)));
     }
 
     private int GetMovementCost(int x, int y, int j, int i)
     {
         //Moving straight or diagonal?
-        return (x != j && y != i) ? 14 : 10;
+        return (x != j && y != i)
+            ? 14
+            : 10;
     }
 
     private Node GetNodeFromOpenList(int id)
     {
-        return (openList[id] != null) ? openList[id] : null;
+        return (openList[id] != null)
+            ? openList[id]
+            : null;
     }
 
     #region Binary_Heap (min)
@@ -590,14 +607,13 @@ public class Pathfinder2D : MonoBehaviour
 
         while (canMoveFurther)
         {
-            int parent = Mathf.FloorToInt((index - 1) / 2);
+            int parent = Mathf.FloorToInt((index - 1)/2);
 
             if (index == 0) //We are the root
             {
                 canMoveFurther = false;
                 openList[sortedOpenList[index].ID].sortedIndex = 0;
-            }
-            else
+            } else
             {
                 if (sortedOpenList[index].F < sortedOpenList[parent].F)
                 {
@@ -611,8 +627,7 @@ public class Pathfinder2D : MonoBehaviour
 
                     //Reset index to parent ID
                     index = parent;
-                }
-                else
+                } else
                 {
                     canMoveFurther = false;
                 }
@@ -628,14 +643,13 @@ public class Pathfinder2D : MonoBehaviour
 
         while (canMoveFurther)
         {
-            int parent = Mathf.FloorToInt((index - 1) / 2);
+            int parent = Mathf.FloorToInt((index - 1)/2);
 
             if (index == 0) //We are the root
             {
                 canMoveFurther = false;
                 openList[sortedOpenList[index].ID].sortedIndex = 0;
-            }
-            else
+            } else
             {
                 if (sortedOpenList[index].F < sortedOpenList[parent].F)
                 {
@@ -649,8 +663,7 @@ public class Pathfinder2D : MonoBehaviour
 
                     //Reset index to parent ID
                     index = parent;
-                }
-                else
+                } else
                 {
                     canMoveFurther = false;
                 }
@@ -660,14 +673,12 @@ public class Pathfinder2D : MonoBehaviour
 
     private int BHGetLowest()
     {
-
         if (sortedOpenList.Count == 1) //Remember 0 is our root
         {
             int ID = sortedOpenList[0].ID;
             sortedOpenList.RemoveAt(0);
             return ID;
-        }
-        else if (sortedOpenList.Count > 1)
+        } else if (sortedOpenList.Count > 1)
         {
             //save lowest not, take our leaf as root, and remove it! Then switch through children to find right place.
             int ID = sortedOpenList[0].ID;
@@ -680,15 +691,14 @@ public class Pathfinder2D : MonoBehaviour
             //Sort the list before returning the ID
             while (canMoveFurther)
             {
-                int child1 = (index * 2) + 1;
-                int child2 = (index * 2) + 2;
+                int child1 = (index*2) + 1;
+                int child2 = (index*2) + 2;
                 int switchIndex = -1;
 
                 if (child1 < sortedOpenList.Count)
                 {
                     switchIndex = child1;
-                }
-                else
+                } else
                 {
                     break;
                 }
@@ -711,16 +721,13 @@ public class Pathfinder2D : MonoBehaviour
 
                     //Switch around idnex
                     index = switchIndex;
-                }
-                else
+                } else
                 {
                     break;
                 }
             }
             return ID;
-
-        }
-        else
+        } else
         {
             return -1;
         }
@@ -790,7 +797,7 @@ public class Pathfinder2D : MonoBehaviour
     {
         foreach (Vector2 v in ids)
         {
-            Map[(int)v.x, (int)v.y].walkable = true;
+            Map[(int) v.x, (int) v.y].walkable = true;
         }
     }
 
@@ -799,8 +806,12 @@ public class Pathfinder2D : MonoBehaviour
         List<Vector2> returnList = new List<Vector2>();
         foreach (Vector3 pos in vList)
         {
-            int x = (MapStartPosition.x < 0F) ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x)) / Tilesize)) : Mathf.FloorToInt((pos.x - MapStartPosition.x) / Tilesize);
-            int y = (MapStartPosition.y < 0F) ? Mathf.FloorToInt(((pos.y + Mathf.Abs(MapStartPosition.y)) / Tilesize)) : Mathf.FloorToInt((pos.y - MapStartPosition.y) / Tilesize);
+            int x = (MapStartPosition.x < 0F)
+                ? Mathf.FloorToInt(((pos.x + Mathf.Abs(MapStartPosition.x))/Tilesize))
+                : Mathf.FloorToInt((pos.x - MapStartPosition.x)/Tilesize);
+            int y = (MapStartPosition.y < 0F)
+                ? Mathf.FloorToInt(((pos.y + Mathf.Abs(MapStartPosition.y))/Tilesize))
+                : Mathf.FloorToInt((pos.y - MapStartPosition.y)/Tilesize);
 
             if (x >= 0 && x < Map.GetLength(0) && y >= 0 && y < Map.GetLength(1))
             {
@@ -816,5 +827,4 @@ public class Pathfinder2D : MonoBehaviour
     }
 
     #endregion
-
 }

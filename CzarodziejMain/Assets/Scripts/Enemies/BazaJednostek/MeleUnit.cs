@@ -9,13 +9,15 @@ using Assets.Scripts.Enemies.BazaJednostek;
 /// </summary>
 public class MeleUnit : EnemyBase
 {
-
-    public void ZaatakujCzarodzieja() {
+    public void ZaatakujCzarodzieja()
+    {
         CzasNastępnegoAtaku.StartCounting();
-        if (CzasNastępnegoAtaku.IsAfterCountDown()) {
+        if (CzasNastępnegoAtaku.IsAfterCountDown())
+        {
             Player.instance.HitPlayer(atackPower);
         }
     }
+
     //Logika
     private void Update()
     {
@@ -52,7 +54,7 @@ public class MeleUnit : EnemyBase
                 break;
 
             case EnemyState.Dead:
-                
+
                 break;
             default:
                 throw new ArgumentOutOfRangeException();

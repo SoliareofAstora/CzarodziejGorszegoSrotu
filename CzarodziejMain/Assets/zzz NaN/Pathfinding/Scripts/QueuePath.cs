@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class QueuePath 
+public class QueuePath
 {
     public Vector3 startPos;
     public Vector3 endPos;

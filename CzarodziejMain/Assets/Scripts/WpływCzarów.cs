@@ -7,28 +7,27 @@ public class WpływCzarów : MonoBehaviour
 {
     public Animator anim;
     public Stopwatch CzasLodu;
-	// Use this for initialization
-	void Start ()
-	{
-        CzasLodu= new Stopwatch();
-	    anim = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    // Use this for initialization
+    void Start()
+    {
+        CzasLodu = new Stopwatch();
+        anim = GetComponent<Animator>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+    }
 
     public void Zamróź()
     {
         CzasLodu.StartCounting(3);
-        anim.SetBool("Frozen",true);
+        anim.SetBool("Frozen", true);
     }
 
     public void Rozmróź()
     {
-
-        anim.SetBool("Frozen",false);
+        anim.SetBool("Frozen", false);
     }
 
     public bool StillFrozen()
