@@ -12,7 +12,7 @@ public class RangedUnit : EnemyBase
     public float range;
 
 
-    private void Start()
+    public RangedUnit()
     {
         range -= (float) new Random().Next(100)/50;
     }

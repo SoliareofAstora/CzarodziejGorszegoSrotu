@@ -26,6 +26,7 @@ namespace zaklecie
             rb = GetComponent<Rigidbody2D>();
             czaskońca = new PreDefinedStopwatch(1);
             destroyed = false;
+            tag = "Zaklęcie";
         }
 
         public RodzajeZaklęć GetTypeZaklęć()

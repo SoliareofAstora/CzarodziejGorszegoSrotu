@@ -15,7 +15,7 @@ namespace Assets.Scripts.System
     }
 
 
-    class Tags
+    public class Tags
     {
         public static Tags inst;
         public string[] Stringi;

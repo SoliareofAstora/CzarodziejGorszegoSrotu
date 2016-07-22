@@ -4,7 +4,7 @@ public class Rycerzyk : MeleUnit
 {
     void Start()
     {
-        Movement.SetBaseSpeed(60);
+        Movement.BaseSpeed=120;
         DeathAnimationDuration = 2;
         maxHP = 200;
         renderType = RenderTypes.JustSingleDirection;

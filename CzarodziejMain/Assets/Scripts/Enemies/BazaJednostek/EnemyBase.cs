@@ -61,6 +61,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             CzasNastępnegoAtaku = new PreDefinedStopwatch(atackSpeed);
             Movement.UpdateDirection();
             UstawAnimację();
+            Movement.UpdateScale();
         }
 
 
@@ -71,15 +72,19 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             {
                 return;
             }
-            if (state != EnemyState.GettingIntoCastle)
+            Movement.UpdateSpeed();
+
+
+            
+            if (state == EnemyState.WalkingUp)
             {
                 Movement.UpdateDirection();
             }
-            Movement.UpdateSpeed();
             if (state != EnemyState.OnTheWizardsWall)
             {
                 Movement.UpdateScale();
             }
+            
         }
 
 
@@ -139,18 +144,18 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             Movement.Stop();
             anim.SetBool("Atak", true);
             state = EnemyState.Atacking;
-            //TODO To może być neizbędne do usunięcia podczas zabawy z wiatrem
         }
 
         public void GetIntoCastle()
         {
             state = EnemyState.OnTheWizardsWall;
+            //todo Z tym tagiem coś zrobić
             gameObject.tag = "Enemy";
             transform.position = new Random().Next(100) > 50
                 ? new Vector3(-10, -1, 0)
                 : new Vector3(10, -1, 0);
             LewoNaPrawo();
-            Movement.UpdateDirection();
+            Movement.SetDirection();
             ChangeSpriteLayer(31);
         }
 

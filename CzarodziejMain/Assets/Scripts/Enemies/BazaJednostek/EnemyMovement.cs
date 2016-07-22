@@ -5,11 +5,12 @@ namespace Assets.Scripts.Enemies.BazaJednostek
 {
     public class EnemyMovement : MonoBehaviour
     {
-        private int BaseSpeed;
+        public int BaseSpeed;
         public MovementSpeedEnum DeltaSpeed;
         //Wektor jednostkowy
         public Vector2 DirectionVector;
         public Rigidbody2D rb;
+        public double lengtht;
 
         public void Awake()
         {
@@ -18,16 +19,21 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             rb = GetComponent<Rigidbody2D>();
         }
 
+        public void SetDirection()
+        {
+            DirectionVector = transform.position.x<0
+                ? new Vector2(1,0)
+                : new Vector2(-1, 0);
+        }
+
         public void UpdateDirection()
         {
             var length = GetDistance();
-            DirectionVector = new Vector2(-rb.position.x/length, (-rb.position.y - 1)/length);
+            
+            DirectionVector = new Vector2(-rb.position.x/length, (-rb.position.y-1)/length);
+            lengtht = Math.Pow(DirectionVector.x, 2) + Math.Pow(DirectionVector.y, 2);
         }
 
-        public void SetBaseSpeed(short i)
-        {
-            BaseSpeed = i;
-        }
 
         public void Stop()
         {
@@ -38,7 +44,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
         //TODO Return float jako skala, bo ten transform nie będzie działał na większą ilość animacji
         public void UpdateScale()
         {
-            var scale = 1/(Mathf.Sqrt(Mathf.Pow(transform.position.x, 2)/3 + Mathf.Pow(transform.position.y, 2)) + 1.5f) + 0.2f;
+            var scale = 1/(Mathf.Sqrt(Mathf.Pow(rb.position.x, 2)/3 + Mathf.Pow(rb.position.y+1, 2)) + 1.5f) + 0.2f;
             transform.localScale = transform.position.x > 0
                 ? new Vector3(-scale, scale, scale)
                 : new Vector3(scale, scale, scale);
@@ -71,7 +77,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
 
         public float GetDistance()
         {
-            return (float) Math.Sqrt(Math.Pow(transform.position.x, 2) + Math.Pow(transform.position.y - 1, 2));
+            return (float) Math.Sqrt(Math.Pow(transform.position.x, 2) + Math.Pow(transform.position.y+1, 2));
         }
 
         private void OnDestroy()

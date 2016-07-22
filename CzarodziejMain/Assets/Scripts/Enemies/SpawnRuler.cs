@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Sterowanie;
+using UnityEditor;
 using Random = System.Random;
 
 public class SpawnRuler : MonoBehaviour
@@ -45,6 +47,10 @@ public class SpawnRuler : MonoBehaviour
             i++;
             tekst.text = i.ToString();
             Instantiate(TablicaPrzeciwników[wybór], SpawnPoint, Quaternion.Euler(Vector3.zero));
+        }
+        if (Stery.Select(ActionList.A))
+        {
+            Instantiate(TablicaPrzeciwników[0], Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10)) - transform.position, Quaternion.Euler(Vector3.zero));
         }
     }
 

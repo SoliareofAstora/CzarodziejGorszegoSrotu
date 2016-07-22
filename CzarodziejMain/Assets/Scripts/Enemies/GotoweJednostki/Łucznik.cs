@@ -7,7 +7,7 @@ using Assets.Scripts.Enemies.BazaJednostek;
 
 class Łucznik : RangedUnit
 {
-    public Łucznik()
+    private void Awake()
     {
         range = 9;
         DeathAnimationDuration = 1;
