@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.3.5p8</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -60,12 +58,6 @@
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
@@ -74,10 +66,11 @@
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\Defence.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\EnemyBase.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\EnemyEnums.cs" />
-    <Compile Include="Assets\Scripts\Enemies\BazaJednostek\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\MeleUnit.cs" />
+    <Compile Include="Assets\Scripts\Enemies\BazaJednostek\Movement.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\RangedUnit.cs" />
     <Compile Include="Assets\Scripts\Enemies\BazaJednostek\TypeOfDefence.cs" />
+    <Compile Include="Assets\Scripts\Enemies\BazaJednostek\WpływCzarów.cs" />
     <Compile Include="Assets\Scripts\Enemies\GotoweJednostki\Rycerzyk.cs" />
     <Compile Include="Assets\Scripts\Enemies\GotoweJednostki\Łucznik.cs" />
     <Compile Include="Assets\Scripts\Enemies\SpawnRuler.cs" />
@@ -88,8 +81,8 @@
     <Compile Include="Assets\Scripts\Spells\RodzajeZaklęć.cs" />
     <Compile Include="Assets\Scripts\Spells\Zaklęcie.cs" />
     <Compile Include="Assets\Scripts\System\GameRuler\GameRuler.cs" />
-    <Compile Include="Assets\Scripts\System\GameRuler\UiRuler.cs" />
     <Compile Include="Assets\Scripts\System\GameRuler\Tags.cs" />
+    <Compile Include="Assets\Scripts\System\GameRuler\UiRuler.cs" />
     <Compile Include="Assets\Scripts\System\MainCastle.cs" />
     <Compile Include="Assets\Scripts\System\System\Clock.cs" />
     <Compile Include="Assets\Scripts\System\System\KillZone.cs" />
@@ -101,7 +94,6 @@
     <Compile Include="Assets\Scripts\UI\PauzaUI.cs" />
     <Compile Include="Assets\Scripts\UI\ShopUI.cs" />
     <Compile Include="Assets\Scripts\UI\TextHandler.cs" />
-    <Compile Include="Assets\Scripts\WpływCzarów.cs" />
     <Compile Include="Assets\SoundMenager\MusicManager\Scripts\MusicManager.cs" />
     <Compile Include="Assets\SoundMenager\MusicManager\Scripts\MusicPlayer.cs" />
     <Compile Include="Assets\SoundMenager\MusicManager\TestScene\ExampleScript.cs" />

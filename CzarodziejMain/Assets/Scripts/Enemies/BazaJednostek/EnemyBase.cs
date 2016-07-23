@@ -17,6 +17,13 @@ using Random = System.Random;
 
 namespace Assets.Scripts.Enemies.BazaJednostek
 {
+    public enum EnemyState {
+        WalkingUp,
+        GettingIntoCastle,
+        OnTheWizardsWall,
+        Atacking,
+        Dead
+    }
     public class EnemyBase : MonoBehaviour
     {
         #region Variables
@@ -42,7 +49,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
         public WpływCzarów Wpływ;
 
         //Poruszanie się
-        public EnemyMovement Movement;
+        public Movement Movement;
 
         #endregion
 
@@ -50,7 +57,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
 
         private void Awake()
         {
-            Movement = GetComponent<EnemyMovement>();
+            Movement = GetComponent<Movement>();
 
             Wpływ = GetComponentInChildren<WpływCzarów>();
             state = EnemyState.WalkingUp;
@@ -133,6 +140,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
             HP -= Obrażenia;
         }
 
@@ -155,7 +163,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
                 ? new Vector3(-10, -1, 0)
                 : new Vector3(10, -1, 0);
             LewoNaPrawo();
-            Movement.SetDirection();
+            Movement.OnWallDirection();
             ChangeSpriteLayer(31);
         }
 

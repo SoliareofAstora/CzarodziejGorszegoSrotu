@@ -25,7 +25,6 @@ namespace Assets.Scripts.System
             switch (weather)
             {
                 case TypeOfWeather.Normalnie:
-
                     break;
                 case TypeOfWeather.BardzoCiepło:
                     DeltaWeatherDefence.Add(TypeOfDefence.Fire, 20);
@@ -39,7 +38,8 @@ namespace Assets.Scripts.System
                 case TypeOfWeather.Śnieg:
                     DeltaWeatherDefence.Add(TypeOfDefence.Fire, -0);
                     break;
-
+                case TypeOfWeather.Mgła:
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

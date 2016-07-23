@@ -6,6 +6,10 @@
         BardzoCiepło,
         LekkiDeszczyk,
         Ulewa,
-        Śnieg
+        Śnieg,
+        Zamieć,
+        Mgła,
+        Wiatr,
+        BardzoMocnyWiatr
     }
 }

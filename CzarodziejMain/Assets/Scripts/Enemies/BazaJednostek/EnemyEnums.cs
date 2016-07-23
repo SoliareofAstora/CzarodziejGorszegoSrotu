@@ -1,13 +1,6 @@
 namespace Assets.Scripts.Enemies.BazaJednostek
 {
-    public enum EnemyState
-    {
-        WalkingUp,
-        GettingIntoCastle,
-        OnTheWizardsWall,
-        Atacking,
-        Dead
-    }
+
 
     public enum LongTermEffect
     {

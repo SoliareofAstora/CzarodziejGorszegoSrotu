@@ -3,23 +3,21 @@ using UnityEngine;
 
 namespace Assets.Scripts.Enemies.BazaJednostek
 {
-    public class EnemyMovement : MonoBehaviour
+    public class Movement : MonoBehaviour
     {
         public int BaseSpeed;
         public MovementSpeedEnum DeltaSpeed;
-        //Wektor jednostkowy
-        public Vector2 DirectionVector;
+        public Vector2 DirectionVector; //Wektor jednostkowy
         public Rigidbody2D rb;
-        public double lengtht;
+      //  public double lengtht; //todo do skasowania
 
         public void Awake()
         {
-            BaseSpeed = 120;
             DeltaSpeed = new MovementSpeedEnum();
             rb = GetComponent<Rigidbody2D>();
         }
 
-        public void SetDirection()
+        public void OnWallDirection()
         {
             DirectionVector = transform.position.x<0
                 ? new Vector2(1,0)
@@ -31,7 +29,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
             var length = GetDistance();
             
             DirectionVector = new Vector2(-rb.position.x/length, (-rb.position.y-1)/length);
-            lengtht = Math.Pow(DirectionVector.x, 2) + Math.Pow(DirectionVector.y, 2);
+          //  lengtht = Math.Pow(DirectionVector.x, 2) + Math.Pow(DirectionVector.y, 2);
         }
 
 

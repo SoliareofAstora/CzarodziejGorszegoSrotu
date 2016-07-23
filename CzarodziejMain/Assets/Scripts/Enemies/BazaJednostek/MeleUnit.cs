@@ -40,7 +40,7 @@ public class MeleUnit : EnemyBase
                 break;
 
             case EnemyState.OnTheWizardsWall:
-                //Usunąć stąd Size czarodzieja
+                //TODO przerobić na const
                 if (transform.position.x < Player.instance.Size && transform.position.x > -Player.instance.Size)
                 {
                     StartAtacking();

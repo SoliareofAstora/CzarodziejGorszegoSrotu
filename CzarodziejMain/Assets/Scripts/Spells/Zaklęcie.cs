@@ -4,6 +4,43 @@ using UnityEngine;
 
 namespace zaklecie
 {
+/*
+    Rodzaj zaklęcia
+        Lecący dalej na wprost
+        Lecący do wyznaczonego punktu
+        Globalny
+
+     Efekt udedzenia 
+        Wybuch obszarowy
+        Single Target
+        stworzenie obszaru z jakimś wpływem
+        zmiana pogody
+        single target i stworzenie odłamków innych zaklęć
+
+    wpływ na przeciwnika
+        podpalenie
+        Zamrożenie
+        spowolnienie
+        zatrucie
+        Odepchnięcie
+        Wyrzucenie w górę
+        Zszokowanie piorunem
+
+    Rodzaje obszaru
+        Bagno
+        ognie z ziemi
+        deszczora polanka
+        burza z piorunami
+
+
+
+
+
+         
+         
+         
+         
+         */
     public class Zaklęcie : MonoBehaviour
     {
         private Rigidbody2D rb;
@@ -12,6 +49,7 @@ namespace zaklecie
         public PreDefinedStopwatch czaskońca;
         public int Obrażenia;
         public RodzajeZaklęć rodzaj;
+
         public float Szybkość;
         private bool destroyed;
 
@@ -86,8 +124,7 @@ namespace zaklecie
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.tag != "Enemy") return;
-            DestroySpell();
+
         }
     }
 }
