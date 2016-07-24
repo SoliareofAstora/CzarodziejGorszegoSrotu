@@ -8,6 +8,8 @@ namespace zaklecie
     Rodzaj zaklęcia
         Lecący dalej na wprost
         Lecący do wyznaczonego punktu
+        Działający na całym obszarze przed czarodziejem
+        działający po bokach czarodzieja
         Globalny
 
      Efekt udedzenia 
