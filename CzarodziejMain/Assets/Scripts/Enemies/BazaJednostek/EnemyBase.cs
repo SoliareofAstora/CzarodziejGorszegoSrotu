@@ -140,7 +140,7 @@ namespace Assets.Scripts.Enemies.BazaJednostek
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
+            zaklęcie.DestroySpell();
             HP -= Obrażenia;
         }
 
